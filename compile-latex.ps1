@@ -11,9 +11,14 @@ Write-Host "  File: $TexFile.tex" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 
+# Buat folder out jika belum ada untuk menampung file auxiliary
+if (!(Test-Path "out")) {
+    New-Item -ItemType Directory -Path "out" | Out-Null
+}
+
 # Kompilasi pertama
 Write-Host "[1/4] Menjalankan pdflatex (kompilasi pertama)..." -ForegroundColor Yellow
-pdflatex -interaction=nonstopmode "$TexFile.tex" | Out-Null
+pdflatex -interaction=nonstopmode -aux-directory=out "$TexFile.tex" | Out-Null
 if ($LASTEXITCODE -eq 0) {
     Write-Host "      OK Berhasil" -ForegroundColor Green
 }
@@ -23,7 +28,7 @@ else {
 
 # Menjalankan BibTeX
 Write-Host "[2/4] Menjalankan bibtex..." -ForegroundColor Yellow
-bibtex "$TexFile" | Out-Null
+bibtex "out/$TexFile" | Out-Null
 if ($LASTEXITCODE -eq 0) {
     Write-Host "      OK Berhasil" -ForegroundColor Green
 }
@@ -33,7 +38,7 @@ else {
 
 # Kompilasi kedua
 Write-Host "[3/4] Menjalankan pdflatex (kompilasi kedua)..." -ForegroundColor Yellow
-pdflatex -interaction=nonstopmode "$TexFile.tex" | Out-Null
+pdflatex -interaction=nonstopmode -aux-directory=out "$TexFile.tex" | Out-Null
 if ($LASTEXITCODE -eq 0) {
     Write-Host "      OK Berhasil" -ForegroundColor Green
 }
@@ -43,7 +48,7 @@ else {
 
 # Kompilasi ketiga (final)
 Write-Host "[4/4] Menjalankan pdflatex (kompilasi ketiga)..." -ForegroundColor Yellow
-pdflatex -interaction=nonstopmode "$TexFile.tex" | Out-Null
+pdflatex -interaction=nonstopmode -aux-directory=out "$TexFile.tex" | Out-Null
 if ($LASTEXITCODE -eq 0) {
     Write-Host "      OK Berhasil" -ForegroundColor Green
 }
@@ -66,19 +71,8 @@ if (Test-Path "$TexFile.pdf") {
     Write-Host ""
     $cleanup = Read-Host "Hapus file auxiliary? y/n"
     if ($cleanup -eq 'y' -or $cleanup -eq 'Y') {
-        Remove-Item "$TexFile.aux" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.log" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.out" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.toc" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.lot" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.lof" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.equ" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.bbl" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.blg" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.bcf" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.run.xml" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile-blx.bib" -ErrorAction SilentlyContinue
-        Write-Host "OK File auxiliary telah dihapus" -ForegroundColor Green
+        Remove-Item "out/$TexFile.*" -ErrorAction SilentlyContinue
+        Write-Host "OK File auxiliary untuk $TexFile telah dihapus dari folder out" -ForegroundColor Green
     }
 }
 else {
