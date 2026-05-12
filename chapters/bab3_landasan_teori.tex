@@ -1,0 +1,121 @@
+\clearpage
+\section{LANDASAN TEORI}
+
+\subsection{Machine Learning dalam Pendidikan Kejuruan}
+Perkembangan teknologi informasi yang berlangsung sangat cepat dalam satu dekade terakhir telah membawa perubahan mendasar pada kebutuhan kompetensi tenaga kerja di bidang digital. Kondisi ini mendorong institusi pendidikan di berbagai jenjang, termasuk pendidikan vokasional, untuk menyesuaikan materi pembelajaran dengan tuntutan industri yang kian berorientasi pada kecerdasan buatan dan pengolahan data. Nadzinski et al.\ \cite{Nadzinski2023} menyatakan bahwa meningkatnya permintaan tenaga kerja yang terampil di bidang data science dan machine learning menciptakan kesenjangan serius di pasar kerja global, dan kesenjangan ini mendesak dunia pendidikan untuk segera bertindak melalui pengajaran keterampilan tersebut di semua jenjang secara efektif dan mutakhir.
+
+Machine Learning atau ML merupakan bagian dari Artificial Intelligence yang memanfaatkan algoritma komputasi untuk melatih sistem secara berulang dari data tanpa memerlukan pemrograman eksplisit pada setiap instruksi \cite{Obada2024,Suthar2022}. Pendekatan pembelajaran dalam ML terbagi menjadi tiga kategori utama. Pertama, \textit{supervised learning}, yaitu model yang bekerja dengan melatih algoritma menggunakan data berlabel sehingga sistem mampu mempelajari pola dan memberikan prediksi yang akurat terhadap data baru. Pendekatan ini umumnya digunakan untuk tugas regresi maupun klasifikasi. Kedua, \textit{unsupervised learning}, yakni model yang menganalisis data tanpa label untuk menemukan pola tersembunyi dan mengelompokkan titik-titik data yang memiliki kemiripan. Ketiga, \textit{reinforcement learning}, yaitu pendekatan yang memungkinkan sistem belajar melalui coba-coba dengan berinteraksi terhadap lingkungan untuk mengambil keputusan yang memaksimalkan hasil secara kumulatif. Dalam konteks workshop ini, paradigma yang digunakan adalah \textit{supervised learning} dengan tugas klasifikasi citra daun tanaman.
+
+Relevansi penguatan kompetensi ML di tingkat pendidikan kejuruan telah dikonfirmasi oleh berbagai penelitian. Nadzinski et al.\ \cite{Nadzinski2023} menegaskan bahwa pengajaran data science dan machine learning di lembaga pendidikan kejuruan atau \textit{Vocational Education and Training} sama pentingnya dengan pengajaran di jenjang universitas, karena pasar data membutuhkan berbagai profil pekerjaan dari berbagai subdomain dan level kualifikasi. Ketersediaan program pembelajaran ML di sekolah kejuruan memperluas pilihan karier siswa sekaligus melayani kebutuhan industri secara langsung. Perez et al.\ \cite{Kurikulum2025} yang mengkaji inovasi kurikulum di tiga SMK di Indonesia menemukan bahwa implementasi konten digital modular, pembelajaran berbasis proyek, dan platform \textit{blended learning} secara signifikan meningkatkan keterlibatan siswa dan kompetensi di bidang analisis data, komputasi awan, dan kolaborasi digital. Temuan ini menunjukkan bahwa siswa SMK jurusan Rekayasa Perangkat Lunak yang telah memiliki dasar pemrograman dan logika komputasi memiliki bekal yang memadai untuk diperkenalkan pada konsep dan praktik machine learning secara terstruktur.
+
+\subsection{Computer Vision dan Klasifikasi Citra Daun Tanaman}
+Computer Vision merupakan cabang dari kecerdasan buatan yang memungkinkan mesin untuk memahami, menginterpretasikan, dan menganalisis informasi visual dari dunia nyata dalam bentuk gambar atau video. Salah satu arsitektur \textit{deep learning} yang paling dominan dan terbukti efektif dalam tugas-tugas computer vision adalah \textit{Convolutional Neural Network} atau CNN. Lu et al.\ \cite{Lu2021} menjelaskan bahwa CNN pada dasarnya tersusun dari tiga jenis lapisan utama yang bekerja secara hierarkis. Lapisan konvolusi bertugas mengekstraksi fitur visual dari gambar masukan menggunakan prinsip korelasi lokal, di mana lapisan dangkal menangkap informasi tepi dan tekstur sederhana, lapisan menengah mengidentifikasi pola tekstur yang lebih kompleks, dan lapisan dalam mengekstraksi representasi semantik tingkat tinggi. Lapisan \textit{pooling} kemudian melakukan \textit{sampling} untuk mempertahankan informasi penting dari peta fitur sambil membuat model tidak sensitif terhadap pergeseran, rotasi, dan perubahan skala pada gambar. Lapisan \textit{fully connected} di ujung arsitektur mengintegrasikan seluruh fitur yang telah diekstraksi untuk menghasilkan keputusan klasifikasi akhir.
+
+Dalam konteks deteksi penyakit tanaman, pengenalan visual berbasis pengamatan mata secara tradisional membutuhkan keahlian khusus, bersifat subjektif, dan menyita waktu yang tidak sedikit. Pendekatan machine learning konvensional berbasis fitur tekstur, warna, atau bentuk daun juga memiliki keterbatasan berupa performa yang kurang optimal untuk aplikasi \textit{real-time}. \textit{Deep learning} berbasis CNN hadir sebagai solusi yang mampu mengatasi kelemahan tersebut karena dapat mengekstraksi fitur secara otomatis dari data gambar mentah tanpa memerlukan rekayasa fitur manual \cite{Lu2021}.
+
+Dataset utama yang digunakan dalam workshop ini adalah PlantVillage, sebuah repositori citra terbuka yang dikembangkan oleh Hughes dan Salath\'{e} \cite{Hughes2015}. Dataset ini berisi lebih dari 54.000 gambar daun tanaman yang terbagi ke dalam 38 kelas kondisi, mencakup kondisi sehat maupun berbagai jenis penyakit pada lebih dari 14 spesies tanaman. Gambar-gambar dalam PlantVillage diambil dalam kondisi latar belakang terkontrol sehingga setiap citra hanya menampilkan satu helai daun tanpa gangguan eksternal. Keunggulan ini menjadikan PlantVillage sebagai dataset yang sangat sesuai untuk keperluan pembelajaran di tingkat pemula karena telah tersedia secara publik di platform Kaggle, formatnya sudah terstruktur per kelas, dan telah digunakan secara luas sebagai \textit{benchmark} standar dalam penelitian ilmiah tentang klasifikasi penyakit tanaman. Kelas penyakit yang menjadi fokus studi kasus dalam workshop ini mencakup kondisi \textit{Early Blight}, \textit{Late Blight}, \textit{Leaf Mold}, \textit{Bacterial Spot}, dan \textit{Healthy}.
+
+\subsection{Prediksi Awal sebagai Pendekatan Deteksi Dini Penyakit Tanaman}
+Sistem berbasis kecerdasan buatan untuk pengenalan penyakit tanaman pada dasarnya tidak dirancang sebagai pengganti diagnosa ahli, melainkan sebagai alat bantu identifikasi awal atau \textit{screening tool} yang dapat mempercepat proses penanganan sebelum kerusakan meluas. Lu et al.\ \cite{Lu2021} menegaskan bahwa \textit{deep learning} berbasis CNN yang diterapkan pada klasifikasi penyakit daun tanaman berfungsi untuk mendeteksi indikasi visual yang tampak pada permukaan daun sebagai langkah awal dalam rantai pengelolaan kesehatan tanaman. Prediksi yang dihasilkan sistem merupakan penilaian berdasarkan fitur visual yang terlihat, bukan analisis komprehensif atas keseluruhan kondisi fisiologis tanaman.
+
+Penting untuk dipahami bahwa sejumlah jenis gangguan pada tanaman tidak menghasilkan gejala visual yang dapat terdeteksi dari permukaan daun pada fase awal, misalnya busuk akar, infeksi sistemik di batang, atau penyakit yang bermula dari jaringan dalam. Dengan demikian, model klasifikasi yang dibangun dalam workshop ini diposisikan secara ilmiah sebagai instrumen prediksi awal yang membantu mengidentifikasi potensi penyakit berdasarkan ciri-ciri visual pada daun, dengan tingkat keyakinan tertentu yang harus diinterpretasikan secara kritis oleh pengguna. Suthar et al.\ \cite{Suthar2022} menjelaskan bahwa dalam evaluasi model machine learning, sejumlah metrik digunakan untuk mengukur seberapa baik sebuah model klasifikasi bekerja. Salah satu metrik yang relevan adalah akurasi, yang secara matematis dinyatakan sebagai rasio antara prediksi yang benar terhadap total keseluruhan sampel pengujian. Selain itu, \textit{confusion matrix} digunakan sebagai representasi yang paling jelas untuk memahami distribusi prediksi benar dan salah dari model berdasarkan kelas-kelas yang ada, mencakup \textit{True Positive}, \textit{True Negative}, \textit{False Positive}, dan \textit{False Negative}.
+
+Pemahaman atas keterbatasan model ini memiliki nilai pedagogis yang penting. Melalui diskusi kritis tentang batas kemampuan sistem, siswa tidak hanya belajar cara membangun model, tetapi juga mengembangkan kemampuan berpikir ilmiah dan literasi kecerdasan buatan yang semakin dibutuhkan di era transformasi digital.
+
+\subsection{Project-Based Learning dalam Pendidikan Vokasional}
+\textit{Project-Based Learning} atau PjBL adalah model instruksional yang menempatkan siswa sebagai pelaku aktif dalam proses pembelajaran melalui penyelesaian proyek nyata yang menantang. Model ini pertama kali diusulkan oleh John Dewey pada tahun 1890-an dan sejak saat itu telah dikembangkan serta diterapkan pada berbagai bidang studi dan situasi pembelajaran. Dalam praktiknya, PjBL dilaksanakan dengan membagi siswa ke dalam kelompok-kelompok kecil yang bekerja bersama untuk mencapai tujuan yang sama, memecahkan kasus nyata, atau menjawab pertanyaan dengan kompleksitas tinggi dalam rentang waktu tertentu \cite{Derkach2020}.
+
+Megayanti et al.\ \cite{Derkach2020} melalui tinjauan literatur sistematis terhadap sejumlah penelitian empiris menyimpulkan bahwa PjBL terbukti memberikan dampak positif dalam mengembangkan keterampilan siswa kejuruan sesuai kerangka kompetensi abad ke-21. Dampak tersebut mencakup peningkatan kemampuan berpikir kritis dan pemecahan masalah, kecakapan berkomunikasi, kapasitas kerja sama tim, kreativitas, serta motivasi belajar. Lebih lanjut, PjBL juga terbukti meningkatkan penguasaan konten pengetahuan, keterampilan vokasional produktif, dan kemandirian belajar pada siswa. Chiang dan Lee (2016, dalam \cite{Derkach2020}) secara spesifik menemukan bahwa penerapan PjBL pada siswa SMK meningkatkan motivasi belajar dan kemampuan pemecahan masalah secara signifikan dibandingkan metode pembelajaran konvensional.
+
+Handayani et al.\ \cite{Handayani2026} dalam penelitian terbarunya di perguruan tinggi vokasional Indonesia menunjukkan bahwa PjBL yang melibatkan komunitas nyata secara signifikan mengembangkan keterampilan kolaborasi, literasi teknologi informasi, serta kecakapan pengambilan keputusan pada mahasiswa generasi Z. Keterampilan kolaborasi tercatat sebagai aspek yang mengalami peningkatan paling besar dengan rata-rata skor yang jauh melampaui nilai netral. Temuan ini menegaskan bahwa PjBL sangat relevan diterapkan pada konteks pendidikan kejuruan yang memang berorientasi pada kompetensi kerja, penyelesaian masalah dunia nyata, dan pembuatan produk nyata yang dapat dipertanggungjawabkan. Dalam konteks workshop Machine Learning ini, pendekatan PjBL diimplementasikan melalui pembagian kelompok kecil yang masing-masing membangun alur kerja ML secara mandiri, mulai dari eksplorasi data hingga pengembangan aplikasi prediksi sederhana.
+
+\subsection{Tools Pembelajaran: Google Colab, Kaggle, dan Streamlit}
+Pemilihan platform dan perangkat yang digunakan dalam kegiatan workshop sangat menentukan aksesibilitas dan efektivitas pembelajaran, terutama di lingkungan dengan keterbatasan infrastruktur seperti sekolah menengah kejuruan. Han et al.\ \cite{Han2022} menyebutkan bahwa Google Colab dan Kaggle termasuk platform publik yang telah banyak dimanfaatkan untuk keperluan pendidikan data science dan machine learning, mengingat keduanya dapat diakses secara gratis melalui browser tanpa memerlukan proses instalasi yang rumit.
+
+Google Colab merupakan platform Jupyter Notebook berbasis \textit{cloud} yang dikembangkan oleh Google dan dapat digunakan secara gratis oleh siapa saja melalui akun Google. Platform ini memungkinkan pengguna untuk menulis dan menjalankan kode Python langsung dari browser, termasuk memanfaatkan akselerasi GPU secara gratis untuk keperluan pelatihan model machine learning. Suthar et al.\ \cite{Suthar2022} dalam pelaksanaan workshop ML mereka menggunakan Google Colab sebagai media utama karena platform ini dikenal mampu memberikan pengalaman pengguna yang konsisten, serta menjembatani kesenjangan antara teori dan praktik melalui \textit{notebook} interaktif yang menggabungkan kode, teks penjelasan, dan visualisasi dalam satu dokumen tunggal.
+
+Kaggle adalah platform data science yang menyediakan ribuan dataset publik berkualitas, termasuk dataset PlantVillage, yang dapat diakses secara gratis dan diintegrasikan langsung ke dalam Google Colab melalui Kaggle API. Suthar et al.\ \cite{Suthar2022} menyebutkan bahwa dataset publik dari Kaggle merupakan salah satu sumber data nyata yang penting dan cocok untuk keperluan pembelajaran berbasis proyek, karena memberikan pengalaman kerja dengan data yang relevan dengan aplikasi dunia nyata. Pendekatan berbasis data nyata ini sejalan dengan temuan bahwa paparan peserta didik terhadap data real secara signifikan berkontribusi pada efektivitas pembelajaran dan interaksi antara peserta dengan fasilitator.
+
+Streamlit merupakan \textit{framework} Python yang memungkinkan pengembangan antarmuka aplikasi web interaktif dengan kode yang sangat ringkas dan mudah dipelajari, tanpa memerlukan pengetahuan mendalam tentang pengembangan \textit{frontend}. Dengan Streamlit, siswa dapat mengemas model ML yang telah dilatih menjadi aplikasi yang dapat menerima masukan berupa gambar dan menampilkan hasil prediksi secara langsung. Ini memberikan pengalaman \textit{deployment} yang konkret dan menghasilkan produk nyata yang dapat dijadikan portofolio oleh peserta workshop.
+
+\subsection{Studi Literatur Penelitian Terdahulu}
+Berikut disajikan rangkuman penelitian-penelitian terdahulu yang relevan dengan program PKM ini beserta posisi perbedaan dengan kegiatan yang diusulkan.
+
+\setlength{\tabcolsep}{3pt}
+\small
+\begin{longtable}{|c|p{1.8cm}|c|p{2.6cm}|p{1.9cm}|p{2.6cm}|p{2.4cm}|}
+    \caption{Ringkasan Studi Literatur Penelitian Terdahulu}\label{tab:studi-literatur}\\
+    \hline
+    \textbf{No} & \textbf{Peneliti} & \textbf{Tahun} & \textbf{Fokus Kajian} & \textbf{Metode} & \textbf{Hasil Utama} & \textbf{Relevansi dengan PKM ini} \\
+    \hline
+    \endfirsthead
+
+    \hline
+    \textbf{No} & \textbf{Peneliti} & \textbf{Tahun} & \textbf{Fokus Kajian} & \textbf{Metode} & \textbf{Hasil Utama} & \textbf{Relevansi dengan PKM ini} \\
+    \hline
+    \endhead
+
+    1 &
+    Nadzinski et al.\ \cite{Nadzinski2023} &
+    2023 &
+    Pengajaran ML dan data science di pendidikan vokasional, survei siswa VET &
+    Survei dan tinjauan kurikulum &
+    Kebutuhan ML di VET sangat tinggi namun implementasi terstruktur masih sangat terbatas &
+    Landasan pentingnya pelatihan ML di SMK \\ \hline
+
+    2 &
+    Lu et al.\ \cite{Lu2021} &
+    2021 &
+    Tinjauan CNN untuk klasifikasi penyakit daun tanaman &
+    Tinjauan sistematis &
+    CNN adalah pendekatan terbaik saat ini untuk deteksi penyakit visual pada tanaman &
+    Dasar teknis penggunaan CNN pada studi kasus workshop \\ \hline
+
+    3 &
+    Megayanti et al.\ \cite{Derkach2020} &
+    2020 &
+    Efektivitas PjBL di pendidikan vokasional &
+    Tinjauan literatur sistematis &
+    PjBL terbukti meningkatkan keterampilan abad ke-21 siswa SMK secara positif &
+    Justifikasi penggunaan PjBL sebagai metode workshop \\ \hline
+
+    4 &
+    Handayani et al.\ \cite{Handayani2026} &
+    2026 &
+    PjBL untuk keterampilan abad ke-21 mahasiswa vokasi Indonesia &
+    Studi empiris kuantitatif &
+    PjBL meningkatkan kolaborasi, literasi TIK, dan kecakapan kerja lulusan vokasi &
+    Konfirmasi relevansi PjBL di konteks vokasional Indonesia \\ \hline
+
+    5 &
+    Han et al.\ \cite{Han2022} &
+    2022 &
+    Sistem pelatihan online ML berbasis Jupyter Notebook &
+    Pengembangan sistem &
+    Google Colab dan Kaggle layak dimanfaatkan namun memerlukan penyesuaian untuk konteks pendidikan &
+    Justifikasi pemilihan Google Colab dan Kaggle sebagai tools workshop \\ \hline
+
+    6 &
+    Suthar et al.\ \cite{Suthar2022} &
+    2022 &
+    Modul interaktif berbasis data nyata untuk pendidikan data science &
+    Pengembangan modul dan studi kasus &
+    Modul berbasis data nyata meningkatkan keterlibatan dan pemahaman mahasiswa secara praktis &
+    Pendekatan desain modul workshop berbasis data nyata \\ \hline
+
+    7 &
+    Perez et al.\ \cite{Kurikulum2025} &
+    2025 &
+    Inovasi kurikulum dan pembelajaran berbasis teknologi di SMK Indonesia &
+    Studi kasus kualitatif &
+    Konten digital modular dan PjBL meningkatkan kompetensi digital siswa SMK secara signifikan &
+    Konteks lokal Indonesia untuk penguatan kompetensi digital siswa SMK \\ \hline
+
+\end{longtable}
+\normalsize
+\setlength{\tabcolsep}{6pt}
+
+\subsection{Posisi dan Kebaruan Penelitian}
+Berdasarkan kajian terhadap penelitian terdahulu, dapat diidentifikasi beberapa celah yang belum terjawab oleh literatur yang ada. Penelitian-penelitian tentang CNN dan dataset PlantVillage pada umumnya berpusat pada optimasi performa model dalam konteks riset, tanpa mempertimbangkan bagaimana teknologi tersebut dapat ditransferkan kepada peserta didik di tingkat menengah yang baru mengenal konsep kecerdasan buatan. Di sisi lain, kajian-kajian tentang PjBL di SMK masih terbatas pada domain keterampilan teknis umum dan belum menyentuh ranah machine learning maupun computer vision secara langsung. Inisiatif pengajaran ML di lembaga vokasional yang telah terdokumentasi dengan baik, seperti proyek VALENCE di Eropa yang diulas oleh Nadzinski et al.\ \cite{Nadzinski2023}, belum diadaptasi ke dalam konteks Indonesia dengan studi kasus yang relevan secara lokal.
+
+Kebaruan program PKM ini terletak pada perpaduan tiga elemen yang belum pernah disatukan dalam satu program pelatihan SMK di Indonesia secara bersamaan. Elemen pertama adalah pendekatan PjBL yang terstruktur dan telah terbukti efektif di konteks vokasional Indonesia. Elemen kedua adalah studi kasus machine learning terapan berbasis computer vision dengan konteks pertanian lokal, yaitu deteksi penyakit tanaman melalui analisis citra daun menggunakan dataset PlantVillage. Elemen ketiga adalah pemanfaatan ekosistem tools berbasis \textit{cloud} yang sepenuhnya gratis dan dapat direplikasi secara mandiri oleh peserta setelah workshop berakhir, sehingga dampak pembelajaran tidak berhenti pada hari pelaksanaan semata. Program ini secara strategis menjembatani kesenjangan antara kemampuan pemrograman dasar yang sudah dimiliki siswa RPL dengan kompetensi kecerdasan buatan yang semakin dibutuhkan industri teknologi digital.
