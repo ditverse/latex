@@ -1,2 +1,55 @@
-\subsection{Pre Test}
-Jawaban pre test praktikum 4.
+\subsection*{Pertanyaan 1: Buatlah fungsi QuickSort!}
+
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize, frame=single, backgroundcolor=\color{white}, numbers=none, keywordstyle=\color{black}, commentstyle=\color{black}, stringstyle=\color{black}, breaklines=true]
+def quick_sort(arr, i, j):
+    # basis: array 1 elemen atau kosong
+    if i >= j:
+        return
+    # partisi dan dapatkan indeks pembagi
+    k = partisi(arr, i, j)
+    # rekursif urutkan bagian kiri dan kanan
+    quick_sort(arr, i, k)
+    quick_sort(arr, k + 1, j)
+
+if __name__ == "__main__":
+    data = [4, 12, 23, 9, 21, 1, 35, 2, 24]
+    print("Data awal:", data)
+    
+    # MinMaks D&C
+    mn, mx = minmaks(data, 0, len(data) - 1)
+    print(f"\nMinMaks D&C -> Min: {mn}, Maks: {mx}")
+    
+    # Merge Sort
+    arr_ms = data.copy()
+    merge_sort(arr_ms, 0, len(arr_ms) - 1)
+    print(f"Merge Sort -> {arr_ms}")
+    
+    # Quick Sort
+    arr_qs = data.copy()
+    quick_sort(arr_qs, 0, len(arr_qs) - 1)
+    print(f"Quick Sort -> {arr_qs}")
+\end{lstlisting}
+
+\subsection*{Pertanyaan 2: Buatlah fungsi Partition!}
+
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize, frame=single, backgroundcolor=\color{white}, numbers=none, keywordstyle=\color{black}, commentstyle=\color{black}, stringstyle=\color{black}, breaklines=true]
+def partisi(arr, i, j):
+    # pilih elemen tengah sebagai pivot
+    pivot = arr[(i + j) // 2]
+    p, q = i, j
+    while True:
+        # scan dari kiri sampai menemukan elemen >= pivot
+        while arr[p] < pivot:
+            p += 1
+        # scan dari kanan sampai menemukan elemen <= pivot
+        while arr[q] > pivot:
+            q -= 1
+        # jika belum bertemu, tukar dan geser indeks
+        if p < q:
+            arr[p], arr[q] = arr[q], arr[p]
+            p += 1
+            q -= 1
+        else:
+            break
+    return q
+\end{lstlisting}

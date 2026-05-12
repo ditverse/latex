@@ -1,2 +1,27 @@
 \subsection{Implementasi Nyata}
-Contoh kasus nyata praktikum 4.
+Algoritma Merge Sort berbasis Divide and Conquer banyak diimplementasikan pada sistem pengurutan data berskala besar, termasuk pada sistem pemrosesan paralel. Jurnal berikut mendukung relevansi penerapannya.
+
+\vspace{1em}
+\textbf{[1] Penulis:} Ketchaya, S. dan Rattanatranurak, A. (2023)
+
+\textbf{Judul:} "Parallel Multi-Deque Partition Dual-Deque Merge Sorting Algorithm Using OpenMP"
+
+\textbf{Publikasi:} Scientific Reports, Vol. 13, Nature Publishing Group. DOI: 10.1038/s41598-023-33583-4
+
+\textbf{Intisari:} Makalah ini mengusulkan algoritma pengurutan paralel berbasis Divide and Conquer yang dikembangkan dari Quick Sort dan Merge Sort menggunakan OpenMP pada sistem memori bersama. Algoritma MPDMSort terbukti lebih efisien dibandingkan implementasi sekuensial standar dalam pengurutan data biologis, saintifik, dan big data. Ini membuktikan bahwa prinsip D\&C yang memecah masalah menjadi upa-masalah independen secara inheren mendukung paralelisme dan skalabilitas.
+
+\textbf{Link:} \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10115789/}
+
+\vspace{1em}
+\textbf{Kelebihan dalam konteks nyata:}
+\begin{itemize}
+    \item Kompleksitas O(n log n) yang konsisten membuat Merge Sort andal untuk pengurutan dataset besar seperti log server, data transaksi, dan rekaman medis.
+    \item Sifat stabil Merge Sort menjamin urutan relatif elemen bernilai sama terjaga, penting dalam pengurutan multi-kunci.
+    \item Prinsip D\&C secara alami mendukung paralelisasi sehingga cocok untuk sistem multi-core modern.
+\end{itemize}
+
+\textbf{Kekurangan dalam konteks nyata:}
+\begin{itemize}
+    \item Merge Sort membutuhkan memori tambahan O(n) untuk proses penggabungan, sehingga kurang ideal untuk sistem dengan memori terbatas.
+    \item Quick Sort memiliki worst case O($n^2$) apabila pemilihan pivot tidak tepat, sehingga perlu strategi pemilihan pivot yang baik seperti median-of-three untuk data dunia nyata.
+\end{itemize}

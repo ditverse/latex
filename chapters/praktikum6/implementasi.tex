@@ -1,2 +1,27 @@
 \subsection{Implementasi Nyata}
-Contoh kasus nyata praktikum 6.
+Algoritma BFS dan DFS merupakan fondasi dari banyak aplikasi dunia nyata mulai dari navigasi, jaringan sosial, hingga analisis jaringan komputer. Jurnal berikut mendukung relevansinya.
+
+\vspace{1em}
+\textbf{[1] Penulis:} Ahmed, R., Chekol, B., dan Alsaleh, M. (2025)
+
+\textbf{Judul:} "HDBMS: A Context-Aware Hybrid Graph Traversal Algorithm for Efficient Information Discovery in Social Networks"
+
+\textbf{Publikasi:} arXiv preprint arXiv:2508.14092, Uskudar University, Istanbul, 2025.
+
+\textbf{Intisari:} Makalah ini mengusulkan algoritma traversal hibrid berbasis BFS dan DFS yang dinamis dan adaptif untuk jaringan sosial. Eksperimen pada berbagai graf berarah menunjukkan bahwa BFS unggul dalam menemukan jalur terpendek antar pengguna (misal pencarian teman terdekat), sedangkan DFS lebih efisien dalam menelusuri rantai hubungan yang dalam (misal rantai influencer). Karya ini menegaskan bahwa pemilihan algoritma traversal harus disesuaikan dengan konteks dan struktur graf yang dihadapi.
+
+\textbf{Link:} \url{https://arxiv.org/pdf/2508.14092}
+
+\vspace{1em}
+\textbf{Kelebihan dalam konteks nyata:}
+\begin{itemize}
+    \item BFS unggul untuk pencarian jalur terpendek pada jaringan tidak berbobot seperti jaringan sosial (degree of separation), routing paket jaringan, dan rekomendasi koneksi.
+    \item DFS unggul untuk eksplorasi mendalam seperti deteksi siklus dalam dependency graph, topological sort pada build system, dan traversal struktur file sistem operasi.
+    \item Kompleksitas O(V+E) yang sama membuat keduanya efisien untuk graf skala menengah dan dapat dioptimalkan lebih lanjut dengan teknik paralel untuk graf berskala besar.
+\end{itemize}
+
+\textbf{Kekurangan dalam konteks nyata:}
+\begin{itemize}
+    \item BFS membutuhkan memori besar O(V) untuk antrian, tidak cocok untuk graf dengan jutaan simpul seperti graf internet tanpa optimasi memori.
+    \item DFS berisiko stack overflow pada graf sangat dalam apabila diimplementasikan secara rekursif, dan perlu diubah ke iteratif berbasis stack eksplisit untuk sistem produksi.
+\end{itemize}

@@ -1,2 +1,13 @@
-\subsection{Pre Test}
-Jawaban pre test praktikum 2.
+\subsection*{Pertanyaan 1: Jelaskan apa ciri khas dari penyelesaian persoalan dengan algoritma Brute Force!}
+
+\textbf{Jawaban:} Ciri khas Brute Force adalah penyelesaian masalah secara langsung, sederhana, dan jelas (straightforward/obvious way) tanpa memanfaatkan struktur atau sifat khusus dari masalah. Setiap kemungkinan diperiksa satu per satu secara menyeluruh. Pendekatan ini menjamin solusi yang benar namun umumnya menghasilkan kompleksitas yang tinggi karena tidak ada optimasi.
+
+\subsection*{Pertanyaan 2: Jelaskan ciri khas algoritma Brute Force pada contoh berikut:}
+
+\textbf{a. Algoritma Perpangkatan:} Brute Force terlihat dari cara menghitung $a^n$ dengan mengalikan $a$ sebanyak $n$ kali secara berulang (hasil = hasil * a), tanpa memanfaatkan teknik seperti fast exponentiation. Kompleksitas O(n).
+
+\textbf{b. Algoritma Pencarian Elemen Terbesar:} Brute Force terlihat dari pembandingan setiap elemen A[k] dengan nilai maks satu per satu dari awal hingga akhir array. Tidak ada strategi pemangkasan. Kompleksitas O(n).
+
+\textbf{c. Algoritma Perkalian Dua Matriks:} Brute Force terlihat dari tiga perulangan bersarang (i, j, k) yang menghitung setiap elemen C[i][j] satu per satu tanpa optimasi. Kompleksitas O($n^3$).
+
+\textbf{d. Algoritma Uji Bilangan Prima:} Brute Force terlihat dari pembagian x dengan setiap bilangan dari 2 hingga sqrt(x) secara berurutan. Tidak ada penggunaan sifat bilangan prima untuk mempercepat. Kompleksitas O($\sqrt{n}$).

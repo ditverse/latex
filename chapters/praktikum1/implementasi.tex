@@ -1,2 +1,38 @@
 \subsection{Implementasi Nyata}
-Contoh kasus nyata praktikum 1.
+Selection Sort dan Insertion Sort banyak diimplementasikan pada sistem dengan dataset kecil, seperti sistem pengolahan nilai akademik, antrian transaksi sederhana, atau pengurutan log pada embedded system. Dua jurnal berikut mendukung relevansi penggunaan kedua algoritma ini dalam praktik.
+
+\vspace{1em}
+\textbf{[1] Penulis:} Karunanidhi, G. (2025)
+
+\textbf{Judul:} "A Systematic Analysis on Performance and Computational Complexity of Sorting Algorithms"
+
+\textbf{Publikasi:} Discover Computing, Vol. 28, No. 1, Hal. 250. Springer Nature. DOI: 10.1007/s10791-025-09724-w
+
+\textbf{Intisari:} Review sistematis terhadap 12 teknik sorting klasik menggunakan analisis empiris pada MATLAB dengan ukuran data 100 hingga 100.000 elemen. Hasil menunjukkan bahwa selection sort mengalami penurunan performa signifikan pada data besar karena kompleksitas $O(n^2)$ yang konsisten di semua kasus. Sebaliknya, insertion sort terbukti lebih efisien untuk data berukuran kecil berkat sifat adaptifnya.
+
+\textbf{Link:} \url{https://link.springer.com/article/10.1007/s10791-025-09724-w}
+
+\vspace{1.5em}
+\textbf{[2] Penulis:} Halili, F. dan Dika, E. (2021)
+
+\textbf{Judul:} "Results of Comparison Between Different Sorting Algorithms"
+
+\textbf{Publikasi:} IBU International Journal of Technical and Natural Sciences, Vol. 2, Hal. 39-52. International Balkan University Press.
+
+\textbf{Intisari:} Studi komparatif lima algoritma pengurutan berdasarkan waktu eksekusi menggunakan C++. Hasil empiris menunjukkan bahwa Insertion Sort merupakan pilihan yang baik untuk dataset berukuran kecil hingga beberapa ribu elemen karena sifat adaptif (best case O(n)) dan kemudahan implementasinya. Insertion Sort tidak disarankan untuk list dengan lebih dari beberapa ribu elemen karena kompleksitas kuadratiknya.
+
+\textbf{Link:} \url{https://ijtns.ibupress.com/uploads/pdf/22.pdf}
+
+\vspace{1.5em}
+\textbf{Kelebihan di konteks dataset kecil:}
+\begin{itemize}
+    \item Implementasi sederhana dan mudah dipelihara.
+    \item Tidak memerlukan memori tambahan (in-place).
+    \item Insertion Sort efisien untuk data yang ditambahkan secara bertahap (inkremental).
+\end{itemize}
+
+\textbf{Kekurangan di konteks dataset kecil:}
+\begin{itemize}
+    \item Tidak cocok untuk $n > 10.000$ karena kompleksitas $O(n^2)$ menjadi bottleneck.
+    \item Untuk kebutuhan skala besar, disarankan beralih ke Merge Sort atau Quick Sort dengan kompleksitas $O(n \log n)$.
+\end{itemize}

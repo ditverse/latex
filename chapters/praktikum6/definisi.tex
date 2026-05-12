@@ -1,2 +1,24 @@
-\subsection{Definisi}
-Konten definisi praktikum 6.
+\subsection{Traversal Graf}
+Traversal graf adalah proses mengunjungi setiap simpul (node) dalam sebuah graf secara sistematis. Terdapat dua pendekatan representasi graf dalam traversal: graf statis (sudah terbentuk sebelum pencarian, direpresentasikan sebagai struktur data) dan graf dinamis (terbentuk selama proses pencarian berlangsung). Algoritma traversal dikategorikan sebagai uninformed/blind search karena tidak menggunakan informasi heuristik untuk memandu pencarian.
+
+\subsection{Breadth First Search (BFS)}
+\textbf{Definisi:} BFS adalah algoritma traversal graf yang mengunjungi semua simpul secara berlapis (level by level), dimulai dari simpul awal v, kemudian seluruh tetangganya, lalu tetangga dari tetangganya, dan seterusnya.
+
+\textbf{Cara Kerja:} Menggunakan struktur data antrian (queue). Simpul awal dimasukkan ke antrian, lalu setiap simpul yang dikeluarkan dari depan antrian akan memasukkan semua tetangganya yang belum dikunjungi ke belakang antrian.
+
+\textbf{Fungsi:} Menemukan jalur terpendek pada graf tidak berbobot, eksplorasi jaringan sosial, web crawling, dan level-order traversal pada pohon.
+
+\textbf{Kelebihan:} Menjamin jalur terpendek pada graf tidak berbobot, mengeksplorasi graf secara menyeluruh per level, dan tidak berisiko stack overflow.
+
+\textbf{Kekurangan:} Membutuhkan memori O(V) untuk antrian, tidak efisien untuk graf sangat lebar karena antrian bisa sangat besar, dan tidak efisien untuk mencari jalur dalam pada graf besar.
+
+\subsection{Depth First Search (DFS)}
+\textbf{Definisi:} DFS adalah algoritma traversal graf yang mengeksplorasi setiap cabang sedalam mungkin sebelum backtrack ke simpul sebelumnya dan mencoba cabang lain, dimulai dari simpul awal v.
+
+\textbf{Cara Kerja:} Menggunakan rekursi (atau stack). Dari simpul yang dikunjungi, langsung masuk ke tetangga pertama yang belum dikunjungi, terus ke dalam hingga tidak ada tetangga baru, baru kemudian backtrack.
+
+\textbf{Fungsi:} Deteksi siklus dalam graf, topological sorting, penyelesaian puzzle dan labirin, pencarian komponen terhubung, dan path finding pada graf berarah.
+
+\textbf{Kelebihan:} Hemat memori O(H) di mana H adalah kedalaman rekursi, efisien untuk eksplorasi jalur dalam, dan mudah diimplementasikan secara rekursif.
+
+\textbf{Kekurangan:} Tidak menjamin jalur terpendek, berisiko stack overflow pada graf sangat dalam, dan dapat terjebak dalam siklus jika tidak ada penandaan simpul yang dikunjungi.

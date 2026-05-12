@@ -1,2 +1,12 @@
-\subsection{Pre Test}
-Jawaban pre test praktikum 1.
+\subsection*{Pertanyaan 1: Apa alat ukur sebuah algoritma dikatakan efisien menjadi solusi suatu permasalahan?}
+
+\textbf{Jawaban:} Alat ukur efisiensi algoritma ada dua: Kompleksitas Waktu T(n) yang mengukur jumlah operasi komputasi sebagai fungsi ukuran masukan n, dan Kompleksitas Ruang S(n) yang mengukur kebutuhan memori. Keduanya bersifat abstrak dan independen dari perangkat keras maupun compiler sehingga dapat digunakan sebagai acuan universal dalam membandingkan algoritma.
+
+\subsection*{Pertanyaan 2: Mengapa kita perlu algoritma yang efisien?}
+
+\textbf{Jawaban:} Algoritma yang efisien diperlukan karena:
+\begin{enumerate}
+    \item Selisih kompleksitas sangat terasa pada data besar. Untuk $n = 1.000.000$, algoritma $O(n)$ butuh $10^6$ operasi sedangkan $O(n^2)$ butuh $10^{12}$ operasi.
+    \item Menghemat sumber daya komputasi berupa waktu proses, memori, dan energi.
+    \item Memungkinkan sistem yang skalabel karena performa tetap baik meskipun data bertambah.
+\end{enumerate}

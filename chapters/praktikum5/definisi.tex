@@ -1,2 +1,26 @@
-\subsection{Definisi}
-Konten definisi praktikum 5.
+\subsection{Algoritma Decrease and Conquer}
+\textbf{Definisi:} Decrease and Conquer adalah metode perancangan algoritma yang mereduksi persoalan berukuran n menjadi beberapa subpersoalan yang lebih kecil, tetapi selanjutnya hanya memproses satu subpersoalan saja secara rekursif. Berbeda dengan Divide and Conquer yang memproses semua subpersoalan dan menggabungkan seluruh solusinya, Decrease and Conquer tidak memiliki tahap combine.
+
+\textbf{Dua Tahap:} 
+\begin{enumerate}
+    \item \textbf{Decrease:} mereduksi ukuran masalah menjadi subpersoalan yang lebih kecil, biasanya dengan mengurangi satu elemen atau membagi setengah.
+    \item \textbf{Conquer:} memproses satu subpersoalan secara rekursif hingga mencapai basis penyelesaian langsung.
+\end{enumerate}
+
+\textbf{Tiga Varian:} 
+\begin{enumerate}
+    \item \textbf{Decrease by a constant:} ukuran masalah berkurang sebesar konstanta tetap setiap iterasi (biasanya 1). Contoh: Selection Sort, Insertion Sort, pencarian sekuensial.
+    \item \textbf{Decrease by a constant factor:} ukuran masalah berkurang sebesar faktor tetap setiap iterasi (biasanya 2). Contoh: Binary Search, Fake Coin Problem.
+    \item \textbf{Decrease by a variable size:} ukuran pengurangan bervariasi tiap iterasi. Contoh: BST search, Selection Problem.
+\end{enumerate}
+
+\textbf{Fungsi:} Digunakan untuk menyelesaikan persoalan yang dapat disederhanakan secara bertahap dengan mereduksi ukuran masalah, seperti pengurutan, pencarian, dan traversal.
+
+\textbf{Kelebihan:} Lebih sederhana dari D\&C karena tidak memerlukan tahap combine, overhead rekursi lebih kecil, dan cocok untuk masalah yang solusinya dapat ditemukan dengan mereduksi satu elemen setiap langkah.
+
+\textbf{Kekurangan:} Tidak seefisien D\&C untuk masalah yang secara alami dapat diparalelkan, dan kompleksitas bisa tetap O($n^2$) apabila strategi pereduksian tidak optimal.
+
+\subsection{Selection Sort sebagai Decrease and Conquer}
+Selection Sort adalah contoh klasik varian Decrease by a Constant (k=1). Pada setiap langkah, masalah pengurutan array A[i..j] direduksi menjadi submasalah A[i+1..j] dengan cara meletakkan elemen terkecil di posisi i melalui fungsi Bagi. Tidak ada tahap combine, karena posisi A[i] sudah final setelah fungsi Bagi dijalankan.
+
+Kompleksitas waktu: T(n) = T(n-1) + (n-1) sehingga T(n) = n(n-1)/2 = O($n^2$).

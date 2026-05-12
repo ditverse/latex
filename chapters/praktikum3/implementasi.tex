@@ -1,2 +1,32 @@
 \subsection{Implementasi Nyata}
-Contoh kasus nyata praktikum 3.
+Algoritma Greedy pada masalah coin change diterapkan secara nyata dalam sistem transaksi cryptocurrency, khususnya pada proses coin selection pada dompet digital berbasis UTXO (Unspent Transaction Output).
+
+\vspace{1em}
+\textbf{[1] Penulis:} Wei, X., Wu, C., Yu, H., Luo, X., dan Huang, S. (2023)
+
+\textbf{Judul:} "A Coin Selection Strategy Based on the Greedy and Genetic Algorithm"
+
+\textbf{Publikasi:} Complex and Intelligent Systems, Vol. 9, Hal. 421-434. Springer Nature. DOI: 10.1007/s40747-022-00799-2
+
+\textbf{Intisari:} Makalah ini membahas penerapan Greedy pada proses coin selection di dompet Bitcoin berbasis UTXO. Metode greedy digunakan sebagai komponen utama untuk memilih set koin yang mendekati nilai target transaksi, kemudian dikombinasikan dengan algoritma genetika untuk meminimalkan biaya transaksi dan mengurangi akumulasi UTXO bernilai kecil (dust). Hasil eksperimen menunjukkan strategi greedy-genetika mengungguli metode greedy murni dalam efisiensi jaringan jangka panjang, meski greedy murni tetap lebih cepat untuk transaksi individual.
+
+\textbf{Link:} \url{https://link.springer.com/article/10.1007/s40747-022-00799-2}
+
+\vspace{1em}
+\textbf{Relevansi dengan Praktikum:} 
+
+Seperti halnya penukaran uang konvensional, coin selection pada Bitcoin menggunakan prinsip yang sama yaitu memilih koin dengan nilai terbesar terlebih dahulu untuk meminimalkan jumlah koin yang dipakai. Kompleksitas O(n) pada greedy murni membuatnya sangat cepat untuk transaksi real-time.
+
+\vspace{1em}
+\textbf{Kelebihan dalam konteks ini:}
+\begin{itemize}
+    \item Waktu eksekusi sangat cepat, cocok untuk sistem transaksi real-time yang membutuhkan respons instan.
+    \item Implementasi sederhana dan deterministik sehingga mudah diaudit dan diverifikasi.
+    \item Pada sistem koin kanonik (mata uang resmi maupun Bitcoin), greedy menghasilkan solusi yang optimal atau mendekati optimal.
+\end{itemize}
+
+\textbf{Kekurangan dalam konteks ini:}
+\begin{itemize}
+    \item Tidak optimal untuk sistem koin non-kanonik: greedy bisa menghasilkan lebih banyak koin dari yang seharusnya.
+    \item Tidak mempertimbangkan dampak jangka panjang seperti akumulasi dust UTXO yang memperbesar beban jaringan, sehingga perlu dikombinasikan dengan metode lain seperti algoritma genetika.
+\end{itemize}

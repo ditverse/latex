@@ -1,2 +1,24 @@
-\subsection{Definisi}
-Konten definisi praktikum 2.
+\subsection{Algoritma Brute Force}
+\textbf{Definisi:} Brute Force adalah pendekatan lempang (straightforward) untuk memecahkan suatu persoalan dengan cara yang paling langsung dan jelas (obvious way), tanpa memanfaatkan struktur khusus dari masalah yang diselesaikan.
+
+\textbf{Cara Kerja:} Setiap kemungkinan solusi dieksplorasi satu per satu secara sistematis hingga solusi yang benar ditemukan atau seluruh kemungkinan habis diperiksa.
+
+\textbf{Fungsi:} Digunakan sebagai solusi dasar (baseline) untuk masalah yang belum memiliki algoritma khusus, atau ketika ukuran masukan cukup kecil sehingga kompleksitas tinggi masih dapat ditoleransi.
+
+\textbf{Kelebihan:} Mudah dipahami dan diimplementasikan, selalu menghasilkan solusi yang benar apabila solusi memang ada, dan tidak memerlukan analisis matematis yang rumit.
+
+\textbf{Kekurangan:} Kompleksitas waktu umumnya tinggi (O($n^2$) atau lebih), tidak efisien untuk data besar, dan tidak memanfaatkan struktur masalah untuk mempercepat pencarian.
+
+\subsection{Perpangkatan}
+Menghitung $a^n$ ($a > 0$, $n$ bilangan bulat tak-negatif) dengan cara mengalikan 1 dengan $a$ sebanyak $n$ kali secara berurutan. Ciri Brute Force: tidak menggunakan teknik fast exponentiation atau divide and conquer, melainkan perkalian berulang satu per satu.
+
+\subsection{Pencarian Elemen Terbesar}
+Mencari elemen terbesar dari array berisi $n$ bilangan bulat dengan membandingkan setiap elemen dengan nilai maksimum sementara. Ciri Brute Force: setiap elemen diperiksa satu per satu tanpa pengecualian. Kompleksitas T(n) = n - 1 perbandingan, sehingga O(n).
+
+\subsection{Perkalian Dua Matriks}
+Menghitung hasil perkalian dua matriks A dan B berukuran $n \times n$ dengan menghitung setiap elemen C[i][j] satu per satu melalui tiga perulangan bersarang (i, j, k). Ciri Brute Force: tidak ada optimasi seperti Strassen. Kompleksitas O($n^3$).
+
+\subsection{Uji Bilangan Prima}
+\textbf{Definisi:} Bilangan prima adalah bilangan yang hanya habis dibagi oleh 1 dan dirinya sendiri.
+
+Ciri Brute Force: membagi x dengan setiap bilangan dari 2 sampai sqrt(x) satu per satu. Jika tidak ada yang habis membagi, maka x adalah bilangan prima. Kompleksitas worst case O($\sqrt{n}$).

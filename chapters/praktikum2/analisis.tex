@@ -1,2 +1,156 @@
-\subsection{Analisis Praktikum}
-Analisis langkah dan post test praktikum 2.
+\subsection{Langkah Praktikum}
+
+\textbf{(a) Pencarian Elemen Terbesar}
+
+\subsubsection*{Flowchart}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{figures/praktikum2/flowchart_pencarian_terbesar.png}
+    \caption{Flowchart Algoritma Pencarian Elemen Terbesar}
+\end{figure}
+
+\subsubsection*{Source Code Python}
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize, frame=single, backgroundcolor=\color{white}, numbers=none, keywordstyle=\color{black}, commentstyle=\color{black}, stringstyle=\color{black}, breaklines=true]
+def cari_elemen_terbesar(arr):
+    """
+    Mencari elemen terbesar dalam array menggunakan Brute Force.
+    Strategi: bandingkan setiap elemen dengan nilai maksimum sementara.
+    Kompleksitas: T(n) = n - 1 perbandingan -> O(n)
+    """
+    n = len(arr)
+    maks = arr[0] # asumsikan elemen pertama adalah terbesar
+    idx_maks = 0
+    print(f"Array : {arr}")
+    print(f"Inisialisasi : maks = {maks} (indeks 0)")
+    print("-" * 55)
+    for k in range(1, n):
+        # bandingkan setiap elemen dengan nilai maks saat ini
+        if arr[k] > maks:
+            maks = arr[k]
+            idx_maks = k
+            status = f"UPDATE maks = {maks}"
+        else:
+            status = "tidak ada perubahan"
+        print(f"k={k} | A[k]={arr[k]:4d} | maks={maks:4d} | {status}")
+    print("-" * 55)
+    print(f"Elemen terbesar : {maks} (indeks {idx_maks})")
+    print(f"Jumlah perbandingan : {n - 1} --> T(n) = n - 1 = O(n)")
+    return maks
+
+# ============================================================
+# Main Program
+# ============================================================
+if __name__ == "__main__":
+    # Kasus Uji 1: Array acak
+    data1 = [3, 7, 1, 9, 4, 6, 2]
+    print("=" * 55)
+    print(" PENCARIAN ELEMEN TERBESAR - Kasus Uji 1 (acak)")
+    print("=" * 55)
+    cari_elemen_terbesar(data1)
+    
+    # Kasus Uji 2: Terbesar di awal (best case perbaruan)
+    data2 = [15, 3, 8, 1, 10]
+    print("\n" + "=" * 55)
+    print(" PENCARIAN ELEMEN TERBESAR - Kasus Uji 2 (terbesar di awal)")
+    print("=" * 55)
+    cari_elemen_terbesar(data2)
+    
+    # Kasus Uji 3: Terbesar di akhir (worst case perbaruan)
+    data3 = [2, 5, 8, 11, 20]
+    print("\n" + "=" * 55)
+    print(" PENCARIAN ELEMEN TERBESAR - Kasus Uji 3 (terbesar di akhir)")
+    print("=" * 55)
+    cari_elemen_terbesar(data3)
+\end{lstlisting}
+
+\subsubsection*{Analisis Output}
+Program diuji dengan tiga kasus:
+\begin{itemize}
+    \item \textbf{Kasus 1 (acak)} Array [3, 7, 1, 9, 4, 6, 2]: elemen terbesar = 9 ditemukan pada indeks 3. Jumlah perbandingan = 6 (n-1 = 7-1). Terjadi dua kali UPDATE maks, yaitu saat k=1 (nilai 7) dan k=3 (nilai 9).
+    \item \textbf{Kasus 2 (terbesar di awal)} Array [15, 3, 8, 1, 10]: elemen terbesar = 15 langsung ditemukan di inisialisasi. Tidak ada UPDATE maks selama iterasi. Jumlah perbandingan tetap = 4 (n-1).
+    \item \textbf{Kasus 3 (terbesar di akhir)} Array [2, 5, 8, 11, 20]: maks diperbarui di setiap iterasi karena data terurut menaik. Jumlah perbandingan = 4 (n-1).
+\end{itemize}
+Ketiga kasus menunjukkan bahwa jumlah perbandingan selalu n-1, tidak bergantung pada posisi elemen terbesar. Ini membuktikan T(n) = n - 1 sehingga O(n).
+
+\vspace{1.5em}
+\textbf{(b) Uji Bilangan Prima}
+
+\subsubsection*{Flowchart}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{figures/praktikum2/flowchart_uji_prima.png}
+    \caption{Flowchart Algoritma Uji Bilangan Prima}
+\end{figure}
+
+\subsubsection*{Source Code Python}
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize, frame=single, backgroundcolor=\color{white}, numbers=none, keywordstyle=\color{black}, commentstyle=\color{black}, stringstyle=\color{black}, breaklines=true]
+import math
+
+def is_prima(x):
+    """
+    Menguji apakah x adalah bilangan prima menggunakan Brute Force.
+    Strategi: bagi x dengan setiap bilangan dari 2 sampai sqrt(x).
+    Jika tidak ada yang habis membagi, maka x adalah bilangan prima.
+    Kompleksitas:
+    Worst case : T(n) = sqrt(n) - 1 --> O(sqrt(n))
+    Best case : T(n) = 1 --> O(1) (genap atau < 2)
+    """
+    if x < 2:
+        return False # 1 dan bilangan negatif bukan prima
+    if x == 2:
+        return True # 2 adalah prima, kasus khusus
+    if x % 2 == 0:
+        return False # bilangan genap selain 2 bukan prima
+        
+    y = int(math.sqrt(x)) # batas atas pembagi
+    k = 3 # mulai dari 3, langkah 2 (hanya bilangan ganjil)
+    
+    while k <= y:
+        if x % k == 0:
+            return False # ditemukan pembagi, bukan prima
+        k += 2
+        
+    return True # tidak ada pembagi ditemukan, x adalah prima
+\end{lstlisting}
+
+\subsubsection*{Analisis Output}
+Program mencetak semua bilangan prima dari 1 hingga 50: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47] sebanyak 15 bilangan.
+
+Pengujian verbose pada beberapa angka:
+\begin{itemize}
+    \item \textbf{x = 17 (prima):} sqrt(17) = 4, hanya 1 langkah (17 \% 3 = 2), langsung dinyatakan prima.
+    \item \textbf{x = 18 (bukan prima):} langsung dieliminasi di pengecekan bilangan genap tanpa masuk loop.
+    \item \textbf{x = 37 (prima):} sqrt(37) = 6, 2 langkah (\% 3 dan \% 5), dinyatakan prima.
+    \item \textbf{x = 49 (bukan prima):} sqrt(49) = 7, pada langkah ke-3 ditemukan 49 \% 7 = 0, bukan prima.
+\end{itemize}
+
+\subsection{Post Test}
+
+\textbf{Jawaban 1: Kompilasi dan eksekusi program}\\
+Program dijalankan menggunakan Python 3 dan menghasilkan output yang sesuai dengan pseudocode modul. Pencarian elemen terbesar menghasilkan hasil yang konsisten dengan T(n) = n-1 perbandingan di setiap kasus uji, sedangkan uji bilangan prima berhasil mengidentifikasi 15 bilangan prima dalam rentang 1 hingga 50 dengan benar.
+
+\textbf{Jawaban 2: Implementasi Python pencarian elemen terbesar}\\
+Implementasi Python dari pseudocode modul terdapat pada file pencarian\_terbesar.py dengan fungsi cari\_elemen\_terbesar(arr). Kode mengonversi prosedur CariElemenTerbesar dari pseudocode ke Python 3 dengan penambahan pelacakan jumlah perbandingan dan tampilan status tiap iterasi (lihat source code pada 3.1a).
+
+\textbf{Jawaban 3: Kompleksitas algoritma uji bilangan prima}\\
+Analisis kompleksitas dilakukan berdasarkan jumlah iterasi pembagian:
+\begin{itemize}
+    \item \textbf{Best Case O(1):} Terjadi ketika x < 2, x = 2, atau x adalah bilangan genap (x \% 2 = 0). Tidak masuk loop, hanya 1 operasi pengecekan.
+    \item \textbf{Worst Case O($\sqrt{n}$):} Terjadi ketika x adalah bilangan prima. Loop berjalan dari k=3 hingga k=sqrt(x) dengan langkah 2. Jumlah iterasi maksimum = (sqrt(x) - 3)/2 + 1, yang bersifat O($\sqrt{n}$).
+\end{itemize}
+
+\begin{table}[H]
+    \centering
+    \caption{Kompleksitas Operasi Uji Bilangan Prima}
+    \label{tab:kompleksitas_prima}
+    \begin{tabular}{llll}
+    \toprule
+    \textbf{Bilangan x} & \textbf{sqrt(x)} & \textbf{Iterasi Maksimum} & \textbf{Hasil} \\ \midrule
+    17 & 4 & 1 & Prima \\
+    37 & 6 & 2 & Prima \\
+    97 & 9 & 4 & Prima \\
+    49 & 7 & 3 & Bukan Prima (49 \% 7 = 0) \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+Karena iterasi dibatasi oleh sqrt(x), maka kompleksitas waktu uji bilangan prima adalah T(n) = O($\sqrt{n}$). Ini jauh lebih efisien dibandingkan pendekatan Brute Force murni yang mencoba semua pembagi dari 2 hingga x-1 dengan kompleksitas O(n).

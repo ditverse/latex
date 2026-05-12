@@ -1,2 +1,23 @@
 \subsection{Implementasi Nyata}
-Contoh kasus nyata praktikum 2.
+Algoritma Brute Force seperti pencarian elemen terbesar dan uji bilangan prima digunakan secara nyata dalam berbagai bidang, mulai dari kriptografi hingga sistem keamanan jaringan. Jurnal berikut mendukung relevansinya.
+
+\vspace{1em}
+\textbf{[1] Penulis:} Baur, K. et al. (2023)\\
+\textbf{Judul:} "Comparing and Reviewing Modern Primality Tests"\\
+\textbf{Publikasi:} ResearchGate, 2023. Tersedia di: \url{https://www.researchgate.net/publication/369685477}\\
+\textbf{Intisari:} Makalah ini membandingkan berbagai algoritma uji bilangan prima mulai dari Brute Force trial division (O($\sqrt{n}$)) hingga algoritma modern seperti Miller-Rabin dan AKS. Brute Force digunakan sebagai baseline referensi karena kesederhanaan dan ketepatannya. Hasilnya menunjukkan bahwa Brute Force masih relevan untuk bilangan kecil, namun tidak skalabel untuk bilangan kriptografis berukuran besar (ratusan digit).\\
+\textbf{Link:} \url{https://www.researchgate.net/publication/369685477_Comparing_and_Reviewing_Modern_Primality_Tests}
+
+\vspace{1em}
+\textbf{Kelebihan dalam konteks nyata:}
+\begin{itemize}
+    \item Implementasi sederhana dan mudah diverifikasi kebenarannya.
+    \item Cocok sebagai baseline perbandingan sebelum menggunakan algoritma yang lebih kompleks.
+    \item Uji bilangan prima O($\sqrt{n}$) sudah cukup efisien untuk kebutuhan pembuatan kunci pada sistem kriptografi skala kecil.
+\end{itemize}
+
+\textbf{Kekurangan dalam konteks nyata:}
+\begin{itemize}
+    \item Tidak skalabel: untuk bilangan prima kriptografis (ratusan digit), kompleksitas O($\sqrt{n}$) masih terlalu lambat dan perlu diganti algoritma probabilistik seperti Miller-Rabin.
+    \item Pencarian elemen terbesar O(n) memang sudah optimal untuk kasus linear, namun tidak berlaku jika data terstruktur (misal sudah terurut) yang memungkinkan pencarian lebih cepat.
+\end{itemize}

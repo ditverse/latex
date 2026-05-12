@@ -1,2 +1,24 @@
-\subsection{Definisi}
-Konten definisi praktikum 4.
+\subsection{Algoritma Divide and Conquer}
+\textbf{Definisi:} Divide and Conquer adalah paradigma perancangan algoritma yang memecah masalah berukuran n menjadi beberapa upa-masalah yang lebih kecil, menyelesaikan setiap upa-masalah secara rekursif, lalu menggabungkan solusinya menjadi solusi masalah semula.
+
+\textbf{Tiga Tahap:} 
+\begin{enumerate}
+    \item \textbf{Divide:} membagi masalah menjadi beberapa upa-masalah dengan ukuran lebih kecil dan karakteristik yang sama.
+    \item \textbf{Conquer:} menyelesaikan setiap upa-masalah secara rekursif hingga mencapai basis (ukuran cukup kecil untuk diselesaikan langsung).
+    \item \textbf{Combine:} menggabungkan solusi upa-masalah menjadi solusi masalah semula.
+\end{enumerate}
+
+\textbf{Fungsi:} Digunakan untuk menyelesaikan persoalan yang dapat dibagi secara alami menjadi sub-masalah serupa, seperti pengurutan, pencarian minimum-maksimum, perkalian matriks, dan fast Fourier transform.
+
+\textbf{Kelebihan:} Kompleksitas lebih efisien dibanding pendekatan iteratif biasa (contoh: Merge Sort O(n log n) vs O($n^2$)), paralel secara alami karena upa-masalah independen, dan solusinya elegan secara rekursif.
+
+\textbf{Kekurangan:} Overhead rekursi (stack calls) untuk masalah berukuran kecil, penggunaan memori tambahan pada tahap combine (contoh: Merge Sort membutuhkan O(n) memori tambahan).
+
+\subsection{MinMaks Divide and Conquer}
+Mencari nilai minimum dan maksimum sekaligus pada tabel berisi n elemen dengan membagi tabel menjadi dua bagian di titik tengah, mencari MinMaks setiap bagian secara rekursif, lalu membandingkan hasil keduanya. Kompleksitas: T(n) = O(n).
+
+\subsection{Merge Sort}
+Algoritma pengurutan berbasis D\&C dengan tiga langkah: (a) Divide: bagi tabel menjadi dua bagian berukuran n/2, (b) Conquer: urutkan tiap bagian secara rekursif, (c) Merge: gabungkan dua bagian terurut menjadi satu tabel terurut. Kompleksitas: T(n) = O(n log n) di semua kasus. Bersifat stabil.
+
+\subsection{Quick Sort dan Partisi}
+Algoritma pengurutan D\&C dengan pendekatan hard split/easy join. Tabel dipartisi menggunakan elemen pivot sehingga elemen di kiri pivot lebih kecil dan di kanan lebih besar, kemudian setiap bagian diurutkan secara rekursif tanpa tahap combine eksplisit. Kompleksitas: average O(n log n), worst case O($n^2$) apabila pivot selalu ekstrem. Tidak stabil.

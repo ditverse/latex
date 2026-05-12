@@ -1,2 +1,28 @@
-\subsection{Definisi}
-Konten definisi praktikum 1.
+\subsection{Kompleksitas Algoritma}
+Kompleksitas algoritma adalah ukuran efisiensi suatu algoritma dilihat dari sumber daya yang dibutuhkan, yaitu waktu dan memori. Kompleksitas Waktu T(n) mengukur jumlah operasi sebagai fungsi ukuran masukan n, sedangkan Kompleksitas Ruang S(n) mengukur penggunaan memori. Analisis dilakukan pada tiga kondisi: best case (kondisi terbaik), worst case (kondisi terburuk), dan average case (kondisi rata-rata).
+
+\subsection{Notasi Big-O}
+Notasi Big-O menyatakan batas atas pertumbuhan kompleksitas suatu algoritma, mengabaikan konstanta dan suku tidak dominan. Hierarki kompleksitas dari yang paling efisien:
+\[ O(1) < O(\log n) < O(n) < O(n \log n) < O(n^2) < O(2^n) < O(n!) \]
+
+\subsection{Selection Sort}
+\textbf{Definisi:} Algoritma pengurutan yang bekerja dengan mencari elemen terkecil dari bagian array yang belum terurut, lalu menukarnya ke posisi yang tepat.
+
+\textbf{Cara Kerja:} Setiap pass ke-i mencari elemen minimum dari A[i..n-1] dan menukarnya dengan A[i]. Setelah pass ke-i, elemen A[0..i] sudah pada posisi akhirnya.
+
+\textbf{Fungsi:} Mengurutkan array secara ascending dengan pendekatan pemilihan elemen minimum.
+
+\textbf{Kelebihan:} Sederhana, jumlah pertukaran minimal (maksimal n-1 kali), dan in-place.
+
+\textbf{Kekurangan:} Kompleksitas $O(n^2)$ di semua kasus, tidak stabil, dan tidak adaptif.
+
+\subsection{Insertion Sort}
+\textbf{Definisi:} Algoritma pengurutan yang menyisipkan setiap elemen ke posisi yang tepat dalam bagian array yang sudah terurut, mirip cara menyortir kartu.
+
+\textbf{Cara Kerja:} Mulai dari indeks i=1, setiap elemen key=A[i] dibandingkan dengan elemen di kirinya. Elemen yang lebih besar digeser ke kanan hingga posisi yang tepat ditemukan.
+
+\textbf{Fungsi:} Mengurutkan array secara ascending dengan pendekatan penyisipan elemen.
+
+\textbf{Kelebihan:} Efisien untuk data kecil atau hampir terurut (best case $O(n)$), stabil, adaptif, dan in-place.
+
+\textbf{Kekurangan:} Worst case $O(n^2)$ dan banyak operasi pergeseran pada data acak berukuran besar.

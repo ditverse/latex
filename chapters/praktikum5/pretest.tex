@@ -1,2 +1,30 @@
-\subsection{Pre Test}
-Jawaban pre test praktikum 5.
+\subsection*{Pertanyaan 1: Apakah karakteristik dari algoritma Decrease and Conquer?}
+
+\textbf{Jawaban:} Karakteristik utama Decrease and Conquer adalah: (1) masalah berukuran n direduksi menjadi satu submasalah yang lebih kecil, (2) hanya satu submasalah yang diproses secara rekursif, (3) tidak ada tahap combine karena solusi submasalah langsung menjadi bagian dari solusi masalah asli, dan (4) proses pereduksian berlangsung secara bertahap hingga mencapai basis kasus yang dapat diselesaikan langsung.
+
+\subsection*{Pertanyaan 2: Jelaskan perbedaan algoritma Decrease and Conquer dengan Divide and Conquer!}
+
+\begin{table}[H]
+    \centering
+    \caption{Perbedaan Decrease and Conquer vs Divide and Conquer}
+    \begin{tabular}{p{4.5cm}p{5cm}p{5cm}}
+    \toprule
+    \textbf{Aspek} & \textbf{Decrease and Conquer} & \textbf{Divide and Conquer} \\ \midrule
+    Pembagian submasalah & Menjadi submasalah lebih kecil & Menjadi dua atau lebih submasalah \\
+    Jumlah submasalah diproses & Hanya satu submasalah & Semua submasalah diproses \\
+    Tahap Combine & Tidak ada & Ada, hasil digabungkan \\
+    Ukuran pereduksian & Constant, factor, atau variable & Biasanya n/2 atau n/k \\
+    Contoh algoritma & Selection Sort, Binary Search & Merge Sort, Quick Sort, MinMaks \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection*{Pertanyaan 3: Sebutkan algoritma selain Selection Sort yang menggunakan teknik Decrease and Conquer!}
+
+\textbf{Jawaban:} 
+\begin{itemize}
+    \item \textbf{Insertion Sort} (decrease by constant 1): setiap langkah menyisipkan satu elemen ke subarray yang sudah terurut.
+    \item \textbf{Binary Search} (decrease by constant factor 2): setiap langkah mengeliminasi setengah ruang pencarian berdasarkan perbandingan dengan elemen tengah.
+    \item \textbf{Topological Sort} (decrease by constant 1): setiap langkah memilih satu simpul tanpa dependensi masuk dan menghapusnya dari graf.
+    \item \textbf{BST Search} (decrease by variable size): setiap langkah memilih subtree kiri atau kanan berdasarkan perbandingan nilai.
+    \item \textbf{Euclid GCD} (decrease by variable size): setiap langkah mengganti pasangan (m, n) dengan (n, m mod n) hingga remainder = 0.
+\end{itemize}

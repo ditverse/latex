@@ -26,6 +26,7 @@
 \usepackage{ragged2e}
 \usepackage{float}
 \usepackage{listings}
+\usepackage{xurl}
 \usepackage{xcolor}
 
 % Configuration for listings (Python)
@@ -41,7 +42,7 @@
     keywordstyle=\color{magenta},
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
+    basicstyle=\ttfamily\scriptsize,
     breakatwhitespace=false,         
     breaklines=true,                 
     captionpos=b,                    
@@ -63,9 +64,9 @@
 }
 
 % Title Formatting
-\titleformat{\section}
+\titleformat{\section}[display]
     {\normalfont\fontsize{14}{17}\bfseries\centering}
-    {PRAKTIKUM \thesection \\}{0pt}{}
+    {PRAKTIKUM \thesection}{0pt}{}
     
 \titleformat{\subsection}
     {\normalfont\fontsize{12}{14}\bfseries}{\thesubsection}{1em}{}
@@ -165,16 +166,15 @@
 
 % Bibliography Setup
 \usepackage[
-    backend=bibtex,
-    style=authoryear,
-    sorting=nyt,
+    backend=biber,
+    style=ieee,
+    sorting=none,
     maxbibnames=99,
     dashed=false,
     url=false,
     doi=true,
 ]{biblatex}
 \addbibresource{references.bib}
-\addbibresource{include.bib}
 
 % TOC, LOT, LOF Centering
 \renewcommand{\cfttoctitlefont}{\hfill\fontsize{14}{17}\bfseries}
@@ -280,10 +280,10 @@
 \clearpage
 
 % DAFTAR PUSTAKA
-\section*{DAFTAR PUSTAKA}
 \phantomsection
 \addcontentsline{toc}{section}{DAFTAR PUSTAKA}
-\printbibliography[heading=none]
+\nocite{*}
+\printbibliography[title={DAFTAR PUSTAKA}]
 \clearpage
 
 \end{document}

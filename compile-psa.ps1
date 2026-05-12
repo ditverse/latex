@@ -23,9 +23,9 @@ pdflatex -interaction=nonstopmode -aux-directory=$OutDir "$TexFile.tex" | Out-Nu
 if ($LASTEXITCODE -eq 0) { Write-Host "      OK Berhasil" -ForegroundColor Green }
 else { Write-Host "      ! Selesai dengan warning" -ForegroundColor Yellow }
 
-# Menjalankan BibTeX
-Write-Host "[2/4] Menjalankan bibtex..." -ForegroundColor Yellow
-bibtex "$OutDir/$TexFile" | Out-Null
+# Menjalankan Biber
+Write-Host "[2/4] Menjalankan biber..." -ForegroundColor Yellow
+biber --output-directory=$OutDir $TexFile | Out-Null
 if ($LASTEXITCODE -eq 0) { Write-Host "      OK Berhasil" -ForegroundColor Green }
 else { Write-Host "      ! Selesai dengan warning" -ForegroundColor Yellow }
 

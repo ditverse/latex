@@ -1,2 +1,27 @@
 \subsection{Implementasi Nyata}
-Contoh kasus nyata praktikum 5.
+Pendekatan Decrease and Conquer pada Selection Sort telah dikaji secara akademis untuk penerapan paralel pada sistem komputasi modern. Jurnal berikut mendukung relevansinya.
+
+\vspace{1em}
+\textbf{[1] Penulis:} Ganapathi, P. dan Chowdhury, R. (2022)
+
+\textbf{Judul:} "Parallel Divide-and-Conquer Algorithms for Bubble Sort, Selection Sort and Insertion Sort"
+
+\textbf{Publikasi:} The Computer Journal, Vol. 65, No. 10, Hal. 2709-2719. Oxford University Press. DOI: 10.1093/comjnl/bxab107
+
+\textbf{Intisari:} Makalah ini menyajikan algoritma rekursif berbasis Decrease and Conquer untuk Selection Sort, Bubble Sort, dan Insertion Sort yang diparalelkan menggunakan Intel Cilk Plus dengan 32 thread. Hasil eksperimen menunjukkan Selection Sort rekursif D\&C mencapai speedup hingga ratusan kali dibanding versi sekuensialnya pada input terurut terbalik, membuktikan bahwa struktur D\&C secara inheren mendukung paralelisme meskipun kompleksitas asimtotiknya tetap O($n^2$).
+
+\textbf{Link:} \url{https://academic.oup.com/comjnl/article/65/10/2709/6334046}
+
+\vspace{1em}
+\textbf{Kelebihan dalam konteks nyata:}
+\begin{itemize}
+    \item Struktur rekursif Decrease and Conquer secara alami mendukung paralelisasi, memungkinkan speedup signifikan pada sistem multi-core untuk data berukuran sedang.
+    \item Implementasi rekursif lebih mudah dibuktikan kebenarannya secara formal dibanding versi iteratif, penting dalam sistem kritis seperti avionik atau medis.
+    \item Cocok untuk dataset kecil hingga menengah pada embedded system yang memerlukan algoritma sederhana dengan footprint memori minimal.
+\end{itemize}
+
+\textbf{Kekurangan dalam konteks nyata:}
+\begin{itemize}
+    \item Kompleksitas O($n^2$) tetap tidak berubah meskipun direkursifkan, sehingga tidak disarankan untuk dataset besar dibanding Merge Sort atau Quick Sort.
+    \item Overhead pemanggilan fungsi rekursif membutuhkan stack memori tambahan, yang perlu diperhatikan pada sistem dengan memori terbatas.
+\end{itemize}

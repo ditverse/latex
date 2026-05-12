@@ -1,2 +1,19 @@
-\subsection{Definisi}
-Konten definisi praktikum 3.
+\subsection{Algoritma Greedy}
+\textbf{Definisi:} Algoritma Greedy adalah metode yang paling populer untuk memecahkan persoalan optimasi. Prinsipnya adalah "take what you can get now" yaitu pada setiap langkah selalu dipilih keputusan terbaik secara lokal dengan harapan menghasilkan solusi global yang optimal.
+
+\textbf{Cara Kerja:} Solusi dibangun langkah per langkah (step by step). Pada setiap langkah, dari banyak pilihan yang tersedia, dipilih satu pilihan terbaik berdasarkan kriteria tertentu tanpa mempertimbangkan konsekuensi di langkah berikutnya.
+
+\textbf{Fungsi:} Digunakan untuk menyelesaikan persoalan optimasi minimasi maupun maksimasi, seperti penukaran uang, penjadwalan, Huffman encoding, dan shortest path.
+
+\textbf{Kelebihan:} Implementasi mudah, efisien dalam waktu eksekusi, dan menghasilkan solusi optimal pada sistem koin kanonik (seperti sistem mata uang nyata).
+
+\textbf{Kekurangan:} Tidak selalu menghasilkan solusi global yang optimal untuk semua kasus. Pada sistem koin non-kanonik, solusi greedy bisa lebih banyak koin dibanding solusi optimal yang didapat melalui dynamic programming.
+
+\subsection{Masalah Penukaran Uang (Coin Exchange)}
+Diberikan nilai uang A yang ingin ditukar dan himpunan koin C = \{d1, d2, ..., dn\}. Tujuannya adalah menemukan himpunan koin S sehingga total nilai S = A dengan jumlah koin seminimum mungkin.
+
+\textbf{Fungsi objektif:} Minimisasi F = $\Sigma$ xi (jumlah koin yang digunakan)
+
+\textbf{Kendala:} $\Sigma$ di $\times$ xi = A (total nilai koin harus tepat sama dengan A)
+
+\textbf{Strategi Greedy:} Pada setiap langkah, pilih koin dengan nilai terbesar dari himpunan koin yang tersisa selama masih tidak melebihi sisa nilai yang perlu ditukar.
