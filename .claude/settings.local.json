@@ -3,7 +3,11 @@
     "allow": [
       "Bash(pdflatex -interaction=nonstopmode proposal_pkm.tex)",
       "Bash(bibtex proposal_pkm)",
-      "Bash(grep -rn \"\\\\\\\\\\\\\\\\ref{\" chapters/ lampiran/ proposal_pkm.tex)"
+      "Bash(grep -rn \"\\\\\\\\\\\\\\\\ref{\" chapters/ lampiran/ proposal_pkm.tex)",
+      "Bash(pandoc --version)",
+      "PowerShell(pandoc *)",
+      "PowerShell(winget install *)",
+      "PowerShell(Get-Item *)"
     ]
   }
 }
