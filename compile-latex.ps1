@@ -1,89 +1,92 @@
-# Script PowerShell untuk kompilasi dokumen LaTeX
-# File: compile-latex.ps1
-# Deskripsi: Mengkompilasi Template-Ujian-Kualifikasi-DJN.tex secara otomatis
+param(
+    [switch]$CleanAux
+)
 
-# Set nama file (tanpa ekstensi)
+# Script PowerShell untuk kompilasi dokumen LaTeX.
+# Sumber utama tetap bukped.tex, output PDF menggunakan nama laporan_litma.pdf.
+
 $TexFile = "bukped"
+$JobName = "laporan_litma"
 
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host "  Kompilasi LaTeX Document" -ForegroundColor Cyan
-Write-Host "  File: $TexFile.tex" -ForegroundColor Cyan
+Write-Host "  Source : $TexFile.tex" -ForegroundColor Cyan
+Write-Host "  Output : $JobName.pdf" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 
-# Kompilasi pertama
-Write-Host "[1/4] Menjalankan pdflatex (kompilasi pertama)..." -ForegroundColor Yellow
-pdflatex -interaction=nonstopmode "$TexFile.tex" | Out-Null
-if ($LASTEXITCODE -eq 0) {
-    Write-Host "      OK Berhasil" -ForegroundColor Green
-}
-else {
-    Write-Host "      ! Selesai dengan warning" -ForegroundColor Yellow
+function Invoke-LatexStep {
+    param(
+        [string]$Label,
+        [scriptblock]$Command
+    )
+
+    Write-Host $Label -ForegroundColor Yellow
+    & $Command | Out-Null
+
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "      OK Berhasil" -ForegroundColor Green
+    }
+    else {
+        Write-Host "      ! Selesai dengan warning/error, cek $JobName.log bila PDF tidak sesuai" -ForegroundColor Yellow
+    }
 }
 
-# Menjalankan BibTeX
-Write-Host "[2/4] Menjalankan bibtex..." -ForegroundColor Yellow
-bibtex "$TexFile" | Out-Null
-if ($LASTEXITCODE -eq 0) {
-    Write-Host "      OK Berhasil" -ForegroundColor Green
-}
-else {
-    Write-Host "      ! Selesai dengan warning" -ForegroundColor Yellow
+Invoke-LatexStep "[1/4] Menjalankan pdflatex (kompilasi pertama)..." {
+    pdflatex "-jobname=$JobName" -interaction=nonstopmode "$TexFile.tex"
 }
 
-# Kompilasi kedua
-Write-Host "[3/4] Menjalankan pdflatex (kompilasi kedua)..." -ForegroundColor Yellow
-pdflatex -interaction=nonstopmode "$TexFile.tex" | Out-Null
-if ($LASTEXITCODE -eq 0) {
-    Write-Host "      OK Berhasil" -ForegroundColor Green
-}
-else {
-    Write-Host "      ! Selesai dengan warning" -ForegroundColor Yellow
+Invoke-LatexStep "[2/4] Menjalankan bibtex..." {
+    bibtex "$JobName"
 }
 
-# Kompilasi ketiga (final)
-Write-Host "[4/4] Menjalankan pdflatex (kompilasi ketiga)..." -ForegroundColor Yellow
-pdflatex -interaction=nonstopmode "$TexFile.tex" | Out-Null
-if ($LASTEXITCODE -eq 0) {
-    Write-Host "      OK Berhasil" -ForegroundColor Green
+Invoke-LatexStep "[3/4] Menjalankan pdflatex (kompilasi kedua)..." {
+    pdflatex "-jobname=$JobName" -interaction=nonstopmode "$TexFile.tex"
 }
-else {
-    Write-Host "      ! Selesai dengan warning" -ForegroundColor Yellow
+
+Invoke-LatexStep "[4/4] Menjalankan pdflatex (kompilasi ketiga)..." {
+    pdflatex "-jobname=$JobName" -interaction=nonstopmode "$TexFile.tex"
 }
 
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Cyan
 
-# Cek apakah PDF berhasil dibuat
-if (Test-Path "$TexFile.pdf") {
-    $pdfInfo = Get-Item "$TexFile.pdf"
+if (Test-Path "$JobName.pdf") {
+    $pdfInfo = Get-Item "$JobName.pdf"
     Write-Host "OK Kompilasi selesai!" -ForegroundColor Green
     Write-Host "  File: $($pdfInfo.Name)" -ForegroundColor White
     Write-Host "  Ukuran: $([math]::Round($pdfInfo.Length/1KB, 2)) KB" -ForegroundColor White
     Write-Host "  Terakhir diupdate: $($pdfInfo.LastWriteTime)" -ForegroundColor White
-    
-    # Bersihkan file auxiliary (opsional)
-    Write-Host ""
-    $cleanup = Read-Host "Hapus file auxiliary? y/n"
-    if ($cleanup -eq 'y' -or $cleanup -eq 'Y') {
-        Remove-Item "$TexFile.aux" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.log" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.out" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.toc" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.lot" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.lof" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.equ" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.bbl" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.blg" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.bcf" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile.run.xml" -ErrorAction SilentlyContinue
-        Remove-Item "$TexFile-blx.bib" -ErrorAction SilentlyContinue
+
+    if ($CleanAux) {
+        $auxFiles = @(
+            "$JobName.aux",
+            "$JobName.log",
+            "$JobName.out",
+            "$JobName.toc",
+            "$JobName.lot",
+            "$JobName.lof",
+            "$JobName.equ",
+            "$JobName.bbl",
+            "$JobName.blg",
+            "$JobName.bcf",
+            "$JobName.run.xml",
+            "$JobName-blx.bib"
+        )
+
+        foreach ($file in $auxFiles) {
+            Remove-Item -LiteralPath $file -ErrorAction SilentlyContinue
+        }
+
         Write-Host "OK File auxiliary telah dihapus" -ForegroundColor Green
+    }
+    else {
+        Write-Host "  File auxiliary dipertahankan. Gunakan -CleanAux untuk menghapusnya." -ForegroundColor White
     }
 }
 else {
     Write-Host "X Kompilasi gagal! PDF tidak ditemukan." -ForegroundColor Red
-    Write-Host "  Cek file $TexFile.log untuk detail error." -ForegroundColor Yellow
+    Write-Host "  Cek file $JobName.log untuk detail error." -ForegroundColor Yellow
 }
 
 Write-Host "========================================" -ForegroundColor Cyan
