@@ -1,16 +1,15 @@
-% Template LaTeX untuk Ujian Kualifikasi
-% Program Studi Doktor Informatika
-% Universitas Telkom
+% Template LaTeX untuk laporan akademik
+% Program Studi D4 Teknik Informatika
+% Universitas Logistik dan Bisnis Internasional
 
-% Document Class
 \documentclass[12pt,a4paper]{article}
 
 % Packages
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{mathptmx} % Times New Roman
-\usepackage{courier}  % Courier for monospace
-\usepackage{helvet}   % Helvetica for sans-serif
+\usepackage{mathptmx}
+\usepackage{courier}
+\usepackage{helvet}
 \usepackage{amsmath}
 \usepackage[english,indonesian]{babel}
 \usepackage{geometry}
@@ -22,12 +21,12 @@
 \usepackage{array}
 \usepackage[format=hang,font=footnotesize,labelfont=bf]{caption}
 \usepackage{enumitem}
-\usepackage{parskip}
+\usepackage{indentfirst}
 \usepackage{fancyhdr}
 \usepackage{tocloft}
 \usepackage{tabularx}
 \usepackage{longtable}
-\usepackage{ragged2e}  % For better text justification in bibliography
+\usepackage{ragged2e}
 
 % Page Setup
 \geometry{
@@ -40,15 +39,17 @@
 % Title Formatting
 \titleformat{\section}
     {\normalfont\fontsize{16}{19}\bfseries\centering}{\thesection}{1em}{}
-    
+
 \titleformat{\subsection}
     {\normalfont\fontsize{12}{14}\bfseries}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-    {\normalfont\fontsize{12}{14}\normalfont}{\thesubsubsection}{1em}{}
+    {\normalfont\fontsize{12}{14}\bfseries}{\thesubsubsection}{1em}{}
 
 % Spacing
 \onehalfspacing
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0pt}
 
 % Header/Footer
 \pagestyle{fancy}
@@ -88,249 +89,179 @@
 \renewcommand{\cftequtitlefont}{\hfill\fontsize{16}{19}\selectfont\bfseries}
 \renewcommand{\cftafterequtitle}{\hfill}
 \setlength{\cftmyequationsindent}{0pt}
-
-% Redefine \listofequations to use the custom list
 \newcommand{\listofequations}{\listofmyequations}
 
-% Subsection numbering format
+% Numbering format
 \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
 
-% Custom Commands
-\newcommand{\myTitle}[1]{\def\@myTitle{#1}}
-\newcommand{\myName}[1]{\def\@myName{#1}}
-\newcommand{\myNIM}[1]{\def\@myNIM{#1}}
-\newcommand{\myYear}[1]{\def\@myYear{#1}}
+% Bibliography Style - IEEE numeric with BibTeX backend
+\usepackage[
+    backend=bibtex,
+    style=ieee,
+    citestyle=ieee,
+    sorting=none,
+    url=false,
+    doi=true
+]{biblatex}
 
-% Redefine title
+\urlstyle{same}
+\addbibresource{references.bib}
+\addbibresource{include.bib}
+% BibTeX cannot read database paths with spaces; this file mirrors My Collection.bib.
+\addbibresource{src/references/my_collection.bib}
+
+% Prevent long bibliography entries from overflowing.
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+\emergencystretch=1em
+\appto{\bibsetup}{\sloppy\RaggedRight}
+
+% Metadata commands and title page
 \makeatletter
-% Initialize default values
-\def\@myTitle{Judul Penelitian}
-\def\@myNIM{303012510004}
-\def\@myName{Rolly Maulana Awangga}
-\def\@myYear{Tahun}
+\newcommand{\myTitle}[1]{\gdef\@myTitle{#1}}
+\newcommand{\myName}[1]{\gdef\@myName{#1}}
+\newcommand{\myNIM}[1]{\gdef\@myNIM{#1}}
+\newcommand{\myAuthors}[1]{\gdef\@myAuthors{#1}}
+\newcommand{\myLecturer}[1]{\gdef\@myLecturer{#1}}
+\newcommand{\myClass}[1]{\gdef\@myClass{#1}}
+\newcommand{\myCourse}[1]{\gdef\@myCourse{#1}}
+\newcommand{\myYear}[1]{\gdef\@myYear{#1}}
+
+\def\@myTitle{Judul Laporan}
+\def\@myName{}
+\def\@myNIM{}
+\def\@myAuthors{}
+\def\@myLecturer{}
+\def\@myClass{}
+\def\@myCourse{}
+\def\@myYear{2026}
 
 \renewcommand{\maketitle}{
     \begin{titlepage}
         \centering
-        \vspace*{0.5cm}
-        
-        % Judul Penelitian (bagian atas)
-        {\fontsize{16}{20}\selectfont
-        \textbf{Judul Laporan yang Akan di Laporkan}\par}
-        
-        \vspace{1.5cm}
-        
-        % Tahap Ujian Kualifikasi
-        {\fontsize{12}{14}\selectfont
-        \textbf{Proyek / Internship}\par}
-        
-        \vspace{1.5cm}
-        
-        % NIM dan Nama
-        {\fontsize{12}{14}\selectfont
-        \textbf{\@myNIM}\par
-        \textbf{\@myName}\par}
-        
-        \vspace{1.5cm}
-        \vspace{1.5cm}
-        \vspace{1.5cm}
-     
-        
-        % Logo
+        \vspace*{0.7cm}
+
+        {\fontsize{16}{20}\selectfont\textbf{\@myTitle}\par}
+
+        \vspace{1.7cm}
+
         \IfFileExists{logo.png}{
-            \includegraphics[width=0.5\textwidth]{logo.png}
+            \includegraphics[width=0.88\textwidth]{logo.png}
         }{
             {\fontsize{16}{19}\bfseries Logo\par}
         }
-        
+
+        \vspace{1.0cm}
+
+        {\fontsize{12}{14}\selectfont
+        \textbf{Dosen Pengampu}\par
+        \textbf{\underline{\@myLecturer}}\par}
+
+        \vspace{1.0cm}
+
+        {\fontsize{12}{14}\selectfont
+        \textbf{Disusun oleh :}\par}
+
+        \vspace{0.15cm}
+
+        {\fontsize{12}{14}\selectfont\bfseries
+        \@myAuthors\par}
+
+        \vspace{1.2cm}
+
+        {\fontsize{12}{14}\selectfont\bfseries
+        Kelas : \@myClass\par
+        \vspace{0.25cm}
+        Mata Kuliah : \@myCourse\par}
+
         \vfill
-        
-        % Program Studi dan Informasi
-        {\fontsize{16}{19}\selectfont
-        \textbf{Program Studi Sarjana Terapan Teknik Informatika}\par
-        \textbf{Sekolah Teknologi Informasi}\par
-        \textbf{Universitas Logistik dan Bisnis Internasional}\par
-        \textbf{Bandung}\par
-        \textbf{2026}\par}
-        
+
+        {\fontsize{14}{17}\selectfont
+        \textbf{PROGRAM STUDI DIV TEKNIK INFORMATIKA}\par
+        \textbf{SCHOOL OF INFORMATION TECHNOLOGY}\par
+        \textbf{UNIVERSITAS LOGISTIK DAN BISNIS INTERNASIONAL}\par
+        \textbf{BANDUNG}\par
+        \textbf{\@myYear}\par}
+
     \end{titlepage}
     \newpage
 }
 \makeatother
 
-% SOTA Table Environment
-\newenvironment{sototable}
-    {\begin{table}[htbp]
-    \centering
-    \caption{State-of-the-Art Penelitian}
-    \label{tab:sota}}
-    {\end{table}}
+% Chapter helper for article class.
+\newcommand{\reportchapter}[3]{%
+    \clearpage
+    \section*{#1 \\ #2}
+    \phantomsection
+    \addcontentsline{toc}{section}{#1 #2}
+    \refstepcounter{section}
+    \input{#3}
+}
 
-% Word Count Environments
+% Semantic wrapper for report summaries.
 \newenvironment{summary}
     {}
     {}
 
-\newenvironment{background}
-    {}
-    {}
-
-\newenvironment{literaturereview}
-    {}
-    {}
-
-\newenvironment{researchgap}
-    {}
-    {}
-
-\newenvironment{novelty}
-    {}
-    {}
-
-% Bibliography Style - APA-like with BibTeX
-\usepackage[
-    backend=bibtex,   % Menggunakan BibTeX (biber tidak berfungsi di sistem ini)
-    style=authoryear, % Author-year citation style (APA-like)
-    sorting=nyt,      % Sort by name, year, title
-    maxbibnames=99,   % Tampilkan semua nama penulis
-    dashed=false,     % Jangan gunakan dash untuk author yang sama
-    url=false,        % Jangan tampilkan URL
-    doi=true,         % Tampilkan DOI
-]{biblatex}
-
-\urlstyle{same} % Samakan font URL/DOI dengan teks utama
-
-\addbibresource{references.bib}
-\addbibresource{include.bib}
-%\addbibresource{visualdecoding.bib} % Uncomment jika ingin menggunakan file bib tambahan
-
-% Make \cite behave like \parencite (with parentheses)
-\let\cite\parencite
-
-% Custom citation formatting
-\renewcommand*{\finalnamedelim}{\addspace\&\addspace}  % Ubah "and" jadi "&"
-\renewcommand*{\nameyeardelim}{\addcomma\space}        % Tambahkan koma setelah author
-
-% Remove "In:" from bibliography
-\renewbibmacro{in:}{}
-
-% Ensure pages are not bold
-\DeclareFieldFormat{pages}{\normalfont #1}
-
-% Custom format untuk memastikan ada spasi setelah "in"
-\DeclareFieldFormat{booktitle}{\addspace\textit{#1}}
-\DeclareFieldFormat{journaltitle}{\addspace\textit{#1}}
-
-% Fix URL breaking untuk mencegah overflow
-\setcounter{biburllcpenalty}{7000}
-\setcounter{biburlucpenalty}{8000}
-
-% Set bibliography to use ragged right alignment untuk mencegah overfull
-\emergencystretch=1em
-\appto{\bibsetup}{\sloppy\RaggedRight}
-
-
-
 % Set document metadata
-\myTitle{Judul Penelitian Anda}
-\myNIM{303012510004}
-\myName{Rolly Maulana Awangga}
+\myTitle{TUGAS BESAR LITERASI MANUSIA}
+\myLecturer{Supriady, S.T., M.T.}
+\myClass{2A D4 Teknik Informatika}
+\myCourse{Literasi Manusia}
 \myYear{2026}
+\myAuthors{
+    \begin{tabular}{@{}l@{\hspace{1.3cm}}l@{}}
+        ZAHRA RAMANAYSHILLA SOPIAN & 714240003 \\
+        RADITYA RIZKI RAHARJA & 714240041 \\
+        KEYLA SUN & 714240048 \\
+        RIDWAN HAKIM RAMADHAN & 714240050
+    \end{tabular}
+}
 
-% Beginning of Document
 \begin{document}
 
-% Force TOC title to be uppercase (fix for babel override)
 \renewcommand{\contentsname}{DAFTAR ISI}
 \renewcommand{\listtablename}{DAFTAR TABEL}
 \renewcommand{\listfigurename}{DAFTAR GAMBAR}
-
-% Use Times New Roman as default font
 \rmfamily
 
-% Title Page
 \maketitle
 
-% Halaman Depan menggunakan angka Romawi
+% Halaman depan menggunakan angka Romawi.
 \pagenumbering{roman}
 
-% DAFTAR ISI
 \phantomsection
 \addcontentsline{toc}{section}{DAFTAR ISI}
 \tableofcontents
 \clearpage
 
-% DAFTAR TABEL
-\phantomsection
-\addcontentsline{toc}{section}{DAFTAR TABEL}
-\listoftables
-\clearpage
-
-% DAFTAR GAMBAR
 \phantomsection
 \addcontentsline{toc}{section}{DAFTAR GAMBAR}
 \listoffigures
 \clearpage
 
-% DAFTAR RUMUS
-\phantomsection
-\addcontentsline{toc}{section}{DAFTAR RUMUS}
-\listofequations
-\clearpage
-
-% RINGKASAN
-\clearpage
-\section*{RINGKASAN}
-\phantomsection
-\addcontentsline{toc}{section}{RINGKASAN}
-\input{chapters/ringkasan}
-
-\clearpage
-
-% BAB 1 - PENDAHULUAN
 \setcounter{section}{0}
-\pagenumbering{arabic} % Kembali ke angka Arab mulai dari Bab 1
-\setcounter{page}{1}   % Reset halaman ke 1
-\section*{BAB 1 \\ PENDAHULUAN}
-\phantomsection
-\addcontentsline{toc}{section}{BAB 1 PENDAHULUAN}
-\refstepcounter{section}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\fancyfoot[C]{}
+\fancyfoot[R]{\thepage}
 
-\input{chapters/bab1}
+\reportchapter{BAB I}{PENDAHULUAN}{chapters/bab1}
+\reportchapter{BAB II}{KAJIAN MASALAH}{chapters/bab2}
+\reportchapter{BAB III}{SOLUSI TEKNOLOGI}{chapters/bab3}
+\reportchapter{BAB IV}{IMPLEMENTASI}{chapters/bab4}
+\reportchapter{BAB V}{EVALUASI}{chapters/bab5}
+\reportchapter{BAB VI}{KESIMPULAN DAN SARAN}{chapters/bab6}
 
-\clearpage
-
-% BAB 2 - LITERATURE REVIEW
-\section*{BAB 2 \\ LITERATURE REVIEW}
-\phantomsection
-\addcontentsline{toc}{section}{BAB 2 LITERATURE REVIEW}
-\refstepcounter{section}
-
-\input{chapters/bab2}
-
-\clearpage
-
-% BAB 3 - TEORI / METODE TERKAIT
-\section*{BAB 3 \\ TEORI / METODE TERKAIT}
-\phantomsection
-\addcontentsline{toc}{section}{BAB 3 TEORI / METODE TERKAIT}
-\refstepcounter{section}
-
-\input{chapters/bab3}
-
-% DAFTAR PUSTAKA
 \clearpage
 \section*{DAFTAR PUSTAKA}
 \phantomsection
 \addcontentsline{toc}{section}{DAFTAR PUSTAKA}
-
 \printbibliography[heading=none]
 
 \clearpage
-
-
 \input{chapters/lampiran}
 
 \clearpage
-
 \end{document}

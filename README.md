@@ -1,70 +1,119 @@
 # Latex Template Laporan
-Untuk memakai template ini secara mudah gunakan aplikasi Antigravity dengan open folder(jangan lupa install extenstion vscode-pdf), kemudian
 
-Install latex:
-1. Install R dahulu
-2. install TinyTex
-    ```R
-    install.packages('tinytex')
-    tinytex::install_tinytex()
-    # to uninstall TinyTeX, run tinytex::uninstall_tinytex() 
-    # Cek instalasi
-    tinytex::tinytex_root()
-    tinytex::tlmgr("--version")
-    ```
-3. Install Package menggunakan tlmgr
-    ```
-    tlmgr install <package_name>
-    ```
-4. Install git scm dan koneksikan ke repository github
-5. Install Antigravity dan ekstensi vscode-pdf
+Repository ini digunakan untuk menyusun draft laporan akademik dengan LaTeX. File utama dokumen adalah `bukped.tex`, sedangkan isi laporan ditulis pada file `.tex` di dalam folder `chapters/`.
 
-Package yang diperlukan:
-```bash
-tlmgr install inputenc fontenc mathptmx courier helvet amsmath babel geometry setspace titlesec graphicx hyperref booktabs array caption enumitem parskip fancyhdr tocloft tabularx longtable ragged2e biblatex bibtex logreq xstring
+## Setup Awal
+
+1. Install Git SCM dan clone repository.
+2. Install R.
+3. Install TinyTeX dari R:
+
+```r
+install.packages("tinytex")
+tinytex::install_tinytex()
+
+# Cek instalasi
+tinytex::tinytex_root()
+tinytex::tlmgr("--version")
 ```
 
-Atau install satu per satu:
-```bash
-tlmgr install inputenc
-tlmgr install fontenc
-tlmgr install mathptmx
-tlmgr install courier
-tlmgr install helvet
-tlmgr install amsmath
-tlmgr install babel
-tlmgr install geometry
-tlmgr install setspace
-tlmgr install titlesec
-tlmgr install graphicx
-tlmgr install hyperref
-tlmgr install booktabs
-tlmgr install array
-tlmgr install caption
-tlmgr install enumitem
-tlmgr install parskip
-tlmgr install fancyhdr
-tlmgr install tocloft
-tlmgr install tabularx
-tlmgr install longtable
-tlmgr install ragged2e
-tlmgr install biblatex
-tlmgr install bibtex
-tlmgr install logreq
-tlmgr install xstring
+4. Pastikan command berikut tersedia di terminal:
+
+```powershell
+where pdflatex
+where bibtex
+pdflatex --version
+bibtex --version
 ```
+
+5. Install package LaTeX yang diperlukan:
+
+```bash
+tlmgr install inputenc fontenc mathptmx courier helvet amsmath babel geometry setspace titlesec graphicx hyperref booktabs array caption enumitem indentfirst fancyhdr tocloft tabularx longtable ragged2e biblatex biblatex-ieee bibtex logreq xstring
+```
+
+6. Buka repository dengan Antigravity atau VS Code. Untuk preview PDF, gunakan ekstensi PDF preview seperti `vscode-pdf`.
+
+## Catatan MiKTeX
+
+Repository ini direkomendasikan menggunakan TinyTeX. MiKTeX tetap dapat digunakan apabila `pdflatex` dan `bibtex` berjalan normal serta semua package tersedia. Jangan mencampur PATH TinyTeX dan MiKTeX dalam satu environment karena dapat menyebabkan package dan format LaTeX tidak konsisten.
+
+Jika menggunakan MiKTeX dan package belum tersedia, aktifkan auto-install package dari MiKTeX Console atau install package yang hilang melalui MiKTeX Package Manager.
 
 ## Compile LaTeX
-Untuk compile dokumen LaTeX, jalankan script PowerShell:
+
+Jalankan script PowerShell dari root repository:
+
 ```powershell
 .\compile-latex.ps1
 ```
 
-Script ini akan otomatis menjalankan:
-1. `pdflatex` untuk kompilasi awal
-2. `bibtex` untuk memproses referensi
-3. `pdflatex` dua kali lagi untuk finalisasi cross-references
-4. Isi konten laporan pada file tex di dalam folder chapters
+Script ini menjalankan:
+
+1. `pdflatex -jobname=laporan_litma`
+2. `bibtex laporan_litma`
+3. `pdflatex -jobname=laporan_litma`
+4. `pdflatex -jobname=laporan_litma`
 
 File utama: `bukped.tex`  
-Output: `bukped.pdf`
+Output: `laporan_litma.pdf`
+
+Untuk menghapus file auxiliary setelah compile berhasil, jalankan:
+
+```powershell
+.\compile-latex.ps1 -CleanAux
+```
+
+## Struktur Laporan
+
+Konten laporan CleanConnect berada di:
+
+- `chapters/bab1.tex`
+- `chapters/bab2.tex`
+- `chapters/bab3.tex`
+- `chapters/bab4.tex`
+- `chapters/bab5.tex`
+- `chapters/bab6.tex`
+- `chapters/lampiran.tex`
+
+Struktur utama laporan:
+
+1. BAB I Pendahuluan
+   - Latar Belakang
+   - Rumusan Masalah
+   - Tujuan
+2. BAB II Kajian Masalah
+   - Analisis Kondisi Masyarakat
+   - Dampak Masalah
+3. BAB III Solusi Teknologi
+   - Deskripsi Solusi
+   - Teknologi yang Digunakan
+4. BAB IV Implementasi
+   - Tahapan Pengerjaan
+   - Screenshot Produk
+5. BAB V Evaluasi
+   - Hasil Pengujian
+   - Kelebihan
+   - Kekurangan
+6. BAB VI Kesimpulan dan Saran
+7. Daftar Pustaka
+
+## Sitasi dan Bibliografi
+
+Template menggunakan `biblatex` dengan:
+
+- `backend=bibtex`
+- `style=ieee`
+- `citestyle=ieee`
+- `sorting=none`
+
+Gunakan sitasi dengan format:
+
+```latex
+\cite{key}
+```
+
+Sumber bibliografi utama:
+
+- `references.bib`
+- `include.bib`

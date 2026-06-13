@@ -1,0 +1,81 @@
+\subsection{Tahapan Pengerjaan}
+
+Tahapan pengerjaan CleanConnect dimulai dari identifikasi masalah, yaitu memahami kebutuhan masyarakat perkotaan terhadap layanan kebersihan rumah tangga dan kendala yang muncul pada layanan konvensional. Tahap ini dilanjutkan dengan analisis kebutuhan pengguna dan mitra petugas, mulai dari proses pencarian jasa, pemesanan, pemantauan kedatangan petugas, estimasi biaya, hingga pemberian ulasan setelah layanan selesai \cite{Nalendra2024}.
+
+Tahap berikutnya adalah perancangan solusi teknologi. Fitur utama yang dirumuskan meliputi booking cleaning service, tracking petugas berbasis lokasi/GPS, rating dan review, estimasi biaya otomatis, serta jadwal rutin mingguan atau bulanan. Setiap fitur dirancang agar saling terhubung dan mendukung tujuan utama platform, yaitu meningkatkan kepercayaan, transparansi, dan efisiensi layanan.
+
+Setelah fitur utama ditetapkan, penyusunan rancangan antarmuka dan alur penggunaan dilakukan untuk menggambarkan tampilan awal aplikasi, alur pemesanan layanan, tampilan estimasi biaya, halaman tracking petugas, halaman detail pesanan, serta halaman rating dan review. Rancangan ini kemudian diwujudkan dalam prototype awal agar alur layanan dapat dilihat lebih konkret dan dapat dievaluasi berdasarkan kebutuhan pengguna \cite{Nalendra2024}.
+
+\subsection{Screenshot Produk}
+
+Prototype CleanConnect menampilkan rancangan antarmuka aplikasi dari sisi pengguna dan mitra petugas. Tampilan awal aplikasi terdiri atas splash screen, onboarding, dan login untuk memperkenalkan identitas layanan sekaligus menyediakan akses masuk pengguna. Setelah masuk ke aplikasi, pengguna diarahkan pada alur pemesanan yang mencakup pengisian formulir layanan, pemilihan petugas, estimasi biaya, konfirmasi pesanan, pelacakan petugas, penjadwalan rutin, serta pemberian rating dan review.
+
+Rangkaian tampilan pada prototype ini menunjukkan bahwa CleanConnect dirancang tidak hanya sebagai media pemesanan jasa, tetapi juga sebagai sistem yang membantu pengguna memperoleh informasi layanan secara lebih transparan. Fitur estimasi biaya digunakan untuk memberi gambaran harga sebelum layanan dikonfirmasi, sedangkan fitur tracking, jadwal rutin, dan rating-review mendukung kepercayaan pengguna terhadap proses layanan.
+
+\clearpage
+
+\newcommand{\PrototypeScreen}[2]{%
+    \begin{minipage}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth,height=0.58\textheight,keepaspectratio]{#1}\\[0.25em]
+        {\footnotesize #2\par}
+    \end{minipage}%
+}
+
+\begin{center}
+    \centering
+    \PrototypeScreen{src/images/splash_screen.png}{(a) Splash screen}
+    \hfill
+    \PrototypeScreen{src/images/onboarding1.png}{(b) Onboarding}
+    \hfill
+    \PrototypeScreen{src/images/login_screen.png}{(c) Login}
+    \captionof{figure}{Tampilan awal dan autentikasi pada prototype CleanConnect.}
+    \label{fig:prototype-awal}
+\end{center}
+
+Gambar \ref{fig:prototype-awal} menunjukkan tampilan awal aplikasi CleanConnect. Splash screen digunakan untuk memperkuat identitas aplikasi, onboarding memperkenalkan manfaat utama layanan kebersihan, sedangkan halaman login menyediakan akses masuk sebelum pengguna melakukan pemesanan layanan.
+
+\clearpage
+
+\begin{center}
+    \centering
+    \PrototypeScreen{src/images/form_pemesanan.png}{(a) Form pemesanan}
+    \hfill
+    \PrototypeScreen{src/images/pilih_petugas.png}{(b) Pilih petugas}
+    \hfill
+    \PrototypeScreen{src/images/estimasi_biaya.png}{(c) Estimasi biaya}
+    \captionof{figure}{Alur pemesanan layanan dan estimasi biaya pada prototype CleanConnect.}
+    \label{fig:prototype-pemesanan}
+\end{center}
+
+Gambar \ref{fig:prototype-pemesanan} memperlihatkan alur utama pemesanan layanan. Pengguna diarahkan untuk mengisi informasi kebutuhan layanan secara runtut, memilih petugas berdasarkan daftar yang tersedia, kemudian melihat estimasi biaya sebelum pesanan dikonfirmasi. Alur ini dirancang untuk membuat proses pemesanan lebih jelas dan mengurangi ketidakpastian harga.
+
+\clearpage
+
+\begin{center}
+    \centering
+    \PrototypeScreen{src/images/konfirmasi_pesanan.png}{(a) Konfirmasi pesanan}
+    \hfill
+    \PrototypeScreen{src/images/pelacakan_petugas.png}{(b) Pelacakan petugas}
+    \hfill
+    \PrototypeScreen{src/images/jadwal_rutin.png}{(c) Jadwal rutin}
+    \captionof{figure}{Tampilan konfirmasi, pelacakan petugas, dan penjadwalan rutin pada prototype CleanConnect.}
+    \label{fig:prototype-konfirmasi}
+\end{center}
+
+Gambar \ref{fig:prototype-konfirmasi} menampilkan tahapan setelah pemesanan dibuat. Halaman konfirmasi membantu pengguna memeriksa kembali detail layanan, fitur pelacakan petugas memberi informasi posisi dan status kedatangan, sedangkan jadwal rutin disediakan untuk pengguna yang membutuhkan layanan kebersihan secara berkala.
+
+\clearpage
+
+\begin{center}
+    \centering
+    \PrototypeScreen{src/images/rating_review.png}{(a) Rating dan review}
+    \hspace{0.08\textwidth}
+    \PrototypeScreen{src/images/partner_home_screen.png}{(b) Beranda mitra petugas}
+    \captionof{figure}{Tampilan evaluasi layanan dan halaman mitra petugas pada prototype CleanConnect.}
+    \label{fig:prototype-evaluasi-mitra}
+\end{center}
+
+Gambar \ref{fig:prototype-evaluasi-mitra} menunjukkan bagian evaluasi layanan dan tampilan untuk mitra petugas. Fitur rating dan review digunakan sebagai sarana umpan balik setelah layanan selesai, sehingga pengalaman pengguna dapat menjadi dasar penilaian kualitas petugas. Sementara itu, halaman beranda mitra membantu petugas melihat informasi pekerjaan dan mengelola aktivitas layanan secara lebih ringkas.
+
+\clearpage

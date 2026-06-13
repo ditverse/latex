@@ -1,56 +1,17 @@
-Pada bagian ini, tuliskan minimal \textbf{3000 kata} dan maksimal \textbf{4000 kata} dalam sub-bab atau beberapa paragraf. Tuliskan secara padat dan ringkas mengenai pemahaman atau penguasaan Anda terhadap teori atau metode yang relevan dan digunakan dalam penelitian.
+\subsection{Deskripsi Solusi}
 
-Misalnya, jika dalam penelitian digunakan \textit{intelligent control system} dengan \textit{Fuzzy Logic Type II}, tuliskan bagian-bagian penting tentang \textit{Fuzzy Logic Type II} yang digunakan dalam \textit{intelligent control system}.
+CleanConnect dirancang sebagai sebuah platform digital berbasis aplikasi seluler (mobile application) yang berfungsi sebagai penghubung antara pengguna jasa (konsumen) dengan penyedia jasa kebersihan rumah tangga (mitra petugas kebersihan) melalui mekanisme pemesanan berbasis lokasi. Platform ini dikembangkan dengan pendekatan model bisnis on-demand service, yang mengadaptasi prinsip-prinsip dari platform layanan berbasis lokasi yang telah berhasil diterapkan pada sektor lain, namun disesuaikan dengan karakteristik dan kebutuhan spesifik layanan kebersihan rumah tangga \cite{Muangmee2021,An2023}.
 
-\subsection{Teori Dasar}
+Secara umum, CleanConnect terdiri atas dua antarmuka utama, yaitu antarmuka pengguna (customer application) dan antarmuka mitra petugas (partner application), yang keduanya terhubung melalui sistem backend terpusat. Sistem ini mengelola data pemesanan, lokasi, estimasi harga, riwayat transaksi, serta rekam jejak layanan. Berdasarkan kajian masalah pada Bab II, solusi CleanConnect diarahkan untuk menjawab tiga isu utama, yaitu kesulitan menemukan penyedia jasa terpercaya, kurangnya transparansi harga, dan ketidakpastian waktu kedatangan petugas \cite{Hawlitschek2016,Li2020}.
 
-Jelaskan teori-teori dasar yang menjadi fondasi penelitian Anda\cite{Li2026Adaptive}. Pastikan penjelasan mencakup:
-\begin{itemize}[leftmargin=*]
-    \item Definisi dan konsep fundamental
-    \item Prinsip-prinsip utama
-    \item Rumusan matematis yang relevan
-    \item Asumsi-asumsi yang digunakan
-\end{itemize}
+Fitur utama yang diusulkan meliputi booking cleaning service, tracking petugas berbasis lokasi/GPS, rating dan review, estimasi biaya otomatis, serta jadwal rutin mingguan atau bulanan. Fitur booking cleaning service memungkinkan pengguna melakukan pemesanan layanan secara langsung melalui aplikasi tanpa harus mencari penyedia jasa secara manual. Fitur tracking petugas membantu pengguna memantau posisi petugas secara real-time, sedangkan fitur rating dan review menjadi mekanisme reputasi untuk menilai kualitas layanan. Fitur estimasi biaya otomatis memberikan gambaran biaya sebelum pemesanan dikonfirmasi, dan fitur jadwal rutin membantu pengguna mengatur layanan berkala tanpa melakukan pemesanan ulang setiap kali membutuhkan layanan \cite{Pena-garcia2024,Id2018}.
 
-Contoh penulisan rumus matematika menggunakan \LaTeX. Persamaan \eqref{eq:entropy} menunjukkan rumus \textit{Shannon Entropy} untuk menghitung ketidakpastian informasi:
+\subsection{Teknologi yang Digunakan}
 
-\begin{equation}
-    H(X) = - \sum_{i=1}^{n} P(x_i) \log_2 P(x_i)
-    \label{eq:entropy}
-\end{equation}
-\myequations{Shannon Entropy}
+Teknologi yang digunakan dalam rancangan CleanConnect dapat dikelompokkan ke dalam beberapa komponen utama. Komponen pertama adalah aplikasi seluler yang menjadi media interaksi antara pengguna dan sistem. Aplikasi ini digunakan untuk melakukan registrasi, memilih layanan, menentukan lokasi, mengatur jadwal, melihat estimasi biaya, memantau status petugas, dan memberikan rating setelah layanan selesai \cite{An2023,Nalendra2024}.
 
-Dimana $H(X)$ adalah entropi, $n$ adalah jumlah kemungkinan kejadian, dan $P(x_i)$ adalah probabilitas kejadian $i$.
+Komponen kedua adalah layanan lokasi atau GPS yang digunakan untuk mendukung fitur tracking petugas. Melalui layanan ini, posisi petugas dapat dikirimkan secara periodik ke sistem backend dan ditampilkan pada peta digital di aplikasi pengguna. Informasi lokasi tersebut juga dapat digunakan untuk menampilkan estimasi waktu kedatangan petugas.
 
-Contoh rumus lain adalah \textit{Euclidean Distance} pada Persamaan \eqref{eq:euclidean}:
+Komponen ketiga adalah sistem backend dan basis data. Backend berfungsi mengelola proses pemesanan, pencocokan petugas, penghitungan estimasi biaya, pengelolaan profil pengguna dan mitra petugas, penyimpanan riwayat transaksi, serta pengelolaan rating dan review. Basis data digunakan untuk menyimpan informasi pengguna, mitra petugas, lokasi layanan, jadwal, status pemesanan, dan ulasan layanan \cite{Pena-garcia2024,Id2018}.
 
-\begin{equation}
-    d(p,q) = \sqrt{\sum_{i=1}^{n} (q_i - p_i)^2}
-    \label{eq:euclidean}
-\end{equation}
-\myequations{Euclidean Distance}
-
-
-\subsection{Metodologi Penelitian}
-
-Jelaskan metodologi penelitian yang akan digunakan, mencakup pendekatan penelitian, teknik pengumpulan data, dan analisis.
-
-\begin{figure}[htbp]
-    \centering
-    % Diagram alir penelitian
-    \includegraphics[width=0.6\textwidth]{figures/diagram-alir-penelitian.png}
-    \caption{Contoh Diagram Alir Penelitian (Dummy Figure)}
-    \label{fig:alur_penelitian}
-\end{figure}
-
-Setelah Gambar \ref{fig:alur_penelitian}, jelaskan langkah-langkah detailnya:
-\begin{itemize}[leftmargin=*]
-    \item Pendekatan penelitian
-    \item Teknik pengumpulan data
-    \item Metode analisis
-    \item Validasi dan verifikasi
-\end{itemize}
-
-\subsection{Alat dan Kerangka Kerja}
-
-Jelaskan alat, kerangka kerja, atau infrastruktur yang mendukung penelitian Anda.
+Komponen keempat adalah sistem notifikasi yang digunakan untuk memberi informasi kepada pengguna dan petugas mengenai perubahan status pesanan, konfirmasi layanan, estimasi kedatangan, serta pengingat jadwal rutin. Dengan kombinasi komponen tersebut, CleanConnect diharapkan dapat menghadirkan proses pemesanan layanan kebersihan yang lebih praktis, transparan, dan mudah dipantau.

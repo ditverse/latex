@@ -1,41 +1,21 @@
-\subsection{State-of-the-Art Penelitian}
+\subsection{Analisis Kondisi Masyarakat}
 
-Bagian ini menjabarkan hasil \textit{systematic literature review} terhadap referensi utama serta yang berkaitan dengan topik penelitian \parencite{lawoyin2014}. Bagian ini ditulis minimal \textbf{4000 kata} dan maksimal \textbf{5000 kata}, dalam beberapa paragraf (fleksibel).
+Masyarakat perkotaan dipilih sebagai target penelitian dengan pertimbangan karakteristik demografis, sosial, dan gaya hidup yang relevan dengan kebutuhan terhadap layanan jasa kebersihan rumah tangga berbasis teknologi. Beberapa karakteristik utama masyarakat urban yang menjadi dasar analisis kebutuhan dalam penelitian ini adalah keterbatasan waktu, tingkat adopsi teknologi, tipologi hunian, serta pola kebutuhan layanan kebersihan yang cenderung berulang \cite{Muangmee2021,An2023}.
 
-Pada bagian ini \textbf{diakhiri dengan tabel} \textit{state-of-the-art} yang berisi ringkasan dari hasil \textit{systematic literature review}. Sumber pustaka atau referensi primer yang relevan dengan mengutamakan hasil penelitian ilmiah atau teknologi yang terkini. Disarankan penggunaan sumber pustaka 5 tahun terakhir (untuk prosiding konferensi) dan 10 tahun terakhir (bergantung pada relevansi teori atau metode) untuk jurnal atau buku teks.
+Pertama, dari segi keterbatasan waktu, masyarakat perkotaan umumnya memiliki rutinitas pekerjaan dengan jam kerja yang panjang serta waktu tempuh perjalanan (commuting time) yang signifikan, sehingga ketersediaan waktu untuk mengelola pekerjaan rumah tangga, termasuk kebersihan, menjadi sangat terbatas. Kondisi ini mendorong munculnya kebutuhan akan layanan yang dapat dipesan secara cepat (on-demand) tanpa memerlukan proses pencarian dan negosiasi yang memakan waktu lama \cite{Alvin2025}.
 
-Pada bagian akhir tabel, sebutkan usulan penelitian Anda untuk melihat posisi penelitian Anda dalam \textit{state-of-the-art} penelitian.
+Kedua, dari segi adopsi teknologi, masyarakat perkotaan secara umum memiliki tingkat literasi digital dan penetrasi penggunaan perangkat seluler pintar (smartphone) yang relatif tinggi, sehingga lebih siap untuk mengadopsi platform berbasis aplikasi dalam memenuhi kebutuhan layanan sehari-hari. Hal ini menjadi faktor pendukung utama bagi penerapan solusi berbasis teknologi seperti CleanConnect, karena target pengguna sudah memiliki keterbiasaan dalam menggunakan aplikasi sejenis pada sektor lain, seperti transportasi daring dan pengantaran makanan \cite{An2023}.
 
-\begin{table}[htbp]
-    \caption{State-of-the-Art Penelitian}
-    \label{tab:sota}
-    \small
-    \begin{tabularx}{\textwidth}{@{} c >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}l @{}}
-    \toprule
-    \textbf{No} & \textbf{Peneliti} & \textbf{Objective} & \textbf{Metode \& Hasil} & \textbf{Keterangan} \\
-    \midrule
-    
-    1 & \textcite{lawoyin2014} & 
-    Analisis sistem Holter EEG 3D secara real-time. & 
-    Pengolahan sinyal EEG dengan HPF, NFFT. Klasifikasi SVM. & 
-    Metode dasar \\
-    
-    \addlinespace
-    
-    2 & \textcite{example2023} & 
-    Meningkatkan akurasi deteksi kantuk. & 
-    Menggunakan Deep Learning (CNN) dengan dataset XYZ. Akurasi 95\%. & 
-    Metode modern \\
-    
-    \addlinespace
-    
-    3 & \textcite{textbook2020} & 
-    Teori dasar pengukuran sinyal biomedis. & 
-    Menjelaskan prinsip kerja EEG dan EKG konvensional. & 
-    Referensi teori \\
-    
-    \bottomrule
-    \end{tabularx}
-\end{table}
+Ketiga, dari segi tipologi hunian, masyarakat perkotaan banyak yang tinggal pada hunian vertikal seperti apartemen, rumah susun, maupun perumahan dengan sistem keamanan tertutup (gated community), yang memiliki kebutuhan spesifik terkait akses petugas ke dalam area hunian. Hal ini memunculkan kebutuhan akan fitur pelacakan lokasi petugas secara real-time, sehingga penghuni dapat mengetahui posisi dan estimasi waktu kedatangan petugas, serta memastikan keamanan akses ke dalam unit hunian.
 
-Berdasarkan \textit{state-of-the-art} yang dibuat, berikan penjelasan tentang potensi gap penelitian yang dapat diangkat untuk penelitian Anda. Gunakan lebih dari satu tabel \textit{state-of-the-art} jika terdapat beberapa metode atau teori yang digunakan dari hasil eksplorasi Anda.
+Keempat, dari segi pola kebutuhan layanan, masyarakat perkotaan, khususnya keluarga dengan kedua pasangan yang bekerja maupun individu yang tinggal sendiri, cenderung memerlukan layanan kebersihan secara berkala dengan frekuensi tertentu, misalnya mingguan atau dua minggu sekali, dibandingkan dengan pemesanan yang bersifat satu kali (one-time service). Hal ini menunjukkan adanya kebutuhan akan fitur penjadwalan rutin yang memungkinkan pengguna menetapkan jadwal layanan secara berulang tanpa harus melakukan pemesanan ulang setiap kali membutuhkan layanan.
+
+\subsection{Dampak Masalah}
+
+Salah satu dampak utama dari kondisi layanan kebersihan rumah tangga yang masih konvensional adalah minimnya akses terhadap informasi yang valid dan dapat dipercaya mengenai penyedia jasa. Berdasarkan hasil pengamatan awal dan proses wawancara pendahuluan, sebagian masyarakat masih mengandalkan metode pencarian tradisional, seperti rekomendasi mulut ke mulut (word of mouth), grup percakapan lingkungan perumahan, maupun papan iklan jasa kebersihan yang terpasang di area publik. Metode-metode tersebut memiliki tingkat keterandalan yang sangat bervariasi dan sulit diverifikasi secara objektif.
+
+Ketidakpastian mengenai kredibilitas penyedia jasa menimbulkan beberapa risiko bagi pengguna, antara lain risiko keamanan karena petugas yang datang ke rumah tidak memiliki identitas atau riwayat kerja yang dapat diakses, risiko kualitas karena tidak adanya standar baku mengenai cakupan pekerjaan, serta risiko ketidaksesuaian waktu karena petugas yang dijanjikan datang pada jam tertentu sering mengalami keterlambatan tanpa mekanisme pemberitahuan atau pelacakan.
+
+Selain masalah kepercayaan, ketidaktransparanan informasi harga juga berdampak pada proses pengambilan keputusan pengguna. Pada model bisnis konvensional, penentuan harga umumnya dilakukan melalui negosiasi langsung antara konsumen dan penyedia jasa, yang sangat dipengaruhi oleh faktor subjektif seperti kemampuan tawar-menawar masing-masing pihak, hubungan personal, maupun kondisi pasar setempat. Akibatnya, terjadi disparitas harga untuk jenis dan volume pekerjaan yang relatif sama \cite{Bernarto2022}.
+
+Ketidakjelasan struktur harga membuat konsumen kesulitan melakukan perencanaan anggaran rumah tangga, membuka peluang terjadinya praktik penetapan harga yang tidak wajar, serta dapat menimbulkan kesalahpahaman antara pengguna dan penyedia jasa mengenai cakupan pekerjaan yang harus dilakukan. Dengan demikian, kebutuhan masyarakat perkotaan terhadap platform jasa kebersihan rumah tangga berbasis lokasi tidak hanya terbatas pada kemudahan pemesanan, tetapi juga mencakup aspek kepercayaan terhadap petugas, transparansi biaya, kemampuan pemantauan secara real-time, serta fleksibilitas pengaturan jadwal layanan \cite{Hawlitschek2016,Li2020}.
