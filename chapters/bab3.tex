@@ -1,56 +1,281 @@
-Pada bagian ini, tuliskan minimal \textbf{3000 kata} dan maksimal \textbf{4000 kata} dalam sub-bab atau beberapa paragraf. Tuliskan secara padat dan ringkas mengenai pemahaman atau penguasaan Anda terhadap teori atau metode yang relevan dan digunakan dalam penelitian.
+\subsection{Analisis Greedy pada Rekomendasi Produk}
 
-Misalnya, jika dalam penelitian digunakan \textit{intelligent control system} dengan \textit{Fuzzy Logic Type II}, tuliskan bagian-bagian penting tentang \textit{Fuzzy Logic Type II} yang digunakan dalam \textit{intelligent control system}.
+Greedy pada rekomendasi produk digunakan untuk memilih produk terbaik berdasarkan skor lokal. Sistem tidak mencoba semua kombinasi produk, tetapi langsung memberi skor pada setiap kandidat, mengurutkannya, lalu mengambil produk teratas. Pendekatan seperti ini cocok untuk fitur interaktif karena lebih cepat dibandingkan mencari kombinasi optimal secara menyeluruh \parencite{Tanujaya2026}.
 
-\subsection{Teori Dasar}
+\textbf{Pseudocode rekomendasi produk:}
 
-Jelaskan teori-teori dasar yang menjadi fondasi penelitian Anda\cite{Li2026Adaptive}. Pastikan penjelasan mencakup:
-\begin{itemize}[leftmargin=*]
-    \item Definisi dan konsep fundamental
-    \item Prinsip-prinsip utama
-    \item Rumusan matematis yang relevan
-    \item Asumsi-asumsi yang digunakan
-\end{itemize}
+\begin{Verbatim}[frame=single,framesep=6pt,fontsize=\scriptsize]
+Input: products, recentlyViewed, limit
 
-Contoh penulisan rumus matematika menggunakan \LaTeX. Persamaan \eqref{eq:entropy} menunjukkan rumus \textit{Shannon Entropy} untuk menghitung ketidakpastian informasi:
+viewedIds = produk yang sudah dilihat
+categoryWeights = bobot kategori dari histori lihat
+
+Untuk setiap product:
+    jika product sudah dilihat atau stok <= 0:
+        lewati
+    categoryScore = bobot kategori product
+popularityScore =
+    sold_units * 2 + rating_average * rating_count
+    totalScore = categoryScore * 1000 + popularityScore
+
+Urutkan kandidat berdasarkan totalScore terbesar
+Ambil limit produk teratas
+Output: daftar produk rekomendasi
+\end{Verbatim}
+
+\textbf{Potongan kode implementasi:}
+
+\begin{Verbatim}[frame=single,framesep=6pt,fontsize=\scriptsize]
+return products
+  .filter((product) =>
+    !viewedIds.has(product.id) && product.stock > 0
+  )
+  .map((product) => {
+    const categoryWeight =
+      categoryWeights.get(product.category) ?? 0;
+    const popularityScore =
+      (product.sold_units ?? 0) * 2 +
+      (product.rating_average ?? 0) *
+        Math.min(product.rating_count ?? 0, 10);
+
+    return { product,
+      score: categoryWeight * 1000 + popularityScore };
+  })
+  .sort((a, b) => b.score - a.score)
+  .slice(0, limit);
+\end{Verbatim}
+
+\textbf{Contoh output analisis:}
+
+\begin{Verbatim}[frame=single,framesep=6pt,fontsize=\scriptsize]
+Input histori:
+- Buyer melihat 3 produk kategori Fashion
+- Limit rekomendasi = 4
+
+Output yang diharapkan:
+1. Produk Fashion dengan stok tersedia
+2. Produk Fashion dengan sold_units/rating lebih tinggi
+3. Produk yang belum pernah dilihat buyer
+4. Produk stok 0 tidak muncul
+\end{Verbatim}
+
+Hasil analisisnya adalah Greedy cukup sesuai untuk rekomendasi awal PasarKita. Skor kategori membuat rekomendasi mengikuti minat terbaru buyer, sedangkan skor popularitas membantu produk yang lebih sering dibeli atau diberi rating tampil lebih tinggi. Pendekatan ini sejalan dengan gagasan sistem rekomendasi yang membantu pengguna memilih item dari banyak alternatif \parencite{Resnick1997}.
+
+\subsection{Analisis Greedy pada Sorting Produk}
+
+Sorting produk juga memakai pola Greedy karena setiap produk diberi skor lokal, lalu produk dengan skor terbaik ditampilkan lebih dulu. Jika user memilih sorting terlaris, skor utama adalah jumlah unit terjual. Jika user memilih rating tertinggi, skor utama adalah rating rata-rata.
+
+\textbf{Pseudocode sorting produk:}
+
+\begin{Verbatim}[frame=single,framesep=6pt,fontsize=\scriptsize]
+Input: allProducts, sortMode
+
+Untuk setiap product:
+    hitung sold_units
+    hitung rating_average
+
+Jika sortMode = sold_desc:
+    urutkan berdasarkan sold_units terbesar
+
+Jika sortMode = rating_desc:
+    urutkan berdasarkan rating_average terbesar
+
+Jika skor sama:
+    produk terbaru tampil lebih dulu
+
+Output: produk terurut
+\end{Verbatim}
+
+\newpage
+\textbf{Contoh output analisis:}
+
+\begin{Verbatim}[frame=single,framesep=6pt,fontsize=\scriptsize]
+Mode sorting: Terlaris
+
+Produk A - sold_units: 25
+Produk B - sold_units: 12
+Produk C - sold_units: 3
+
+Output:
+Produk A, Produk B, Produk C
+\end{Verbatim}
+
+Output tersebut menunjukkan bahwa sistem memilih produk terbaik berdasarkan skor lokal yang paling relevan dengan mode sorting. Tidak ada proses optimasi global karena kebutuhan fiturnya adalah ranking cepat.
+
+\subsection{Analisis Greedy pada Fee Marketplace}
+
+Fee marketplace adalah penerapan Greedy paling sederhana. Sistem mengambil subtotal, menghitung 2\%, lalu langsung memakai hasilnya sebagai fee. Tidak ada percabangan strategi, diskon bertingkat, atau optimasi lanjutan.
+
+\textbf{Potongan kode fee:}
+
+\begin{Verbatim}[frame=single,framesep=6pt,fontsize=\scriptsize]
+const FEE_PERCENTAGE = 0.02;
+
+const calculateFee = (subtotal) => {
+  const fee = Math.round(subtotal * FEE_PERCENTAGE);
+  const total = subtotal + fee;
+  return { subtotal, fee_marketplace: fee, total };
+};
+\end{Verbatim}
+
+\textbf{Contoh output analisis:}
+
+\begin{Verbatim}[frame=single,framesep=6pt,fontsize=\scriptsize]
+Input:
+subtotal = Rp50.000
+
+Proses:
+fee = round(50000 * 0.02)
+fee = 1000
+total = 50000 + 1000
+
+Output:
+subtotal        = Rp50.000
+fee marketplace = Rp1.000
+total           = Rp51.000
+\end{Verbatim}
+
+Kompleksitas proses ini adalah $O(1)$ karena jumlah operasi tetap sama berapa pun jumlah produk di sistem. Rumus yang dianalisis adalah:
 
 \begin{equation}
-    H(X) = - \sum_{i=1}^{n} P(x_i) \log_2 P(x_i)
-    \label{eq:entropy}
+    fee = round(subtotal \times 0.02)
+    \label{eq:fee-marketplace}
 \end{equation}
-\myequations{Shannon Entropy}
+\myequations{Perhitungan fee marketplace PasarKita}
 
-Dimana $H(X)$ adalah entropi, $n$ adalah jumlah kemungkinan kejadian, dan $P(x_i)$ adalah probabilitas kejadian $i$.
+\subsection{Analisis KMP pada Pencarian Produk}
 
-Contoh rumus lain adalah \textit{Euclidean Distance} pada Persamaan \eqref{eq:euclidean}:
+String Matching digunakan ketika user mengetik keyword pada fitur pencarian. Pada PasarKita, pencarian produk memakai KMP secara case-insensitive. KMP dipilih karena tidak selalu mengulang pencocokan dari awal ketika terjadi mismatch. Algoritma ini menggunakan prefix table untuk menentukan posisi pattern berikutnya \parencite{Marbun2024}.
+
+\textbf{Pseudocode KMP:}
+
+\begin{Verbatim}[frame=single,framesep=6pt,fontsize=\scriptsize]
+Input: text, pattern
+
+Bangun prefixTable dari pattern
+i = 0  // index text
+j = 0  // index pattern
+
+Selama i < panjang text:
+    jika text[i] == pattern[j]:
+        i++
+        j++
+
+    jika j == panjang pattern:
+        return true
+
+    jika mismatch:
+        jika j != 0:
+            j = prefixTable[j - 1]
+        selain itu:
+            i++
+
+return false
+\end{Verbatim}
+
+\newpage
+\textbf{Potongan kode implementasi:}
+
+\begin{Verbatim}[frame=single,framesep=6pt,fontsize=\scriptsize]
+function kmpSearch(text, pattern) {
+  if (!pattern || pattern.length === 0) return true;
+  if (!text || text.length === 0) return false;
+
+  const t = text.toLowerCase();
+  const p = pattern.toLowerCase();
+  const prefixTable = buildPrefixTable(p);
+
+  let i = 0, j = 0;
+  while (i < t.length) {
+    if (t[i] === p[j]) { i++; j++; }
+    if (j === p.length) return true;
+
+    if (i < t.length && t[i] !== p[j]) {
+      j = j !== 0 ? prefixTable[j - 1] : 0;
+      if (j === 0) i++;
+    }
+  }
+  return false;
+}
+\end{Verbatim}
+
+\textbf{Contoh output analisis:}
+
+\begin{Verbatim}[frame=single,framesep=6pt,fontsize=\scriptsize]
+Input:
+text    = "Sepatu Running Lokal"
+pattern = "sep"
+
+Output:
+true
+
+Alasan:
+"sep" ditemukan pada awal kata "Sepatu"
+dan pencarian tidak membedakan huruf besar/kecil.
+\end{Verbatim}
+
+Kompleksitas KMP adalah:
 
 \begin{equation}
-    d(p,q) = \sqrt{\sum_{i=1}^{n} (q_i - p_i)^2}
-    \label{eq:euclidean}
+    T(n,m) = O(n + m)
+    \label{eq:kmp-complexity}
 \end{equation}
-\myequations{Euclidean Distance}
+\myequations{Kompleksitas Knuth-Morris-Pratt}
 
+dengan $n$ sebagai panjang teks dan $m$ sebagai panjang pattern. Pattern matching sendiri merupakan masalah dasar dalam pemrosesan string \parencite{Crochemore2013}, dan algoritma string matching banyak dipakai dalam sistem pencarian informasi \parencite{Al-howaide}.
 
-\subsection{Metodologi Penelitian}
+\subsection{Analisis String Matching pada Pencarian Pesanan}
 
-Jelaskan metodologi penelitian yang akan digunakan, mencakup pendekatan penelitian, teknik pengumpulan data, dan analisis.
+Pencarian pesanan memiliki kebutuhan yang sedikit berbeda dari pencarian produk. Seller tidak hanya mencari berdasarkan nama produk, tetapi juga dapat mencari berdasarkan order ID, transaction ID, dan tracking ID. Karena itu, pencarian pesanan dianalisis sebagai String Matching multi-field.
 
-\begin{figure}[htbp]
-    \centering
-    % Diagram alir penelitian
-    \includegraphics[width=0.6\textwidth]{figures/diagram-alir-penelitian.png}
-    \caption{Contoh Diagram Alir Penelitian (Dummy Figure)}
-    \label{fig:alur_penelitian}
-\end{figure}
+\textbf{Pseudocode pencarian pesanan:}
 
-Setelah Gambar \ref{fig:alur_penelitian}, jelaskan langkah-langkah detailnya:
-\begin{itemize}[leftmargin=*]
-    \item Pendekatan penelitian
-    \item Teknik pengumpulan data
-    \item Metode analisis
-    \item Validasi dan verifikasi
-\end{itemize}
+\begin{Verbatim}[frame=single,framesep=6pt,fontsize=\scriptsize]
+Input: orders, keyword
 
-\subsection{Alat dan Kerangka Kerja}
+Untuk setiap order:
+    cocok jika keyword ditemukan pada:
+        - order_id
+        - product_name
+        - transaction_id
+        - tracking_id
 
-Jelaskan alat, kerangka kerja, atau infrastruktur yang mendukung penelitian Anda.
+Output: daftar order yang cocok
+\end{Verbatim}
+
+\textbf{Contoh output analisis:}
+
+\begin{Verbatim}[frame=single,framesep=6pt,fontsize=\scriptsize]
+Keyword:
+"TRX-102"
+
+Data:
+Order 1 - transaction_id = "TRX-102-ABC"
+Order 2 - transaction_id = "TRX-555-ZZZ"
+
+Output:
+Order 1
+\end{Verbatim}
+
+Hasil analisisnya adalah pencarian multi-field membuat fitur seller lebih praktis. Seller tidak perlu mengingat field tertentu; cukup mengetik potongan ID transaksi, nama produk, atau nomor tracking.
+
+\subsection{Kesimpulan Analisis Output}
+
+\begin{table}[htbp]
+    \caption{Output dari Penerapan Algoritma}
+    \label{tab:output-algoritma}
+    \small
+    \begin{tabularx}{\textwidth}{@{} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X @{}}
+    \toprule
+    \textbf{Algoritma} & \textbf{Fitur} & \textbf{Output yang Terlihat di Aplikasi} \\
+    \midrule
+    Greedy & Rekomendasi produk & Produk relevan tampil pada bagian rekomendasi \\
+    Greedy & Sorting produk & Produk terlaris/rating tertinggi tampil lebih atas \\
+    Greedy & Fee marketplace & Subtotal, fee 2\%, dan total pembayaran tampil konsisten \\
+    KMP & Pencarian produk & Produk yang mengandung keyword muncul di hasil pencarian \\
+    String Matching & Pencarian pesanan & Order yang cocok dengan ID/nama produk/tracking tampil di daftar seller \\
+    \bottomrule
+    \end{tabularx}
+\end{table}
+
+Secara keseluruhan, algoritma yang dipakai PasarKita tidak dibuat terlalu kompleks. Greedy dipilih karena cepat dan cukup untuk keputusan ranking sederhana. KMP dipilih karena efisien untuk pencarian exact substring. Keterbatasannya, Greedy belum menjadi sistem rekomendasi personal yang kompleks dan KMP belum mendukung typo atau fuzzy search. Pengembangan berikutnya dapat mengarah ke Epsilon Greedy untuk rekomendasi adaptif \parencite{Umami2021} atau fuzzy search untuk pencarian yang lebih toleran terhadap salah ketik.

@@ -1,4 +1,4 @@
-% Template LaTeX untuk Ujian Kualifikasi
+﻿% Template LaTeX untuk Ujian Kualifikasi
 % Program Studi Doktor Informatika
 % Universitas Telkom
 
@@ -28,6 +28,7 @@
 \usepackage{tabularx}
 \usepackage{longtable}
 \usepackage{ragged2e}  % For better text justification in bibliography
+\usepackage{fancyvrb}
 
 % Page Setup
 \geometry{
@@ -81,7 +82,7 @@
 \renewcommand{\cftafterloftitle}{\hfill}
 
 % List of Equations setup
-\newcommand{\listequationsname}{DAFTAR RUMUS}
+\newcommand{\listequationsname}{DAFTAR PSEUDOCODE}
 \newlistof{myequations}{equ}{\listequationsname}
 \newcommand{\myequations}[1]{%
 \addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
@@ -112,45 +113,54 @@
 \renewcommand{\maketitle}{
     \begin{titlepage}
         \centering
-        \vspace*{0.5cm}
+        \vspace*{0.8cm}
         
-        % Judul Penelitian (bagian atas)
-        {\fontsize{16}{20}\selectfont
-        \textbf{Judul Laporan yang Akan di Laporkan}\par}
+        {\fontsize{14}{18}\selectfont
+        \textbf{LAPORAN TUGAS BESAR PENERAPAN ALGORITMA}\\
+        \textbf{PADA APLIKASI PASARKITA}\par}
         
-        \vspace{1.5cm}
+        \vspace{0.9cm}
         
-        % Tahap Ujian Kualifikasi
         {\fontsize{12}{14}\selectfont
-        \textbf{Proyek / Internship}\par}
+        \textbf{MATA KULIAH STRATEGI ALGORITMA}\par}
         
-        \vspace{1.5cm}
+        \vspace{1.1cm}
         
-        % NIM dan Nama
-        {\fontsize{12}{14}\selectfont
-        \textbf{\@myNIM}\par
-        \textbf{\@myName}\par}
-        
-        \vspace{1.5cm}
-        \vspace{1.5cm}
-        \vspace{1.5cm}
-     
-        
-        % Logo
         \IfFileExists{logo.png}{
-            \includegraphics[width=0.5\textwidth]{logo.png}
+            \includegraphics[width=0.36\textwidth]{logo.png}
         }{
             {\fontsize{16}{19}\bfseries Logo\par}
         }
         
-        \vfill
+        \vspace{1.2cm}
+
+        {\fontsize{12}{14}\selectfont
+        \textbf{DISUSUN OLEH:}\par}
+
+        \vspace{0.5cm}
+
+        \begin{tabular}{@{} l l @{}}
+        \textbf{RADITYA RIZKI RAHARJA} & \textbf{714240041} \\
+        \textbf{RIDWAN HAKIM RAMADHAN} & \textbf{714240050} \\
+        \textbf{MUHAMMAD RASHID AL SAVERO} & \textbf{714240006} \\
+        \end{tabular}
+
+        \vspace{0.9cm}
+
+        {\fontsize{12}{14}\selectfont
+        \textbf{DOSEN PENGAMPU:}\par}
+
+        \vspace{0.5cm}
+
+        {\fontsize{12}{14}\selectfont
+        \textbf{RONI HABIBI, S.KOM., M.T., SFPC}\par}
+
+        \vspace{1.0cm}
         
-        % Program Studi dan Informasi
-        {\fontsize{16}{19}\selectfont
-        \textbf{Program Studi Sarjana Terapan Teknik Informatika}\par
-        \textbf{Sekolah Teknologi Informasi}\par
-        \textbf{Universitas Logistik dan Bisnis Internasional}\par
-        \textbf{Bandung}\par
+        {\fontsize{12}{15}\selectfont
+        \textbf{PROGRAM STUDI DIV TEKNIK INFORMATIKA}\par
+        \textbf{UNIVERSITAS LOGISTIK \& BISNIS INTERNASIONAL}\par
+        \textbf{BANDUNG}\par
         \textbf{2026}\par}
         
     \end{titlepage}
@@ -187,11 +197,11 @@
     {}
     {}
 
-% Bibliography Style - APA-like with BibTeX
+% Bibliography Style - IEEE with BibTeX
 \usepackage[
     backend=bibtex,   % Menggunakan BibTeX (biber tidak berfungsi di sistem ini)
-    style=authoryear, % Author-year citation style (APA-like)
-    sorting=nyt,      % Sort by name, year, title
+    style=ieee,     % IEEE numeric citation style
+    sorting=none,     % IEEE: sort by citation order
     maxbibnames=99,   % Tampilkan semua nama penulis
     dashed=false,     % Jangan gunakan dash untuk author yang sama
     url=false,        % Jangan tampilkan URL
@@ -200,8 +210,10 @@
 
 \urlstyle{same} % Samakan font URL/DOI dengan teks utama
 
-\addbibresource{references.bib}
-\addbibresource{include.bib}
+% BibTeX cannot read spaces in database paths; this file mirrors src/My Collection.bib.
+\addbibresource{src/MyCollection.bib}
+%\addbibresource{references.bib}
+%\addbibresource{include.bib}
 %\addbibresource{visualdecoding.bib} % Uncomment jika ingin menggunakan file bib tambahan
 
 % Make \cite behave like \parencite (with parentheses)
@@ -232,7 +244,7 @@
 
 
 % Set document metadata
-\myTitle{Judul Penelitian Anda}
+\myTitle{Laporan Analisis Penerapan Algoritma pada PasarKita}
 \myNIM{303012510004}
 \myName{Rolly Maulana Awangga}
 \myYear{2026}
@@ -266,15 +278,9 @@
 \listoftables
 \clearpage
 
-% DAFTAR GAMBAR
+% DAFTAR PSEUDOCODE
 \phantomsection
-\addcontentsline{toc}{section}{DAFTAR GAMBAR}
-\listoffigures
-\clearpage
-
-% DAFTAR RUMUS
-\phantomsection
-\addcontentsline{toc}{section}{DAFTAR RUMUS}
+\addcontentsline{toc}{section}{DAFTAR PSEUDOCODE}
 \listofequations
 \clearpage
 
@@ -287,33 +293,33 @@
 
 \clearpage
 
-% BAB 1 - PENDAHULUAN
+% BAB 1 - PENDAHULUAN ANALISIS
 \setcounter{section}{0}
 \pagenumbering{arabic} % Kembali ke angka Arab mulai dari Bab 1
 \setcounter{page}{1}   % Reset halaman ke 1
-\section*{BAB 1 \\ PENDAHULUAN}
+\section*{BAB 1 \\ PENDAHULUAN ANALISIS}
 \phantomsection
-\addcontentsline{toc}{section}{BAB 1 PENDAHULUAN}
+\addcontentsline{toc}{section}{BAB 1 PENDAHULUAN ANALISIS}
 \refstepcounter{section}
 
 \input{chapters/bab1}
 
 \clearpage
 
-% BAB 2 - LITERATURE REVIEW
-\section*{BAB 2 \\ LITERATURE REVIEW}
+% BAB 2 - GAMBARAN FITUR DAN REFERENSI
+\section*{BAB 2 \\ GAMBARAN FITUR DAN REFERENSI}
 \phantomsection
-\addcontentsline{toc}{section}{BAB 2 LITERATURE REVIEW}
+\addcontentsline{toc}{section}{BAB 2 GAMBARAN FITUR DAN REFERENSI}
 \refstepcounter{section}
 
 \input{chapters/bab2}
 
 \clearpage
 
-% BAB 3 - TEORI / METODE TERKAIT
-\section*{BAB 3 \\ TEORI / METODE TERKAIT}
+% BAB 3 - ANALISIS ALGORITMA DAN OUTPUT
+\section*{BAB 3 \\ ANALISIS ALGORITMA DAN OUTPUT}
 \phantomsection
-\addcontentsline{toc}{section}{BAB 3 TEORI / METODE TERKAIT}
+\addcontentsline{toc}{section}{BAB 3 ANALISIS ALGORITMA DAN OUTPUT}
 \refstepcounter{section}
 
 \input{chapters/bab3}
@@ -325,12 +331,5 @@
 \addcontentsline{toc}{section}{DAFTAR PUSTAKA}
 
 \printbibliography[heading=none]
-
-\clearpage
-
-
-\input{chapters/lampiran}
-
-\clearpage
 
 \end{document}

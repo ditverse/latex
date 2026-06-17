@@ -1,41 +1,95 @@
-\subsection{State-of-the-Art Penelitian}
+\subsection{Analisis Jurnal sebagai Dasar Pemilihan Algoritma}
 
-Bagian ini menjabarkan hasil \textit{systematic literature review} terhadap referensi utama serta yang berkaitan dengan topik penelitian \parencite{lawoyin2014}. Bagian ini ditulis minimal \textbf{4000 kata} dan maksimal \textbf{5000 kata}, dalam beberapa paragraf (fleksibel).
+Referensi pada bagian ini tidak hanya dipakai sebagai kutipan teori, tetapi sebagai alasan mengapa algoritma tertentu masuk akal untuk PasarKita. Cara membacanya sederhana: jurnal memberi konteks masalah, lalu konteks itu diterjemahkan menjadi keputusan fitur di aplikasi.
 
-Pada bagian ini \textbf{diakhiri dengan tabel} \textit{state-of-the-art} yang berisi ringkasan dari hasil \textit{systematic literature review}. Sumber pustaka atau referensi primer yang relevan dengan mengutamakan hasil penelitian ilmiah atau teknologi yang terkini. Disarankan penggunaan sumber pustaka 5 tahun terakhir (untuk prosiding konferensi) dan 10 tahun terakhir (bergantung pada relevansi teori atau metode) untuk jurnal atau buku teks.
+\begingroup
+\scriptsize
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{} >{\raggedright\arraybackslash}p{0.22\textwidth} >{\raggedright\arraybackslash}p{0.35\textwidth} >{\raggedright\arraybackslash}p{0.35\textwidth} @{}}
+    \caption{Analisis Jurnal dan Hubungannya dengan PasarKita}
+    \label{tab:analisis-jurnal}\\
+    \toprule
+    \textbf{Referensi} & \textbf{Isi penting jurnal} & \textbf{Hubungan dengan Aplikasi} \\
+    \midrule
+    \endfirsthead
+    \caption[]{Analisis Jurnal dan Hubungannya dengan PasarKita (lanjutan)}\\
+    \toprule
+    \textbf{Referensi} & \textbf{Isi penting jurnal} & \textbf{Hubungan dengan Aplikasi} \\
+    \midrule
+    \endhead
+    \bottomrule
+    \endfoot
+    \textcite{Oliveira2011} & Membahas model adopsi teknologi pada level organisasi, termasuk kerangka DOI dan TOE. Intinya, teknologi dipakai ketika bisa membantu organisasi bekerja lebih efisien dan menyesuaikan diri dengan lingkungan bisnis. & PasarKita dibuat sebagai kanal digital untuk UMKM. Karena itu, fitur marketplace tidak cukup hanya menampilkan data; aplikasi perlu membantu proses jual-beli berjalan lebih cepat, mudah dicari, dan mudah dipantau. \\
+    \addlinespace
+    \textcite{Resnick1997} & Menjelaskan bahwa recommender system membantu user memilih item ketika pilihan terlalu banyak. Masalah utamanya bukan kekurangan data, tetapi terlalu banyak alternatif yang harus dipilih user. & Produk UMKM dalam marketplace bisa bertambah banyak. PasarKita memakai rekomendasi berbasis skor agar buyer tidak harus menelusuri semua produk satu per satu. \\
+    \addlinespace
+    \textcite{Tanujaya2026} & Membandingkan Greedy dan Dynamic Programming pada optimasi diskon keranjang e-commerce. Greedy ditunjukkan sebagai pendekatan yang praktis dan cepat, walaupun tidak selalu menjamin hasil optimal global seperti pendekatan yang lebih berat. & Fitur rekomendasi, sorting, dan fee PasarKita membutuhkan respons cepat. Karena targetnya ranking dan perhitungan sederhana, Greedy lebih cocok daripada algoritma optimasi yang terlalu kompleks. \\
+    \addlinespace
+    \textcite{Marbun2024} & Menerapkan Knuth-Morris-Pratt pada e-katalog perpustakaan. Fokusnya adalah mencocokkan kata kunci dengan data katalog agar pencarian item lebih efisien. & PasarKita memiliki kasus yang mirip dengan e-katalog: user mengetik keyword, lalu sistem mencari produk yang namanya mengandung keyword tersebut. Karena itu, KMP sesuai untuk pencarian produk. \\
+    \addlinespace
+    \textcite{Al-howaide} & Membahas algoritma string matching dan perbandingan cara pencocokan string. Poin pentingnya adalah setiap algoritma pencarian memiliki cara mengurangi perbandingan karakter yang tidak perlu. & Pencarian produk dan pesanan tidak boleh terasa lambat ketika data bertambah. String Matching dipakai agar keyword bisa dicocokkan ke nama produk, ID transaksi, atau nomor tracking secara terarah. \\
+    \addlinespace
+    \textcite{Crochemore2013} & Menjelaskan pattern matching sebagai masalah dasar dalam pemrosesan string: mencari kemunculan pattern di dalam teks. & Fitur pencarian PasarKita pada dasarnya adalah pattern matching. Keyword adalah pattern, sedangkan nama produk/order field adalah teks yang dicari. \\
+\end{longtable}
+\endgroup
 
-Pada bagian akhir tabel, sebutkan usulan penelitian Anda untuk melihat posisi penelitian Anda dalam \textit{state-of-the-art} penelitian.
+\subsection{Alasan Khusus Aplikasi Menggunakan Algoritma Ini}
+
+Tabel berikut bisa dipakai sebagai ringkasan utama saat presentasi. Isinya langsung menghubungkan masalah aplikasi, alasan pemilihan algoritma, dan output yang terlihat.
+
+\begingroup
+\scriptsize
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{} >{\raggedright\arraybackslash}p{0.18\textwidth} >{\raggedright\arraybackslash}p{0.25\textwidth} >{\raggedright\arraybackslash}p{0.30\textwidth} >{\raggedright\arraybackslash}p{0.20\textwidth} @{}}
+    \caption{Keputusan Algoritma pada Fitur PasarKita}
+    \label{tab:keputusan-algoritma}\\
+    \toprule
+    \textbf{Algoritma} & \textbf{Masalah di aplikasi} & \textbf{Mengapa cocok} & \textbf{Penerapan pada Aplikasi} \\
+    \midrule
+    \endfirsthead
+    \caption[]{Keputusan Algoritma pada Fitur PasarKita (lanjutan)}\\
+    \toprule
+    \textbf{Algoritma} & \textbf{Masalah di aplikasi} & \textbf{Mengapa cocok} & \textbf{Penerapan pada Aplikasi} \\
+    \midrule
+    \endhead
+    \bottomrule
+    \endfoot
+    Greedy scoring & Buyer butuh rekomendasi produk yang relevan tanpa proses berat. & Mengambil produk dengan skor terbaik berdasarkan kategori yang sering dilihat, jumlah terjual, dan rating. Cocok untuk rekomendasi awal karena cepat dan mudah dijelaskan. & Daftar produk rekomendasi: stok tersedia, belum dilihat, dan kategori/skornya relevan. \\
+    \addlinespace
+    Greedy ranking & Produk perlu diurutkan berdasarkan terlaris atau rating tertinggi. & Setiap produk punya skor lokal. Sistem cukup mengurutkan skor tersebut tanpa mencari kombinasi global. & Tabel produk terurut dari sold units atau rating terbesar. \\
+    \addlinespace
+    Greedy satu langkah & Checkout perlu menghitung fee marketplace dengan konsisten. & Fee selalu 2\% dari subtotal, sehingga cukup dihitung langsung dalam satu langkah. & Subtotal, fee marketplace, dan total pembayaran. \\
+    \addlinespace
+    KMP & Buyer dan seller perlu mencari produk berdasarkan keyword. & KMP memakai prefix table sehingga ketika terjadi mismatch, pencarian tidak selalu diulang dari awal. Ini cocok untuk exact substring search pada nama produk. & Keyword \texttt{sep} menghasilkan produk seperti \texttt{Sepatu Running Lokal}. \\
+    \addlinespace
+    String Matching multi-field & Seller perlu mencari order melalui order ID, nama produk, transaction ID, atau tracking ID. & Masalahnya bukan hanya mencari satu nama produk, tetapi mencocokkan keyword ke beberapa field. Pendekatan string matching membuat pencarian lebih fleksibel. & Keyword transaksi atau tracking menampilkan order yang cocok. \\
+\end{longtable}
+\endgroup
+
+Dari tabel tersebut, Greedy dipilih ketika PasarKita perlu mengambil keputusan cepat berdasarkan skor lokal. KMP dan String Matching dipilih ketika fitur membutuhkan pencocokan keyword pada teks. Referensi \textcite{Umami2021} tidak dipakai untuk mengklaim implementasi saat ini, tetapi menjadi catatan pengembangan jika rekomendasi PasarKita ingin dibuat lebih adaptif dengan pola eksplorasi dan eksploitasi.
+
+\subsection{Alur Fitur yang Dianalisis}
+
+Secara umum, fitur yang dianalisis mengikuti alur input, proses algoritma, dan output. Rekomendasi produk menerima input berupa daftar produk dan histori produk yang pernah dilihat. Sistem menghitung skor setiap produk, mengurutkan produk berdasarkan skor, lalu mengambil produk teratas. Sorting produk bekerja dengan pola serupa, tetapi skor utamanya berasal dari unit terjual atau rating. Fee marketplace menerima subtotal dan langsung menghasilkan fee serta total pembayaran.
+
+Pada pencarian, input utama adalah keyword. Keyword tersebut dicocokkan dengan nama produk atau field order. Untuk pencarian produk, PasarKita menggunakan KMP yang bersifat case-insensitive. Untuk pencarian pesanan, keyword dapat dicari pada order ID, nama produk, transaction ID, dan tracking ID.
+
+\subsection{Ringkasan Input, Proses, dan Output}
 
 \begin{table}[htbp]
-    \caption{State-of-the-Art Penelitian}
-    \label{tab:sota}
+    \caption{Ringkasan Input, Proses, dan Output Algoritma}
+    \label{tab:ipo-algoritma}
     \small
-    \begin{tabularx}{\textwidth}{@{} c >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}l @{}}
+    \begin{tabularx}{\textwidth}{@{} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X @{}}
     \toprule
-    \textbf{No} & \textbf{Peneliti} & \textbf{Objective} & \textbf{Metode \& Hasil} & \textbf{Keterangan} \\
+    \textbf{Fitur} & \textbf{Input} & \textbf{Proses} & \textbf{Output} \\
     \midrule
-    
-    1 & \textcite{lawoyin2014} & 
-    Analisis sistem Holter EEG 3D secara real-time. & 
-    Pengolahan sinyal EEG dengan HPF, NFFT. Klasifikasi SVM. & 
-    Metode dasar \\
-    
-    \addlinespace
-    
-    2 & \textcite{example2023} & 
-    Meningkatkan akurasi deteksi kantuk. & 
-    Menggunakan Deep Learning (CNN) dengan dataset XYZ. Akurasi 95\%. & 
-    Metode modern \\
-    
-    \addlinespace
-    
-    3 & \textcite{textbook2020} & 
-    Teori dasar pengukuran sinyal biomedis. & 
-    Menjelaskan prinsip kerja EEG dan EKG konvensional. & 
-    Referensi teori \\
-    
+    Rekomendasi produk & Produk dan histori lihat & Hitung skor lokal, sort, ambil top-N & Produk rekomendasi \\
+    Sorting produk & Data produk, sold units, rating & Ranking berdasarkan skor utama & Produk terurut \\
+    Fee marketplace & Subtotal checkout & Hitung 2\% dari subtotal & Fee dan total \\
+    Pencarian produk & Keyword dan nama produk & KMP case-insensitive & Produk yang cocok \\
+    Pencarian pesanan & Keyword dan field order & Matching beberapa field & Order yang cocok \\
     \bottomrule
     \end{tabularx}
 \end{table}
-
-Berdasarkan \textit{state-of-the-art} yang dibuat, berikan penjelasan tentang potensi gap penelitian yang dapat diangkat untuk penelitian Anda. Gunakan lebih dari satu tabel \textit{state-of-the-art} jika terdapat beberapa metode atau teori yang digunakan dari hasil eksplorasi Anda.

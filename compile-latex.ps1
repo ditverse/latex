@@ -3,7 +3,7 @@
 # Deskripsi: Mengkompilasi Template-Ujian-Kualifikasi-DJN.tex secara otomatis
 
 # Set nama file (tanpa ekstensi)
-$TexFile = "bukped"
+$TexFile = "tubes_psa"
 
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host "  Kompilasi LaTeX Document" -ForegroundColor Cyan

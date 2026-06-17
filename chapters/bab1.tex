@@ -1,31 +1,43 @@
-\subsection{Latar Belakang dan Motivasi Penelitian}
+\subsection{Konteks Aplikasi}
 
-\begin{background}
-Pada bagian ini, jelaskan \textit{rationale} atau motivasi yang melatarbelakangi pemilihan topik penelitian. Bagian ini dapat menjelaskan tren penelitian atau berdasarkan referensi dari topik yang menjadi minat Anda \parencite{example2023}. Sertakan juga rujukan dari referensi yang menjadi acuan latar belakang penelitian Anda \parencite{textbook2020}.
+PasarKita adalah aplikasi marketplace digital untuk produk UMKM. Aplikasi ini mempertemukan tiga aktor utama: pembeli, penjual, dan admin. Pembeli menggunakan aplikasi untuk melihat katalog, mencari produk, memasukkan produk ke keranjang, melakukan checkout, dan melihat status pesanan. Penjual menggunakan aplikasi untuk mengelola produk, stok, pesanan, serta dashboard toko. Admin menggunakan aplikasi untuk memantau user, produk, order, analytics, dan kondisi integrasi.
 
-\textbf{Isi:} 100-200 kata, minimal 1 paragraf.
-\end{background}
+Marketplace seperti PasarKita membutuhkan algoritma karena data yang ditampilkan tidak cukup hanya disimpan dan diambil apa adanya. Produk perlu direkomendasikan, diurutkan, dicari, dan dihitung biayanya. Recommender system membantu pengguna memilih item ketika pilihan terlalu banyak \parencite{Resnick1997}. Dari sisi organisasi, penggunaan teknologi informasi juga relevan untuk membantu proses adopsi digital pada level usaha atau organisasi \parencite{Oliveira2011}. Karena itu, PasarKita cocok dijadikan objek analisis penerapan algoritma dasar.
 
-\subsection{Ringkasan Penelitian Terkait}
+\subsection{Fokus Analisis}
 
-\begin{literaturereview}
-Bagian ini berisi \textit{brief literature review}. Jelaskan penelitian-penelitian terkait hasil telaah terhadap penelitian sebelumnya yang paling mendekati dengan topik atau latar belakang penelitian Anda \parencite{conference2022}. Jelaskan juga keunggulan dan kekurangan dari penelitian sebelumnya, serta peluang penelitian lanjutan. Sertakan sitasi dari referensi utama.
+Laporan ini hanya membahas fitur yang sudah memiliki penerapan algoritma jelas di dokumentasi dan kode aplikasi. Fokusnya adalah sebagai berikut:
 
-\textbf{Isi:} 100-200 kata, minimal 2-3 paragraf.
-\end{literaturereview}
+\begin{itemize}[leftmargin=*]
+    \item Algoritma Greedy pada rekomendasi produk, sorting produk, dan fee marketplace.
+    \item String Matching/KMP pada pencarian produk buyer dan seller.
+    \item String Matching multi-field pada pencarian pesanan.
+    \item Potongan kode, pseudocode, dan contoh output dari penerapan algoritma.
+\end{itemize}
 
-\subsection{Potensi Gap Penelitian atau Masalah yang Akan Diangkat}
+Laporan ini tidak mengklaim bahwa PasarKita sudah memakai machine learning recommendation. Referensi Epsilon Greedy digunakan sebagai catatan pengembangan, bukan sebagai implementasi saat ini \parencite{Umami2021}.
 
-\begin{researchgap}
-Pada bagian ini, tuliskan identifikasi permasalahan atau potensi gap dari fenomena yang akan diangkat dalam penelitian berdasarkan latar belakang dan penelitian terkait. Jelaskan kesenjangan yang belum teratasi oleh penelitian sebelumnya dan bagaimana penelitian Anda akan mengatasinya.
+\subsection{Fitur yang Dianalisis}
 
-\textbf{Isi:} 100-200 kata, minimal 1 paragraf.
-\end{researchgap}
+Fitur yang dianalisis dipilih karena langsung berhubungan dengan kebutuhan marketplace.
 
-\subsection{Potensi Kebaruan dari Penelitian yang Akan Dilakukan}
+\begin{table}[htbp]
+    \caption{Fitur PasarKita yang Dianalisis}
+    \label{tab:fitur-dianalisis}
+    \small
+    \begin{tabularx}{\textwidth}{@{} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X @{}}
+    \toprule
+    \textbf{Fitur} & \textbf{Masalah yang Diselesaikan} & \textbf{Algoritma} \\
+    \midrule
+    Rekomendasi produk & Pembeli butuh produk yang relevan dari banyak pilihan & Greedy scoring \\
+    Sorting produk & Produk perlu ditampilkan berdasarkan performa penjualan atau rating & Greedy ranking \\
+    Fee marketplace & Total checkout perlu dihitung cepat dan konsisten & Greedy satu langkah \\
+    Pencarian produk & Buyer dan seller perlu menemukan produk berdasarkan keyword & KMP/String Matching \\
+    Pencarian pesanan & Seller perlu mencari order berdasarkan beberapa field & String Matching multi-field \\
+    \bottomrule
+    \end{tabularx}
+\end{table}
 
-\begin{novelty}
-Pada bagian ini, tuliskan bagaimana Anda membuktikan bahwa penelitian yang diajukan adalah baru dan orisinal (\textit{novel dan original}). Bagian ini dapat diisi dengan hasil \textit{systematic mapping study} atau \textit{meta analysis} untuk memetakan usulan topik penelitian terhadap teori atau metode terkini, sehingga dapat dibuktikan \textit{novelty} dan \textit{originality}-nya.
+\subsection{Sumber Data Analisis}
 
-\textbf{Isi:} 400-500 kata, minimal 3-5 paragraf.
-\end{novelty}
+Analisis dilakukan dari tiga sumber utama. Pertama, dokumentasi algoritma pada folder \path{docs/algorithms}. Kedua, source code aplikasi yang berkaitan dengan rekomendasi, fee, pencarian produk, dan pencarian pesanan. File utama yang ditinjau adalah modul rekomendasi frontend, utilitas fee, utilitas KMP, service produk, dan service order. Ketiga, referensi yang sudah dikumpulkan dalam file BibTeX \path{src/My Collection.bib}.
