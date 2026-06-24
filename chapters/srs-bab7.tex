@@ -1,0 +1,236 @@
+% ============================================================
+% BAB 7 - ANTARMUKA EKSTERNAL
+% ============================================================
+
+\subsection{User Interface Requirements}
+
+UI harus mendukung pekerjaan operasional yang berbeda per \textit{role}:
+\textit{buyer} menelusuri dan membeli produk, \textit{seller} mengelola katalog
+dan \textit{order} masuk, \textit{superadmin} memantau platform secara
+keseluruhan. Karena itu halaman tidak hanya berfungsi sebagai \textit{form},
+tetapi juga sebagai \textit{control surface} untuk status transaksi, stok, dan
+kesehatan integrasi.
+
+\begin{longtable}{|L{4cm}|L{2.5cm}|L{8cm}|}
+    \caption{User Interface Requirements per Route}
+    \label{tab:ui-req} \\
+    \hline
+    \textbf{UI / Route} & \textbf{Primary User} & \textbf{Requirement} \\
+    \hline
+    \endfirsthead
+    \hline
+    \textbf{UI / Route} & \textbf{Primary User} & \textbf{Requirement} \\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    \texttt{/}
+        & Semua / \textit{Guest}
+        & \textit{Landing page} harus menampilkan katalog produk unggulan,
+          \textit{banner} promo, dan akses \textit{login}/register. \\
+    \hline
+    \texttt{/auth/login} dan \texttt{/auth/register}
+        & Semua
+        & Halaman auth harus jelas membedakan opsi register sebagai \textit{buyer}
+          atau \textit{seller}; tidak ada opsi \textit{superadmin}. \\
+    \hline
+    \texttt{/products}
+        & \textit{Buyer} / \textit{Guest}
+        & Halaman katalog harus mendukung filter kategori, \textit{search},
+          \textit{sorting} harga, dan \textit{pagination}. \\
+    \hline
+    \texttt{/products/:id}
+        & \textit{Buyer} / \textit{Guest}
+        & Halaman detail produk harus menampilkan gambar, deskripsi, harga, stok,
+          info toko, dan daftar ulasan. \\
+    \hline
+    \texttt{/cart}
+        & \textit{Buyer}
+        & Halaman keranjang harus menampilkan item, kuantitas (\textit{editable}),
+          subtotal per item, dan tombol \textit{checkout}. \\
+    \hline
+    \texttt{/checkout}
+        & \textit{Buyer}
+        & Halaman \textit{checkout} harus menampilkan ringkasan \textit{order},
+          kolom alamat pengiriman, \textit{input} \textit{voucher},
+          \textit{fee breakdown} lengkap, dan tombol konfirmasi bayar. \\
+    \hline
+    \texttt{/orders} dan \texttt{/orders/:id}
+        & \textit{Buyer}
+        & Halaman \textit{order} harus menampilkan status terkini,
+          \textit{tracking info}, dan opsi \textit{review} setelah
+          \texttt{delivered}. \\
+    \hline
+    \texttt{/seller/dashboard}
+        & \textit{Seller}
+        & \textit{Dashboard} \textit{seller} harus menampilkan ringkasan produk
+          aktif, stok rendah, dan \textit{order} masuk terbaru. \\
+    \hline
+    \texttt{/seller/products}
+        & \textit{Seller}
+        & Halaman manajemen produk harus mendukung CRUD produk dengan form
+          validasi dan \textit{upload} gambar. \\
+    \hline
+    \texttt{/seller/orders}
+        & \textit{Seller}
+        & Halaman \textit{order} \textit{seller} menampilkan \textit{order} masuk
+          dengan filter status dan detail item per \textit{order}. \\
+    \hline
+    \texttt{/admin}
+        & \textit{Superadmin}
+        & \textit{Dashboard} admin harus menampilkan metrik platform: total
+          \textit{revenue}, \textit{order count}, \textit{user} aktif, dan grafik
+          tren. \\
+    \hline
+    \texttt{/admin/users}
+        & \textit{Superadmin}
+        & Halaman manajemen \textit{user} menampilkan semua \textit{user} dengan
+          aksi ban/aktifkan dan \textit{input} alasan. \\
+    \hline
+    \texttt{/admin/orders}
+        & \textit{Superadmin}
+        & Halaman \textit{order} admin menampilkan semua \textit{order} dengan
+          kemampuan filter status dan \textit{update} manual. \\
+    \hline
+    \texttt{/admin/analytics}
+        & \textit{Superadmin}
+        & Halaman \textit{analytics} menampilkan produk terlaris,
+          \textit{revenue} per \textit{seller}, distribusi kategori, dan tren
+          transaksi. \\
+    \hline
+\end{longtable}
+
+% ----
+\subsection{API Requirements}
+
+\begin{longtable}{|L{4.5cm}|L{1.5cm}|L{3.5cm}|L{5cm}|}
+    \caption{Daftar API Endpoint PasarKita}
+    \label{tab:api-req} \\
+    \hline
+    \textbf{Endpoint} & \textbf{Method} & \textbf{Auth} & \textbf{Deskripsi} \\
+    \hline
+    \endfirsthead
+    \hline
+    \textbf{Endpoint} & \textbf{Method} & \textbf{Auth} & \textbf{Deskripsi} \\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    \texttt{/api/auth/register}
+        & POST & ---
+        & Registrasi \textit{user} baru; \textit{role} \texttt{buyer} atau
+          \texttt{seller}. \\
+    \hline
+    \texttt{/api/auth/login}
+        & POST & ---
+        & \textit{Login}; mengembalikan JWT. \\
+    \hline
+    \texttt{/api/products}
+        & GET & ---
+        & \textit{Browse} semua produk aktif; mendukung filter dan
+          \textit{pagination}. \\
+    \hline
+    \texttt{/api/products/:id}
+        & GET & ---
+        & Detail produk termasuk \textit{rating} agregat. \\
+    \hline
+    \texttt{/api/products}
+        & POST & \textit{seller}
+        & Tambah produk baru milik \textit{seller}. \\
+    \hline
+    \texttt{/api/products/:id}
+        & PUT & \textit{seller} / \textit{superadmin}
+        & Edit produk; \textit{seller} hanya produk milik sendiri. \\
+    \hline
+    \texttt{/api/products/:id}
+        & DELETE & \textit{seller} / \textit{superadmin}
+        & \textit{Soft delete} produk (\texttt{is\_active = false}). \\
+    \hline
+    \texttt{/api/checkout}
+        & POST & \textit{buyer}
+        & Proses \textit{checkout} lengkap termasuk \textit{payment request} ke
+          SmartBank. \\
+    \hline
+    \texttt{/api/fee/calculate}
+        & POST & ---
+        & Simulasi kalkulasi \textit{fee} dan diskon tanpa transaksi. \\
+    \hline
+    \texttt{/api/orders}
+        & GET & \textit{buyer} / \textit{seller} / \textit{superadmin}
+        & Daftar \textit{order}; difilter berdasarkan \textit{role} yang
+          \textit{request}. \\
+    \hline
+    \texttt{/api/orders/:id}
+        & GET & \textit{buyer} / \textit{seller} / \textit{superadmin}
+        & Detail \textit{order} termasuk \textit{items} dan status
+          \textit{history}. \\
+    \hline
+    \texttt{/api/orders/:id/status}
+        & PATCH & \textit{superadmin}
+        & \textit{Update} status \textit{order} manual. \\
+    \hline
+    \texttt{/api/orders/:id/ratings}
+        & POST & \textit{buyer}
+        & \textit{Submit} \textit{rating} setelah \textit{order} \texttt{delivered}. \\
+    \hline
+    \texttt{/api/admin/users}
+        & GET & \textit{superadmin}
+        & Semua \textit{user} dengan filter dan \textit{pagination}. \\
+    \hline
+    \texttt{/api/admin/users/:id/status}
+        & PATCH & \textit{superadmin}
+        & Ban atau aktifkan \textit{user}. \\
+    \hline
+    \texttt{/api/admin/analytics}
+        & GET & \textit{superadmin}
+        & Metrik platform: \textit{revenue}, \textit{order}, produk terlaris. \\
+    \hline
+    \texttt{/api/seller/profile}
+        & GET / PUT & \textit{seller}
+        & Baca dan \textit{update} profil toko \textit{seller}. \\
+    \hline
+    \texttt{/api/notifications}
+        & GET & semua \textit{role}
+        & Daftar notifikasi milik \textit{user} yang sedang \textit{login}. \\
+    \hline
+    \texttt{/api/notifications/:id/read}
+        & PATCH & semua \textit{role}
+        & Tandai notifikasi sudah dibaca. \\
+    \hline
+\end{longtable}
+
+% ----
+\subsection{Data Exchange Contract}
+
+Kontrak JSON pada \textit{checkout request} dan \textit{response} harus
+diperlakukan sebagai \textit{integration contract} dengan API Gateway dan
+\textit{service partner}. Perubahan nama \textit{field} atau tipe data dapat
+memutus integrasi dengan SmartBank atau LogistiKita.
+
+\begin{lstlisting}[language={},caption={POST /api/checkout: Request Body},
+    label={lst:checkout-req}]
+// POST /api/checkout -- Request Body
+{
+  "items": [
+    { "product_id": "uuid", "qty": 2 }
+  ],
+  "shipping_address": "Jl. Contoh No. 1, Bandung",
+  "voucher_code": "UMKM2026",
+  "idempotency_key": "uuid-v4"
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language={},caption={POST /api/checkout: Response (sukses)},
+    label={lst:checkout-res}]
+// POST /api/checkout -- Response (sukses)
+{
+  "order_id": "uuid",
+  "status": "paid",
+  "subtotal": 100000,
+  "fee_marketplace": 2000,
+  "voucher_discount": 5000,
+  "total": 97000,
+  "transaction_id": "SB-TXN-XXXX",
+  "tracking_id": "LK-TRACK-XXXX"
+}
+\end{lstlisting}

@@ -1,0 +1,194 @@
+% ============================================================
+% BAB 4 - DOMAIN DATA DAN ATURAN BISNIS
+% ============================================================
+
+\subsection{Core Domain Entities}
+
+\begin{longtable}{|L{2.8cm}|L{3cm}|L{4.7cm}|L{4cm}|}
+    \caption{Core Domain Entities PasarKita}
+    \label{tab:domain-entities} \\
+    \hline
+    \textbf{Entitas} & \textbf{Deskripsi} & \textbf{Field Penting}
+        & \textbf{Catatan Ownership} \\
+    \hline
+    \endfirsthead
+    \hline
+    \textbf{Entitas} & \textbf{Deskripsi} & \textbf{Field Penting}
+        & \textbf{Catatan Ownership} \\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    \texttt{users}
+        & Akun \textit{buyer}, \textit{seller}, dan \textit{superadmin}.
+        & \texttt{id}, \texttt{name}, \texttt{email}, \texttt{password\_hash},
+          \texttt{role}, \texttt{is\_active}, \texttt{phone}, \texttt{avatar\_url}
+        & PasarKita adalah \textit{system of record} untuk akun \textit{user}
+          dalam ekosistemnya. Saldo dikelola SmartBank. \\
+    \hline
+    \texttt{seller\_profiles}
+        & Profil toko milik \textit{seller}.
+        & \texttt{seller\_id}, \texttt{store\_name}, \texttt{logo\_url},
+          \texttt{description}
+        & Dibuat otomatis saat \textit{seller} register; dapat diedit oleh
+          \textit{seller} bersangkutan. \\
+    \hline
+    \texttt{products}
+        & Katalog produk yang dijual \textit{seller}.
+        & \texttt{id}, \texttt{seller\_id}, \texttt{name}, \texttt{description},
+          \texttt{category}, \texttt{price}, \texttt{stock}, \texttt{is\_active},
+          \texttt{image\_url}, \texttt{minimum\_stock}, \texttt{is\_low\_stock}
+        & Dikelola \textit{seller}; \textit{superadmin} dapat menonaktifkan. \\
+    \hline
+    \texttt{orders}
+        & Transaksi pembelian dari \textit{buyer}.
+        & \texttt{id}, \texttt{buyer\_id}, \texttt{status}, \texttt{subtotal},
+          \texttt{fee\_marketplace}, \texttt{total}, \texttt{shipping\_address},
+          \texttt{transaction\_id}, \texttt{tracking\_id}, \texttt{idempotency\_key}
+        & Dibuat saat \textit{checkout}; status diperbarui berdasarkan respons
+          SmartBank dan LogistiKita. \\
+    \hline
+    \texttt{order\_items}
+        & Detail item dalam satu \textit{order}.
+        & \texttt{order\_id}, \texttt{product\_id}, \texttt{qty},
+          \texttt{price\_at\_purchase}, \texttt{product\_name\_at\_purchase},
+          \texttt{product\_discount\_per\_unit}
+        & \textit{Snapshot} harga saat transaksi; tidak berubah meski harga
+          produk berubah setelah \textit{order}. \\
+    \hline
+    \texttt{order\_status\_}\newline\texttt{history}
+        & Riwayat perubahan status \textit{order}.
+        & \texttt{order\_id}, \texttt{status}, \texttt{actor\_id},
+          \texttt{source}, \texttt{note}, \texttt{created\_at}
+        & Digunakan untuk \textit{audit trail} setiap perubahan status \textit{order}. \\
+    \hline
+    \texttt{ratings}
+        & Ulasan \textit{buyer} terhadap produk setelah \textit{order} selesai.
+        & \texttt{order\_id}, \texttt{product\_id}, \texttt{buyer\_id},
+          \texttt{rating}, \texttt{comment}, \texttt{image\_urls},
+          \texttt{seller\_reply}
+        & Hanya dapat dibuat oleh \textit{buyer} yang memiliki \textit{order}
+          \texttt{delivered} untuk produk bersangkutan. \\
+    \hline
+    \texttt{notifications}
+        & Notifikasi \textit{in-app} untuk semua \textit{role}.
+        & \texttt{user\_id}, \texttt{order\_id}, \texttt{type}, \texttt{title},
+          \texttt{message}, \texttt{href}, \texttt{read\_at}
+        & Di-\textit{generate} \textit{backend} saat \textit{event order}
+          (paid, shipped, delivered, rating). \\
+    \hline
+    \texttt{vouchers}
+        & Kode diskon untuk \textit{buyer}.
+        & \texttt{code}, \texttt{discount\_type}, \texttt{discount\_value},
+          \texttt{min\_purchase}, \texttt{max\_uses}, \texttt{valid\_until}
+        & Dikelola \textit{superadmin}; dapat berupa persentase atau nominal tetap. \\
+    \hline
+    \texttt{product\_discounts}
+        & Diskon langsung pada produk tertentu.
+        & \texttt{product\_id}, \texttt{discount\_type}, \texttt{discount\_value},
+          \texttt{valid\_from}, \texttt{valid\_until}
+        & Dikelola \textit{seller}; diperhitungkan saat kalkulasi subtotal. \\
+    \hline
+    \texttt{admin\_audit\_logs}
+        & Catatan aksi administratif \textit{superadmin}.
+        & \texttt{actor\_id}, \texttt{action}, \texttt{target\_type},
+          \texttt{target\_id}, \texttt{reason}, \texttt{before\_data},
+          \texttt{after\_data}
+        & Di-\textit{generate} otomatis setiap aksi sensitif \textit{superadmin}
+          (ban \textit{user}, \textit{update} status, dsb.). \\
+    \hline
+    \texttt{integration\_logs}
+        & Log komunikasi ke \textit{service} eksternal.
+        & \texttt{service}, \texttt{operation}, \texttt{success},
+          \texttt{duration\_ms}, \texttt{order\_id}, \texttt{status\_code},
+          \texttt{error\_code}
+        & Digunakan untuk \textit{monitoring} kesehatan integrasi SmartBank dan
+          LogistiKita. \\
+    \hline
+\end{longtable}
+
+% ----
+\subsection{Business Rules}
+
+\begin{longtable}{|L{1cm}|L{7cm}|L{7cm}|}
+    \caption{Business Rules Sistem PasarKita}
+    \label{tab:business-rules} \\
+    \hline
+    \textbf{ID} & \textbf{Aturan Bisnis} & \textbf{Dampak Implementasi} \\
+    \hline
+    \endfirsthead
+    \hline
+    \textbf{ID} & \textbf{Aturan Bisnis} & \textbf{Dampak Implementasi} \\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    BR-01
+        & \textit{Fee marketplace} adalah 2\% dari subtotal, dibebankan ke
+          \textit{buyer} pada setiap transaksi.
+        & \texttt{backend/src/utils/fee.js} menghitung
+          \texttt{fee\_marketplace = Math.ceil(subtotal * 0.02)};
+          \textit{frontend} menampilkan rincian \textit{fee} sebelum konfirmasi. \\
+    \hline
+    BR-02
+        & Saldo awal setiap \textit{user} baru yang didaftarkan di SmartBank
+          adalah Rp~50.000.
+        & \textit{Backend} harus memanggil SmartBank untuk inisiasi saldo saat
+          registrasi berhasil; \textit{failure handling} jika SmartBank tidak
+          tersedia. \\
+    \hline
+    BR-03
+        & Maksimum transaksi adalah 10x per \textit{user} per hari dengan
+          \textit{cooldown} 10--30 detik antar transaksi.
+        & \textit{Backend} memvalidasi frekuensi transaksi via \textit{query}
+          \texttt{orders} sebelum proses \textit{checkout}; \textit{rate limiting}
+          diterapkan di \textit{middleware}. \\
+    \hline
+    BR-04
+        & Stok harus divalidasi dan di-\textit{reserve} sebelum \textit{payment
+          request} dikirim ke SmartBank.
+        & \textit{Checkout module} memvalidasi stok per item, men-\textit{set}
+          \texttt{stock\_reserved = true} pada \textit{order} \texttt{pending},
+          dan me-\textit{rollback} stok jika pembayaran gagal. \\
+    \hline
+    BR-05
+        & Semua komunikasi ke SmartBank dan LogistiKita pada \textit{environment
+          production} harus melalui \texttt{GATEWAY\_BASE\_URL}.
+        & \textit{Integrations module} membaca \texttt{NODE\_ENV}; jika
+          \texttt{development} menggunakan \textit{mock} URL, jika
+          \textit{production} menggunakan \texttt{GATEWAY\_BASE\_URL}. \\
+    \hline
+    BR-06
+        & \textit{Idempotency key} wajib digunakan pada setiap \textit{checkout
+          request} untuk mencegah \textit{double order}.
+        & \textit{Backend} menghasilkan dan menyimpan \texttt{idempotency\_key}
+          (UUID) per \textit{checkout}; \textit{request} duplikat dengan \textit{key}
+          yang sama mengembalikan \textit{order} yang sudah ada. \\
+    \hline
+    BR-07
+        & \textit{Buyer} hanya dapat memberikan \textit{rating} setelah
+          \textit{order} memiliki status \texttt{delivered}.
+        & \textit{Ratings module} memvalidasi status \textit{order} sebelum
+          menerima \textit{rating submission}; satu \textit{order} satu
+          \textit{rating} per produk. \\
+    \hline
+    BR-08
+        & \textit{Seller} hanya dapat mengelola (CRUD) produk miliknya sendiri.
+        & \textit{Products module} memvalidasi \texttt{seller\_id} dari JWT sama
+          dengan \texttt{seller\_id} pada produk sebelum izinkan \textit{update}/\textit{delete}. \\
+    \hline
+    BR-09
+        & \textit{Superadmin} tidak dapat mendaftarkan diri sendiri via API
+          registrasi publik.
+        & \textit{Role} \texttt{superadmin} hanya dapat dibuat via \textit{insert}
+          manual ke Supabase; \textit{endpoint} \texttt{/api/auth/register} hanya
+          menerima \textit{role} \texttt{buyer} atau \texttt{seller}. \\
+    \hline
+    BR-10
+        & Harga \texttt{price\_at\_purchase} pada \texttt{order\_items} adalah
+          \textit{snapshot} harga saat transaksi dan tidak boleh berubah.
+        & Saat \textit{order} dibuat, harga produk disalin ke
+          \texttt{price\_at\_purchase}; perubahan harga produk setelahnya tidak
+          memengaruhi \textit{order} yang sudah ada. \\
+    \hline
+\end{longtable}

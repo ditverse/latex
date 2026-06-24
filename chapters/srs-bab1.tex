@@ -1,0 +1,112 @@
+% ============================================================
+% BAB 1 - PENDAHULUAN DAN KONTEKS DOKUMEN
+% ============================================================
+
+\subsection{Tujuan Dokumen}
+
+Dokumen ini mendefinisikan kebutuhan perangkat lunak untuk PasarKita sebagai
+komponen \textit{Demand Generator} B2C dalam ekosistem \textit{microservices}
+UMKM RPL 2.
+
+SRS ini berfungsi sebagai \textit{baseline} bersama antara pemilik produk,
+pengembang, penguji, dan pengelola sistem. Dokumen tidak dimaksudkan sebagai
+uraian konseptual, melainkan sebagai spesifikasi yang menerjemahkan perilaku
+aplikasi ke dalam kebutuhan yang dapat dibangun, diuji, dan dipelihara. Setiap
+kebutuhan dirumuskan agar memiliki ruang lingkup yang jelas, dasar implementasi
+yang dapat ditelusuri, dan kriteria penerimaan yang dapat diverifikasi.
+
+Rujukan format yang digunakan adalah praktik SRS yang umum dipakai di lingkungan
+pengembangan perangkat lunak: dokumen dimulai dari tujuan dan \textit{scope},
+dilanjutkan dengan \textit{product perspective}, \textit{user classes},
+\textit{constraints}, asumsi, kebutuhan fungsional, kebutuhan non-fungsional,
+\textit{external interfaces}, \textit{data requirements}, \textit{business rules},
+\textit{acceptance criteria}, dan \textit{traceability matrix}. Dengan struktur
+tersebut, dokumen dapat dipakai sebagai kontrak kerja teknis tanpa bergantung
+pada penjelasan lisan.
+
+% ----
+\subsection{Ruang Lingkup Produk}
+
+PasarKita adalah platform \textit{marketplace} digital B2C yang memfasilitasi
+transaksi produk UMKM antara \textit{seller} dan \textit{buyer}. Sistem berjalan
+sebagai aplikasi web \textit{fullstack} dengan \textit{frontend} Next.js 16.2
+(di-\textit{deploy} ke \texttt{pasarkita.vercel.app}) dan \textit{backend}
+Express.js berbasis \textit{serverless} (di-\textit{deploy} ke
+\texttt{pasarkita-api.vercel.app}), menggunakan Supabase PostgreSQL sebagai
+\textit{database}.
+
+Dalam arsitektur ekosistem, PasarKita berperan sebagai \textbf{Demand
+Generator}---inisiator transaksi di sisi permintaan. Semua transaksi keuangan
+diproses oleh SmartBank (Kelompok 1), semua komunikasi antar-\textit{service}
+melewati API Gateway (Kelompok 7), dan pengiriman dikoordinasikan oleh LogistiKita
+(Kelompok 5). PasarKita tidak mengambil alih fungsi pembayaran, \textit{routing},
+atau logistik dari \textit{service partner} tersebut.
+
+Sistem PasarKita bertanggung jawab pada siklus transaksi \textit{marketplace}:
+registrasi/autentikasi \textit{user}, pengelolaan katalog produk UMKM, keranjang
+belanja, proses \textit{checkout} dengan kalkulasi \textit{fee}, koordinasi
+pembayaran ke SmartBank, \textit{trigger} pengiriman ke LogistiKita, manajemen
+status \textit{order}, dan \textit{dashboard analytics} untuk \textit{superadmin}.
+
+% ----
+\subsection{Out of Scope}
+
+Dokumen ini tidak menspesifikasikan logika pembayaran internal SmartBank,
+mekanisme \textit{routing} JWT API Gateway, algoritma penentuan tarif pengiriman
+LogistiKita, ataupun manajemen akun dari \textit{service partner} lain.
+
+\begin{longtable}{|L{3.5cm}|L{3cm}|L{8.5cm}|}
+    \caption{Area di Luar dan di Dalam Lingkup SRS}
+    \label{tab:scope} \\
+    \hline
+    \textbf{Area} & \textbf{Status Scope} & \textbf{Rasional} \\
+    \hline
+    \endfirsthead
+    \hline
+    \textbf{Area} & \textbf{Status Scope} & \textbf{Rasional} \\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    Pemrosesan pembayaran
+        & Di luar \textit{scope}
+        & Seluruh transaksi keuangan diproses SmartBank melalui API Gateway.
+          PasarKita hanya mengirim \textit{payment request} dan membaca \textit{response}. \\
+    \hline
+    \textit{Routing} dan JWT validation (inter-service)
+        & Di luar \textit{scope}
+        & API Gateway (Kelompok 7) bertanggung jawab atas \textit{routing}, JWT
+          \textit{issuance} antar-\textit{service}, dan \textit{logging}
+          inter-\textit{service}. \\
+    \hline
+    Kalkulasi tarif dan \textit{tracking} pengiriman internal
+        & Di luar \textit{scope}
+        & LogistiKita (Kelompok 5) mengelola logika pengiriman. PasarKita hanya
+          men-\textit{trigger} dan membaca \texttt{tracking\_id}. \\
+    \hline
+    Manajemen stok \textit{supplier}
+        & Di luar \textit{scope}
+        & SupplierHub (Kelompok 4) mengelola \textit{supply chain}. PasarKita
+          hanya membaca stok lokal dari \textit{database} sendiri. \\
+    \hline
+    Laporan keuangan konsolidasi ekosistem
+        & Di luar \textit{scope}
+        & UMKM Insight (Kelompok 6) mengonsumsi \textit{ledger} dari SmartBank.
+          PasarKita hanya menyediakan data transaksi lokal via \textit{analytics endpoint}. \\
+    \hline
+    Manajemen produk CRUD \textit{seller} (WarungPOS)
+        & Di luar \textit{scope}
+        & WarungPOS (Kelompok 3) memiliki katalog tersendiri. PasarKita mengelola
+          katalog produk \textit{seller} yang terdaftar di platformnya sendiri. \\
+    \hline
+    Manajemen saldo dompet \textit{user}
+        & Di dalam \textit{scope} (partial)
+        & PasarKita menyimpan \textit{snapshot} saldo lokal dari SmartBank untuk
+          keperluan validasi awal, namun \textit{authoritative balance} tetap di SmartBank. \\
+    \hline
+    Katalog produk, \textit{order}, dan ulasan
+        & Di dalam \textit{scope}
+        & PasarKita adalah \textit{system of record} untuk produk, \textit{order},
+          \texttt{order\_items}, dan \textit{ratings} dalam ekosistemnya. \\
+    \hline
+\end{longtable}

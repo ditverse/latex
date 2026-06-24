@@ -1,0 +1,174 @@
+% ============================================================
+% LAMPIRAN
+% ============================================================
+
+% ---- Lampiran A ----
+\section*{LAMPIRAN A \\ GLOSARIUM}
+\phantomsection
+\addcontentsline{toc}{section}{LAMPIRAN A GLOSARIUM}
+\refstepcounter{section}
+
+\begin{longtable}{|L{4cm}|L{11cm}|}
+    \caption{Glosarium Istilah SRS PasarKita}
+    \label{tab:glosarium} \\
+    \hline
+    \textbf{Istilah} & \textbf{Definisi Operasional} \\
+    \hline
+    \endfirsthead
+    \hline
+    \textbf{Istilah} & \textbf{Definisi Operasional} \\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    PasarKita
+        & Platform \textit{marketplace} digital B2C untuk produk UMKM;
+          \textit{Demand Generator} dalam ekosistem RPL 2. \\
+    \hline
+    Ekosistem UMKM RPL 2
+        & Kumpulan \textit{microservices} antar kelompok yang saling terintegrasi:
+          SmartBank, WarungPOS, SupplierHub, LogistiKita, UMKM Insight, dan API
+          Gateway. \\
+    \hline
+    API Gateway
+        & \textit{Service} Kelompok 7 yang bertindak sebagai \textit{routing layer},
+          JWT \textit{validator} antar-\textit{service}, dan \textit{logging}
+          inter-\textit{service}. \\
+    \hline
+    SmartBank
+        & \textit{Service} Kelompok 1 sebagai \textit{core} keuangan; memproses
+          pembayaran dan mengelola saldo \textit{user}. \\
+    \hline
+    LogistiKita
+        & \textit{Service} Kelompok 5 yang mengelola pengiriman dan menghasilkan
+          \texttt{tracking\_id}. \\
+    \hline
+    \textit{Demand Generator}
+        & Peran PasarKita sebagai inisiator permintaan (\textit{buyer} melakukan
+          \textit{checkout}) dalam ekosistem. \\
+    \hline
+    \textit{Idempotency Key}
+        & UUID unik yang dikirimkan pada setiap \textit{checkout request} untuk
+          mencegah pemrosesan duplikat. \\
+    \hline
+    \textit{Snapshot} Harga
+        & Nilai \texttt{price\_at\_purchase} pada \texttt{order\_items} yang
+          diambil saat transaksi dan tidak berubah meskipun harga produk
+          diperbarui. \\
+    \hline
+    \textit{Soft Delete}
+        & Penghapusan logis dengan mengubah \texttt{is\_active = false} tanpa
+          menghapus \textit{record} dari \textit{database}. \\
+    \hline
+    \textit{Fee Marketplace}
+        & Biaya platform sebesar 2\% dari subtotal \textit{order} yang dibebankan
+          ke \textit{buyer} setiap transaksi. \\
+    \hline
+    \textit{Mock Server}
+        & Implementasi lokal di \texttt{mock/} yang mensimulasikan SmartBank dan
+          LogistiKita untuk keperluan \textit{development} tanpa bergantung pada
+          \textit{service} nyata. \\
+    \hline
+    \textit{System of Record}
+        & Sistem otoritatif untuk satu jenis data. PasarKita adalah
+          \textit{system of record} untuk produk, \textit{order}, dan ulasan dalam
+          ekosistemnya; SmartBank adalah \textit{system of record} untuk saldo dan
+          transaksi keuangan. \\
+    \hline
+\end{longtable}
+
+\clearpage
+
+% ---- Lampiran B ----
+\section*{LAMPIRAN B \\ REFERENSI INTERNAL}
+\phantomsection
+\addcontentsline{toc}{section}{LAMPIRAN B REFERENSI INTERNAL}
+\refstepcounter{section}
+
+\begin{longtable}{|L{6cm}|L{9cm}|}
+    \caption{Referensi Internal Artefak Proyek PasarKita}
+    \label{tab:referensi-internal} \\
+    \hline
+    \textbf{Artefak} & \textbf{Relevansi} \\
+    \hline
+    \endfirsthead
+    \hline
+    \textbf{Artefak} & \textbf{Relevansi} \\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    \path{README.md}
+        & Deskripsi umum aplikasi, arsitektur ekosistem, \textit{tech stack},
+          API \textit{endpoints}, \textit{role} \& akses, dan aturan keuangan
+          ekosistem. \\
+    \hline
+    \path{backend/database/schema/000_full_schema.sql}
+        & Skema lengkap semua tabel Supabase PostgreSQL: \texttt{users},
+          \texttt{products}, \texttt{orders}, \texttt{order\_items},
+          \texttt{ratings}, \texttt{notifications}, \texttt{vouchers},
+          \texttt{integration\_logs}, \texttt{admin\_audit\_logs}, dan lainnya. \\
+    \hline
+    \path{backend/src/modules/}
+        & \textit{Business logic} per domain: auth, products, orders,
+          \textit{checkout}, dan integrations. \\
+    \hline
+    \path{backend/src/middlewares/}
+        & \textit{Middleware} auth (JWT validation), validate (Zod
+          \textit{schema}), dan errorHandler (\textit{centralized error
+          response}). \\
+    \hline
+    \path{backend/src/integrations/}
+        & Adapter HTTP untuk SmartBank dan LogistiKita; konfigurasi
+          \texttt{GATEWAY\_BASE\_URL} vs \textit{mock} URL. \\
+    \hline
+    \path{backend/src/utils/fee.js}
+        & Implementasi kalkulasi \textit{fee marketplace} 2\%; digunakan oleh
+          \textit{checkout module} dan \textit{fee simulation endpoint}. \\
+    \hline
+    \path{backend/vercel.json}
+        & Konfigurasi \textit{routing} Vercel untuk \textit{backend serverless};
+          memetakan semua \textit{path} ke \texttt{api/index.js}. \\
+    \hline
+    \path{frontend/store/}
+        & Zustand \textit{store} untuk auth \textit{state} (\textit{user},
+          \textit{token}, \textit{login}/\textit{logout}) dan \textit{cart state}
+          (\textit{items}, add, remove, clear). \\
+    \hline
+    \path{mock/smartbank/} dan \path{mock/logistikita/}
+        & Implementasi \textit{mock server} lokal; digunakan hanya saat
+          \texttt{NODE\_ENV=development}. \\
+    \hline
+\end{longtable}
+
+\clearpage
+
+% ---- Lampiran C ----
+\section*{LAMPIRAN C \\ CATATAN PERUBAHAN VERSI}
+\phantomsection
+\addcontentsline{toc}{section}{LAMPIRAN C CATATAN PERUBAHAN VERSI}
+\refstepcounter{section}
+
+\begin{longtable}{|L{1.5cm}|L{3.5cm}|L{10cm}|}
+    \caption{Catatan Perubahan Versi Dokumen SRS}
+    \label{tab:changelog} \\
+    \hline
+    \textbf{Versi} & \textbf{Tanggal} & \textbf{Keterangan} \\
+    \hline
+    \endfirsthead
+    \hline
+    \textbf{Versi} & \textbf{Tanggal} & \textbf{Keterangan} \\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    1.0
+        & [Tanggal]
+        & \textit{Initial baseline} SRS; disusun dari README, skema
+          \textit{database}, dan struktur kode aktif. Mencakup semua bagian:
+          pendahuluan, gambaran produk, arsitektur, domain data, kebutuhan
+          fungsional (FR-01 s/d FR-22), kebutuhan non-fungsional (NFR-01 s/d
+          NFR-12), antarmuka eksternal, \textit{workflow} operasional, risiko, dan
+          \textit{traceability matrix}. \\
+    \hline
+\end{longtable}

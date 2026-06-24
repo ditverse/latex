@@ -1,0 +1,327 @@
+% ============================================================
+% Software Requirements Specification (SRS)
+% Platform PasarKita -- Marketplace Digital UMKM
+% Kelompok 2 -- Rekayasa Perangkat Lunak 2
+% ============================================================
+
+\documentclass[12pt,a4paper]{article}
+
+% ============================================================
+% Packages
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[sfdefault]{carlito} % Calibri-compatible sans-serif font
+\usepackage[scaled=0.85]{inconsolata} % Consolas clone for monospace
+\usepackage{amsmath}
+\usepackage[english,indonesian]{babel}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage[format=hang,font=footnotesize,labelfont=bf]{caption}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{ragged2e}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{etoolbox}   % Untuk AtBeginEnvironment
+
+% ============================================================
+% Page Setup -- margin diperlebar (teks lebih lebar)
+% ============================================================
+\geometry{
+    top=3cm,
+    bottom=2.5cm,
+    left=2.5cm,
+    right=2cm,
+    headheight=20pt,
+    headsep=15pt
+}
+
+% ============================================================
+% Title Formatting -- tanpa BAB, rata kiri
+% ============================================================
+\titleformat{\section}
+    {\normalfont\fontsize{14}{17}\bfseries\raggedright}{\thesection.}{0.5em}{}
+
+\titleformat{\subsection}
+    {\normalfont\fontsize{12}{14}\bfseries\raggedright}{\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+    {\normalfont\fontsize{12}{14}\normalfont\raggedright}{\thesubsubsection}{1em}{}
+
+\titlespacing*{\section}{0pt}{18pt}{6pt}
+\titlespacing*{\subsection}{0pt}{12pt}{4pt}
+
+% ============================================================
+% Spacing
+% ============================================================
+\onehalfspacing
+
+% ============================================================
+% Header/Footer
+% ============================================================
+\definecolor{bannerblue}{RGB}{79, 129, 189}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+\fancyhead[C]{%
+    \colorbox{bannerblue}{%
+        \parbox{\dimexpr\textwidth-2\fboxsep\relax}{%
+            \centering\color{white}\sffamily\fontsize{9}{10}\selectfont%
+            \textbf{SRS -- PLATFORM PASARKITA (DOKUMEN REKAYASA 2026)}%
+        }%
+    }%
+}
+
+\fancyfoot[L]{\sffamily\fontsize{9}{10}\selectfont Kelompok 2 -- Rekayasa Perangkat Lunak 2}
+\fancyfoot[R]{\sffamily\fontsize{9}{10}\selectfont\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% ============================================================
+% Hyperref
+% ============================================================
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    filecolor=black,
+    urlcolor=black,
+    pdftitle={SRS Platform PasarKita},
+    pdfauthor={Kelompok 2 RPL 2},
+    pdfsubject={Software Requirements Specification},
+}
+
+% ============================================================
+% Table of Contents Customization
+% ============================================================
+\renewcommand{\contentsname}{DAFTAR ISI}
+\renewcommand{\cfttoctitlefont}{\hfill\fontsize{14}{17}\selectfont\bfseries}
+\renewcommand{\cftaftertoctitle}{\hfill}
+
+\renewcommand{\listtablename}{DAFTAR TABEL}
+\renewcommand{\cftlottitlefont}{\hfill\fontsize{14}{17}\selectfont\bfseries}
+\renewcommand{\cftafterlottitle}{\hfill}
+
+\renewcommand{\listfigurename}{DAFTAR GAMBAR}
+\renewcommand{\cftloftitlefont}{\hfill\fontsize{14}{17}\selectfont\bfseries}
+\renewcommand{\cftafterloftitle}{\hfill}
+
+% ============================================================
+% Subsection Numbering
+% ============================================================
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
+
+% ============================================================
+% Longtable -- font kecil otomatis di semua longtable
+% ============================================================
+\AtBeginEnvironment{longtable}{\footnotesize\setlength{\tabcolsep}{4pt}}
+
+% ============================================================
+% Listings Setup
+% ============================================================
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codecomment}{RGB}{100,100,100}
+\definecolor{codestring}{RGB}{163,21,21}
+
+\lstset{
+    backgroundcolor=\color{codebg},
+    basicstyle=\ttfamily\footnotesize,
+    commentstyle=\color{codecomment},
+    stringstyle=\color{codestring},
+    breaklines=true,
+    breakatwhitespace=true,
+    frame=single,
+    framesep=3pt,
+    rulecolor=\color{gray},
+    xleftmargin=10pt,
+    xrightmargin=10pt,
+    captionpos=b,
+    numbers=none,
+    showstringspaces=false,
+    tabsize=2,
+}
+
+% ============================================================
+% Column Type untuk Longtable (rata kiri)
+% ============================================================
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash\footnotesize\setlength{\parindent}{0pt}\emergencystretch=1.5em}p{#1}}
+
+% ============================================================
+% Beginning of Document
+% ============================================================
+\begin{document}
+
+\renewcommand{\contentsname}{DAFTAR ISI}
+\renewcommand{\listtablename}{DAFTAR TABEL}
+\renewcommand{\listfigurename}{DAFTAR GAMBAR}
+
+\sffamily
+\raggedright
+
+% ============================================================
+% Judul Dokumen (tanpa halaman cover terpisah)
+% ============================================================
+\begin{flushleft}
+    {\fontsize{18}{22}\selectfont\sffamily\textbf{SOFTWARE REQUIREMENTS SPECIFICATION}\par}
+    \vspace{0.2cm}
+    {\fontsize{14}{18}\selectfont\sffamily\textbf{Platform PasarKita}\par}
+    {\fontsize{12}{14}\selectfont\sffamily\textit{Marketplace Digital UMKM}\par}
+\end{flushleft}
+
+\vspace{0.4cm}
+
+\begin{longtable}{|L{4.0cm}|L{11.8cm}|}
+    \hline
+    \textbf{Atribut} & \textbf{Nilai} \\
+    \hline
+    Nama Dokumen & Software Requirements Specification (SRS) Platform PasarKita \\
+    \hline
+    Versi & 1.0 -- Initial Requirements Baseline \\
+    \hline
+    Tanggal & 24 Juni 2026 \\
+    \hline
+    Sistem & Marketplace PasarKita \\
+    \hline
+    Pemilik Produk & Kelompok 2 RPL 2 / Universitas Logistik dan Bisnis Internasional \\
+    \hline
+    Target Pembaca & Product owner, developer, QA engineer, maintainer, dan dosen pengampu \\
+    \hline
+    Status & Dokumen kerja untuk baseline requirement dan validasi implementasi \\
+    \hline
+    \multicolumn{2}{|L{16.2cm}|}{
+        \textbf{Basis Penyusunan} \vspace{0.15cm} \newline
+        SRS ini disusun dari kode dan konfigurasi aplikasi PasarKita yang aktif: frontend Next.js App Router (\path{frontend/}), backend REST API Express (\path{backend/src/}), skema database Supabase PostgreSQL (\path{backend/database/schema/000_full_schema.sql}), serta integrasi dengan SmartBank dan LogistiKita. Struktur dokumen mengikuti pola SRS yang lazim digunakan tim engineering: tujuan, scope, konteks sistem, aktor, constraint, kebutuhan spesifik, interface, data, business rules, risiko, acceptance criteria, dan traceability.
+    } \\
+    \hline
+\end{longtable}
+
+\clearpage
+
+% ============================================================
+% DAFTAR ISI
+% ============================================================
+\section*{Daftar Isi}
+\phantomsection
+\addcontentsline{toc}{section}{Daftar Isi}
+
+\begin{longtable}{|L{2.5cm}|L{13.2cm}|}
+    \hline
+    \textbf{Bagian} & \textbf{Isi} \\
+    \hline
+    1 & Pendahuluan dan Konteks Dokumen \\
+    \hline
+    2 & Gambaran Produk dan Batas Sistem \\
+    \hline
+    3 & Konteks Operasional dan Arsitektur \\
+    \hline
+    4 & Domain Data dan Aturan Bisnis \\
+    \hline
+    5 & Kebutuhan Fungsional \\
+    \hline
+    6 & Kebutuhan Non-Fungsional \\
+    \hline
+    7 & Antarmuka Eksternal \\
+    \hline
+    8 & Workflow Operasional \\
+    \hline
+    9 & Risiko, Kontrol, dan Acceptance Criteria \\
+    \hline
+    10 & Matriks Ketertelusuran \\
+    \hline
+    Lampiran & Glosarium, Referensi Internal, dan Catatan Perubahan Versi \\
+    \hline
+\end{longtable}
+
+\clearpage
+
+% ============================================================
+% BAB 1
+% ============================================================
+\setcounter{section}{0}
+
+\section{Pendahuluan dan Konteks Dokumen}
+\input{chapters/srs-bab1}
+\clearpage
+
+% ============================================================
+% BAB 2
+% ============================================================
+\section{Gambaran Produk dan Batas Sistem}
+\input{chapters/srs-bab2}
+\clearpage
+
+% ============================================================
+% BAB 3
+% ============================================================
+\section{Konteks Operasional dan Arsitektur}
+\input{chapters/srs-bab3}
+\clearpage
+
+% ============================================================
+% BAB 4
+% ============================================================
+\section{Domain Data dan Aturan Bisnis}
+\input{chapters/srs-bab4}
+\clearpage
+
+% ============================================================
+% BAB 5
+% ============================================================
+\section{Kebutuhan Fungsional}
+\input{chapters/srs-bab5}
+\clearpage
+
+% ============================================================
+% BAB 6
+% ============================================================
+\section{Kebutuhan Non-Fungsional}
+\input{chapters/srs-bab6}
+\clearpage
+
+% ============================================================
+% BAB 7
+% ============================================================
+\section{Antarmuka Eksternal}
+\input{chapters/srs-bab7}
+\clearpage
+
+% ============================================================
+% BAB 8
+% ============================================================
+\section{Workflow Operasional}
+\input{chapters/srs-bab8}
+\clearpage
+
+% ============================================================
+% BAB 9
+% ============================================================
+\section{Risiko, Kontrol, dan Acceptance Criteria}
+\input{chapters/srs-bab9}
+\clearpage
+
+% ============================================================
+% BAB 10
+% ============================================================
+\section{Matriks Ketertelusuran}
+\input{chapters/srs-bab10}
+\clearpage
+
+% ============================================================
+% LAMPIRAN
+% ============================================================
+\input{chapters/srs-lampiran}
+\clearpage
+
+\end{document}

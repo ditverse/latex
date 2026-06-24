@@ -1,0 +1,243 @@
+% ============================================================
+% BAB 5 - KEBUTUHAN FUNGSIONAL
+% ============================================================
+
+Kebutuhan fungsional ditulis dengan bentuk \textit{shall statement} agar dapat
+menjadi dasar implementasi dan pengujian. Prioritas \textbf{Must} menunjukkan
+kemampuan inti rilis operasional; \textbf{Should} menunjukkan kemampuan penting
+yang memperkuat operasi; \textbf{Could} menunjukkan peningkatan lanjutan.
+
+\begin{longtable}{|L{0.9cm}|L{2.7cm}|L{5.5cm}|L{1.3cm}|L{4.6cm}|}
+    \caption{Kebutuhan Fungsional Sistem PasarKita}
+    \label{tab:functional-req} \\
+    \hline
+    \textbf{ID} & \textbf{Area} & \textbf{Requirement} & \textbf{Priority}
+        & \textbf{Acceptance Criteria} \\
+    \hline
+    \endfirsthead
+    \hline
+    \textbf{ID} & \textbf{Area} & \textbf{Requirement} & \textbf{Priority}
+        & \textbf{Acceptance Criteria} \\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    FR-01
+        & Auth:\newline Register
+        & Sistem \textit{shall} menyediakan \textit{endpoint} registrasi
+          \textit{user} dengan \textit{role} \texttt{buyer} atau \texttt{seller},
+          memvalidasi \textit{input} dengan Zod, dan menyimpan \textit{password}
+          dalam bentuk \textit{hash}.
+        & Must
+        & \textit{User} baru tersimpan di \path{users} dengan
+          \path{password_hash}; \textit{role} selain \path{buyer/seller}
+          ditolak dengan pesan eksplisit. \\
+    \hline
+    FR-02
+        & Auth:\newline Login
+        & Sistem \textit{shall} menyediakan \textit{endpoint} \textit{login} yang
+          memverifikasi kredensial dan mengembalikan JWT berisi \texttt{user\_id},
+          \texttt{role}, dan \texttt{exp}.
+        & Must
+        & \textit{Login} dengan kredensial valid mengembalikan JWT; kredensial
+          salah mengembalikan 401 tanpa membocorkan detail \textit{database}. \\
+    \hline
+    FR-03
+        & Seller Profile
+        & Sistem \textit{shall} membuat \texttt{seller\_profile} secara otomatis
+          saat \textit{seller} berhasil registrasi, dan memungkinkan \textit{seller}
+          memperbarui \texttt{store\_name}, \texttt{logo\_url}, dan
+          \texttt{description}.
+        & Must
+        & \texttt{seller\_profiles} terisi setelah registrasi \textit{seller};
+          \textit{update} profil tersimpan dan terbaca di halaman toko. \\
+    \hline
+    FR-04
+        & Catalog:\newline Browse
+        & Sistem \textit{shall} menyediakan \textit{endpoint} GET
+          \texttt{/api/products} dengan filter kategori, \textit{search} nama,
+          dan \textit{pagination} untuk semua \textit{role} termasuk \textit{guest}.
+        & Must
+        & \textit{Response} mengembalikan \textit{array} produk aktif dengan
+          \textit{field} lengkap; filter dan \textit{pagination} berfungsi sesuai
+          parameter \textit{query}. \\
+    \hline
+    FR-05
+        & Catalog:\newline Detail
+        & Sistem \textit{shall} menyediakan \textit{endpoint} GET
+          \texttt{/api/products/:id} yang mengembalikan detail produk termasuk
+          informasi \textit{seller} dan rata-rata \textit{rating}.
+        & Must
+        & \textit{Response} berisi data produk, \path{store_name}
+          \textit{seller}, \path{avg_rating}, dan \path{total_reviews}. \\
+    \hline
+    FR-06
+        & Product:\newline CRUD
+        & Sistem \textit{shall} memungkinkan \textit{seller} membuat, memperbarui,
+          dan menghapus (\textit{soft delete} via \texttt{is\_active = false})
+          produk miliknya sendiri, dengan validasi \texttt{price > 0} dan
+          \texttt{stock >= 0}.
+        & Must
+        & \textit{Seller} hanya dapat CRUD produk dengan \texttt{seller\_id}
+          miliknya; akses ke produk \textit{seller} lain menghasilkan 403. \\
+    \hline
+    FR-07
+        & Product Discount
+        & Sistem \textit{should} memungkinkan \textit{seller} mengatur diskon
+          langsung pada produk (\texttt{product\_discounts}) dengan periode
+          validitas dan tipe (persentase/nominal).
+        & Should
+        & Diskon aktif terperhitungkan dalam kalkulasi subtotal saat
+          \textit{checkout}; diskon kedaluwarsa diabaikan. \\
+    \hline
+    FR-08
+        & Cart
+        & Sistem \textit{shall} mengelola keranjang belanja di sisi
+          \textit{frontend} (Zustand), termasuk tambah item, ubah kuantitas, dan
+          hapus item, dengan validasi stok saat \textit{checkout}.
+        & Must
+        & \textit{Cart state} tersimpan di Zustand; stok divalidasi ulang di
+          \textit{backend} saat \textit{checkout request} dikirim. \\
+    \hline
+    FR-09
+        & Checkout \&\newline Payment
+        & Sistem \textit{shall} memproses \textit{checkout} dengan langkah:
+          validasi stok $\rightarrow$ kalkulasi total + \textit{fee} 2\%
+          $\rightarrow$ buat \textit{order pending} $\rightarrow$ kirim
+          \textit{payment request} ke SmartBank via Gateway $\rightarrow$
+          \textit{update} status \textit{order} berdasarkan \textit{response}.
+        & Must
+        & \textit{Order} \path{paid} muncul setelah SmartBank sukses;
+          \textit{order} \path{payment_failed} dan stok di-\textit{rollback}
+          jika SmartBank gagal. \\
+    \hline
+    FR-10
+        & Idempotency\newline Checkout
+        & Sistem \textit{shall} menerapkan \textit{idempotency key} pada setiap
+          \textit{checkout} untuk mencegah \textit{double order} akibat
+          \textit{retry request}.
+        & Must
+        & \textit{Request checkout} duplikat dengan \textit{key} yang sama
+          mengembalikan \textit{order} yang sudah ada tanpa membuat \textit{order}
+          baru. \\
+    \hline
+    FR-11
+        & Shipping Trigger
+        & Sistem \textit{shall} mengirimkan \textit{trigger} pengiriman ke
+          LogistiKita via API Gateway setelah \textit{order} berhasil dibayar, dan
+          menyimpan \texttt{tracking\_id} yang diterima.
+        & Must
+        & \textit{Order} \texttt{paid} memiliki \texttt{tracking\_id} terisi;
+          kegagalan \textit{trigger} pengiriman dicatat di \texttt{integration\_logs}
+          dan tidak membatalkan \textit{order}. \\
+    \hline
+    FR-12
+        & Fee Simulation
+        & Sistem \textit{should} menyediakan \textit{endpoint} POST
+          \texttt{/api/fee/calculate} untuk simulasi kalkulasi \textit{fee} tanpa
+          melakukan transaksi nyata.
+        & Should
+        & \textit{Response} mengembalikan \texttt{subtotal},
+          \texttt{fee\_marketplace}, \texttt{fee\_discount},
+          \texttt{voucher\_discount}, dan \texttt{total} berdasarkan \textit{input}. \\
+    \hline
+    FR-13
+        & Voucher
+        & Sistem \textit{should} memungkinkan \textit{buyer} menggunakan kode
+          \textit{voucher} saat \textit{checkout} dengan validasi
+          \texttt{min\_purchase}, \texttt{max\_uses}, dan \texttt{valid\_until}.
+        & Should
+        & Diskon \textit{voucher} terperhitungkan pada \textit{field}
+          \texttt{voucher\_discount} di \textit{order}; \textit{voucher}
+          habis/kedaluwarsa ditolak dengan pesan eksplisit. \\
+    \hline
+    FR-14
+        & Order:\newline Buyer
+        & Sistem \textit{shall} menyediakan \textit{endpoint} GET
+          \texttt{/api/orders} dan GET \texttt{/api/orders/:id} bagi \textit{buyer}
+          untuk melihat daftar dan detail \textit{order} miliknya.
+        & Must
+        & \textit{Buyer} hanya melihat \textit{order} milik sendiri; akses ke
+          \textit{order} \textit{buyer} lain menghasilkan 403. \\
+    \hline
+    FR-15
+        & Order:\newline Seller
+        & Sistem \textit{shall} menyediakan akses \textit{seller} ke \textit{order}
+          yang mengandung produk miliknya, termasuk status dan informasi pengiriman.
+        & Must
+        & \textit{Seller} dapat melihat \textit{order} masuk yang berisi
+          produknya; informasi \textit{buyer} ditampilkan sesuai kebutuhan
+          \textit{fulfillment}. \\
+    \hline
+    FR-16
+        & Order Status\newline Update
+        & Sistem \textit{shall} memungkinkan \textit{superadmin} memperbarui
+          status \textit{order} secara manual dan mencatat perubahan ke
+          \path{order_status_history}.
+        & Must
+        & Perubahan status tersimpan di \path{orders} dan
+          \path{order_status_history} dengan \path{actor_id}
+          \textit{superadmin} dan \textit{timestamp}. \\
+    \hline
+    FR-17
+        & Ratings \& Reviews
+        & Sistem \textit{shall} memungkinkan \textit{buyer} memberikan
+          \textit{rating} (1--5) dan komentar untuk produk yang sudah diterima
+          (\texttt{status = delivered}), dan memungkinkan \textit{seller} membalas
+          ulasan.
+        & Must
+        & \textit{Rating} tersimpan setelah validasi status \textit{order};
+          \texttt{seller\_reply} dapat diperbarui \textit{seller}; rata-rata
+          \textit{rating} terhitung di \textit{endpoint} produk. \\
+    \hline
+    FR-18
+        & Notifications
+        & Sistem \textit{should} men-\textit{generate} notifikasi \textit{in-app}
+          untuk \textit{event order} (paid, shipped, delivered) dan \textit{rating},
+          dapat ditandai sebagai sudah dibaca.
+        & Should
+        & Notifikasi muncul di daftar \textit{user} yang relevan;
+          \textit{endpoint} PATCH menandai \texttt{read\_at}; notifikasi tidak
+          dibaca ditampilkan sebagai \textit{badge}. \\
+    \hline
+    FR-19
+        & Admin:\newline User
+        & Sistem \textit{shall} menyediakan \textit{superadmin} kemampuan untuk
+          melihat semua \textit{user}, ban (\textit{set} \texttt{is\_active = false}),
+          dan mengaktifkan kembali \textit{user} dengan alasan yang tercatat di
+          \path{admin_audit_logs}.
+        & Must
+        & Status \textit{user} berubah setelah aksi admin; aksi tercatat di
+          \textit{audit log} dengan \path{before_data} dan \path{after_data}. \\
+    \hline
+    FR-20
+        & Admin:\newline Analytics
+        & Sistem \textit{shall} menyediakan \textit{endpoint} GET
+          \path{/api/admin/analytics} yang mengembalikan metrik platform: total
+          \textit{revenue}, total \textit{order}, distribusi status \textit{order},
+          produk terlaris, dan \textit{revenue} per \textit{seller}.
+        & Must
+        & \textit{Response} mengembalikan data agregat akurat; \textit{dashboard}
+          admin menampilkan visualisasi metrik tanpa \textit{query} manual. \\
+    \hline
+    FR-21
+        & Integration\newline Health Check
+        & Sistem \textit{should} menyediakan \textit{endpoint} internal admin
+          untuk memeriksa status koneksi ke API Gateway, SmartBank, dan
+          LogistiKita.
+        & Should
+        & \textit{Endpoint} mengembalikan status \path{online/offline},
+          \path{http_code}, \path{response_ms}, dan \path{last_checked_at}
+          per \textit{service}. \\
+    \hline
+    FR-22
+        & Low Stock Alert
+        & Sistem \textit{should} menampilkan indikator stok rendah pada produk
+          yang memiliki \texttt{stock <= minimum\_stock} di \textit{dashboard}
+          \textit{seller}.
+        & Should
+        & \texttt{is\_low\_stock} ter-\textit{update} secara otomatis;
+          \textit{dashboard} \textit{seller} menampilkan \textit{badge} peringatan
+          pada produk yang relevan. \\
+    \hline
+\end{longtable}

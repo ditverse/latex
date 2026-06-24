@@ -1,0 +1,124 @@
+% ============================================================
+% BAB 6 - KEBUTUHAN NON-FUNGSIONAL
+% ============================================================
+
+Kebutuhan non-fungsional menentukan kualitas sistem yang harus dipenuhi di luar
+perilaku fitur langsung. Kategori ini penting karena sistem memproses transaksi
+keuangan nyata dalam ekosistem \textit{microservices} multi-kelompok.
+
+\begin{longtable}{|L{1cm}|L{2.5cm}|L{6.5cm}|L{4.5cm}|}
+    \caption{Kebutuhan Non-Fungsional Sistem PasarKita}
+    \label{tab:nonfunctional-req} \\
+    \hline
+    \textbf{ID} & \textbf{Quality Attribute} & \textbf{Requirement}
+        & \textbf{Verification} \\
+    \hline
+    \endfirsthead
+    \hline
+    \textbf{ID} & \textbf{Quality Attribute} & \textbf{Requirement}
+        & \textbf{Verification} \\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    NFR-01
+        & Security: Password
+        & Sistem \textit{shall} menyimpan \textit{password} dalam bentuk
+          \textit{hash} (bcrypt) dan tidak pernah mengembalikan
+          \texttt{password\_hash} dalam \textit{response} API.
+        & Audit \textit{endpoint user}; tidak ada \texttt{password\_hash} di
+          \textit{response}. \\
+    \hline
+    NFR-02
+        & Security: JWT
+        & Sistem \textit{shall} memvalidasi JWT pada setiap \textit{protected
+          route} sebelum memproses \textit{request}; token kedaluwarsa atau tidak
+          valid mengembalikan 401.
+        & \textit{Request} tanpa token atau dengan token tidak valid ditolak
+          secara konsisten. \\
+    \hline
+    NFR-03
+        & Access Control
+        & \textit{Buyer} hanya mengakses \textit{resource} miliknya;
+          \textit{seller} hanya mengelola produk miliknya; \textit{superadmin}
+          memiliki akses penuh; \textit{endpoint} admin dilindungi
+          \textit{middleware role check}.
+        & \textit{Cross-role access} menghasilkan 403; \textit{test} dengan
+          \textit{token} berbeda \textit{role}. \\
+    \hline
+    NFR-04
+        & Data Integrity: Checkout
+        & Sistem \textit{shall} memastikan \textit{atomicity} pada proses
+          \textit{checkout}: stok tidak berkurang jika \textit{payment} gagal;
+          \textit{order} tidak dibuat jika validasi stok gagal.
+        & Simulasi \textit{payment failure}; verifikasi stok tidak berubah dan
+          \textit{order} tidak terbuat. \\
+    \hline
+    NFR-05
+        & Interoperability
+        & Kontrak JSON API PasarKita \textit{shall} mempertahankan
+          \textit{backward compatibility}; \textit{field} yang dikonsumsi
+          \textit{service} lain tidak boleh dihapus atau diubah tipenya tanpa
+          koordinasi.
+        & \textit{Service partner} masih dapat membaca \textit{response} API
+          setelah perubahan; \textit{field} baru bersifat \textit{additive}. \\
+    \hline
+    NFR-06
+        & Availability
+        & Sistem \textit{shall} dapat di-\textit{deploy} dan berjalan di Vercel
+          (\textit{frontend} + \textit{backend} project terpisah) dengan
+          \textit{environment variables} yang terdokumentasi.
+        & \texttt{vercel.json} mengonfigurasi \textit{routing} dengan benar;
+          kedua \textit{project} dapat di-\textit{deploy} dari repo yang sama. \\
+    \hline
+    NFR-07
+        & Failure Handling
+        & Kegagalan koneksi ke API Gateway, SmartBank, atau LogistiKita
+          \textit{shall} menghasilkan \textit{error response} yang terkendali dan
+          dicatat di \texttt{integration\_logs}; tidak menghentikan seluruh sistem.
+        & Matikan \textit{mock service}; verifikasi \textit{error response}
+          bermakna dan log tercatat. \\
+    \hline
+    NFR-08
+        & Maintainability
+        & Kode \textit{backend} \textit{shall} mempertahankan pemisahan modular
+          berbasis domain sehingga \textit{business logic}, integrasi eksternal,
+          dan \textit{middleware} tidak bercampur.
+        & Modul domain tetap berada di \texttt{src/modules/}; integrasi di
+          \texttt{src/integrations/}; \textit{middleware} di
+          \texttt{src/middlewares/}. \\
+    \hline
+    NFR-09
+        & Auditability
+        & Setiap aksi sensitif \textit{superadmin} \textit{shall} menulis
+          \texttt{admin\_audit\_logs} dengan \texttt{before\_data} dan
+          \texttt{after\_data} untuk keperluan \textit{audit trail}.
+        & Aksi ban \textit{user} dan \textit{update} status \textit{order}
+          menghasilkan entri \textit{audit log} yang dapat ditelusuri. \\
+    \hline
+    NFR-10
+        & Usability
+        & Alur \textit{checkout} \textit{shall} menampilkan rincian harga
+          (subtotal, \textit{fee}, diskon, total) secara eksplisit sebelum
+          konfirmasi pembayaran.
+        & \textit{Fee breakdown} terlihat di halaman \textit{review order};
+          tidak ada biaya tersembunyi. \\
+    \hline
+    NFR-11
+        & Performance
+        & \textit{Endpoint} katalog produk \textit{should} mengembalikan
+          \textit{response} di bawah 2 detik untuk halaman pertama dengan 50 item
+          tanpa filter berat.
+        & \textit{Load test} dengan 50 produk; \textit{response time} diukur dari
+          \textit{client}. \\
+    \hline
+    NFR-12
+        & Privacy
+        & Data sensitif \textit{user} (\textit{email}, \textit{phone},
+          \texttt{password\_hash}) \textit{shall} tidak ditampilkan kepada
+          \textit{user} lain kecuali \textit{superadmin} pada konteks manajemen
+          \textit{user} yang sah.
+        & \textit{Endpoint} produk dan \textit{order} tidak mengembalikan data
+          sensitif \textit{seller}/\textit{buyer} secara berlebihan. \\
+    \hline
+\end{longtable}

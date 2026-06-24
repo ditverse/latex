@@ -1,0 +1,69 @@
+% ============================================================
+% BAB 10 - MATRIKS KETERTELUSURAN
+% ============================================================
+
+\textit{Traceability matrix} menghubungkan \textit{objective} produk dengan
+\textit{requirement} dan bukti verifikasi. Matriks ini membantu \textit{developer}
+dan QA memastikan perubahan kode tetap menjaga tujuan sistem.
+
+\begin{longtable}{|L{4cm}|L{3.5cm}|L{7cm}|}
+    \caption{Matriks Ketertelusuran Requirement PasarKita}
+    \label{tab:traceability} \\
+    \hline
+    \textbf{Objective} & \textbf{Requirement IDs} & \textbf{Evidence / Verification} \\
+    \hline
+    \endfirsthead
+    \hline
+    \textbf{Objective} & \textbf{Requirement IDs} & \textbf{Evidence / Verification} \\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    \textit{User} dapat mendaftar dan \textit{login} dengan \textit{role} yang
+    tepat.
+        & FR-01, FR-02, FR-03, NFR-01, NFR-02
+        & \textit{Test} register \textit{buyer}/\textit{seller}/\textit{superadmin};
+          \textit{test} \textit{login} valid/invalid; \textit{test} token
+          \textit{expired}. \\
+    \hline
+    \textit{Buyer} dapat menelusuri dan membeli produk UMKM.
+        & FR-04, FR-05, FR-08, FR-09, FR-10, NFR-04
+        & \textit{Test} katalog dengan filter; \textit{test} \textit{checkout}
+          sukses; \textit{test} \textit{checkout} dengan stok habis; \textit{test}
+          \textit{idempotency}. \\
+    \hline
+    \textit{Seller} dapat mengelola katalog produk secara mandiri.
+        & FR-06, FR-07, FR-22, NFR-03, NFR-08
+        & \textit{Test} CRUD produk \textit{seller}; \textit{test} akses ke produk
+          \textit{seller} lain; \textit{test} diskon produk. \\
+    \hline
+    Transaksi keuangan terintegrasi dengan SmartBank via API Gateway.
+        & FR-09, FR-10, FR-12, BR-01, BR-03, NFR-05, NFR-07
+        & \textit{Test} \textit{checkout} sukses dan gagal; \textit{test} kalkulasi
+          \textit{fee}; \textit{test} \textit{rate limiting}; simulasi SmartBank
+          \textit{offline}. \\
+    \hline
+    Pengiriman terkoordinasi dengan LogistiKita.
+        & FR-11, R-03, NFR-07
+        & \textit{Test} \textit{trigger} pengiriman setelah \textit{payment} sukses;
+          simulasi LogistiKita \textit{offline}; verifikasi \texttt{tracking\_id}
+          tersimpan. \\
+    \hline
+    Admin dapat mengelola platform dan memantau \textit{analytics}.
+        & FR-16, FR-19, FR-20, FR-21, NFR-09
+        & \textit{Test} ban/aktifkan \textit{user}; \textit{test} \textit{update}
+          status \textit{order}; \textit{test} \textit{analytics endpoint};
+          verifikasi \textit{audit log}. \\
+    \hline
+    Sistem tetap tangguh saat \textit{dependency} eksternal gagal.
+        & NFR-06, NFR-07, R-03, R-04
+        & Matikan \textit{mock} SmartBank/LogistiKita; verifikasi
+          \textit{error handling}; verifikasi \texttt{integration\_logs} tercatat. \\
+    \hline
+    Data transaksi terlindungi dan teraudit.
+        & NFR-01, NFR-03, NFR-09, NFR-12, R-05, R-06
+        & \textit{Test} akses lintas \textit{user}; verifikasi
+          \texttt{password\_hash} tidak ter-\textit{expose}; verifikasi
+          \textit{snapshot} harga \textit{immutable}. \\
+    \hline
+\end{longtable}

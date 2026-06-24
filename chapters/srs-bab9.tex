@@ -1,0 +1,85 @@
+% ============================================================
+% BAB 9 - RISIKO, KONTROL, DAN ACCEPTANCE CRITERIA
+% ============================================================
+
+Karena sistem berada di antara proses transaksi keuangan dan logistik dalam
+ekosistem \textit{microservices}, risiko utama bukan hanya \textit{bug} UI,
+tetapi juga inkonsistensi stok, \textit{double charge}, dan perubahan kontrak
+API yang tidak kompatibel.
+
+\begin{longtable}{|L{1cm}|L{3.5cm}|L{4.5cm}|L{5.5cm}|}
+    \caption{Risiko, Kontrol, dan Acceptance Criteria}
+    \label{tab:risiko} \\
+    \hline
+    \textbf{Risk ID} & \textbf{Risiko} & \textbf{Kontrol Wajib}
+        & \textbf{Acceptance Criteria} \\
+    \hline
+    \endfirsthead
+    \hline
+    \textbf{Risk ID} & \textbf{Risiko} & \textbf{Kontrol Wajib}
+        & \textbf{Acceptance Criteria} \\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    R-01
+        & \textit{Double order} akibat \textit{retry checkout}.
+        & \textit{Idempotency key} wajib pada setiap \textit{checkout};
+          \textit{backend} mendeteksi dan mengembalikan \textit{order existing}.
+        & \textit{Checkout} duplikat dengan \textit{key} yang sama tidak membuat
+          \textit{order} baru; \textit{response} mengembalikan \textit{order}
+          pertama. \\
+    \hline
+    R-02
+        & Stok berkurang meski pembayaran gagal.
+        & Stok di-\textit{reserve} saat \textit{order} \texttt{pending};
+          \textit{rollback} stok dilakukan segera setelah SmartBank mengembalikan
+          \textit{failure}.
+        & Setelah \textit{payment failure}, \texttt{stock} produk kembali ke
+          nilai sebelum \textit{checkout}; \textit{order} berstatus
+          \texttt{payment\_failed}. \\
+    \hline
+    R-03
+        & \textit{Service} SmartBank atau LogistiKita tidak tersedia saat
+          \textit{checkout}.
+        & \textit{Failure handling} dengan \textit{timeout}, \textit{error
+          response} bermakna, pencatatan di \texttt{integration\_logs};
+          \textit{checkout} tidak menggantung tanpa batas.
+        & \textit{Timeout} ke SmartBank menghasilkan 503
+          \texttt{SERVICE\_UNAVAILABLE} dengan pesan yang dapat dimengerti
+          \textit{buyer}; \textit{order} tidak terbuat. \\
+    \hline
+    R-04
+        & Perubahan kontrak API memutus integrasi dengan \textit{service partner}.
+        & \textit{Backward compatibility} wajib; \textit{field} baru bersifat
+          \textit{additive}; perubahan \textit{breaking} didiskusikan lintas
+          kelompok sebelum \textit{deploy}.
+        & \textit{Service partner} dapat membaca \textit{response} API setelah
+          \textit{update} tanpa perubahan kode di sisi mereka untuk \textit{field}
+          yang sudah ada. \\
+    \hline
+    R-05
+        & Akses tidak sah ke data \textit{user} atau \textit{order} lain.
+        & \textit{Role-based middleware} memvalidasi kepemilikan \textit{resource};
+          \textit{buyer} hanya melihat \textit{order} sendiri; \textit{seller}
+          hanya kelola produk sendiri.
+        & \textit{Request} akses ke \textit{resource} \textit{user} lain
+          menghasilkan 403 \textit{Forbidden}; tidak ada data \textit{user} lain
+          yang ter-\textit{expose}. \\
+    \hline
+    R-06
+        & Harga produk berubah setelah \textit{order} dibuat, memengaruhi laporan.
+        & \texttt{price\_at\_purchase} adalah \textit{snapshot} \textit{immutable}
+          saat transaksi; kalkulasi \textit{revenue} menggunakan \textit{field} ini.
+        & \textit{Update} harga produk tidak memengaruhi nilai \texttt{subtotal}
+          pada \textit{order} yang sudah ada. \\
+    \hline
+    R-07
+        & \textit{Superadmin} tidak dapat diaudit.
+        & \texttt{admin\_audit\_logs} menulis setiap aksi sensitif dengan
+          \texttt{before\_data} dan \texttt{after\_data}.
+        & Setiap aksi ban \textit{user} dan \textit{update} status \textit{order}
+          menghasilkan entri \textit{audit log} yang dapat ditelusuri oleh
+          aktor. \\
+    \hline
+\end{longtable}
