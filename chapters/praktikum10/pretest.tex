@@ -1,0 +1,46 @@
+\subsection*{Pertanyaan: Baca slide kuliah materi pencocokan string dengan algoritma Boyer-Moore di halaman 41. Tulis notasi algoritma untuk algoritma Boyer-Moore tersebut!}
+
+\textbf{Notasi algoritma Boyer-Moore:}
+
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize, frame=single, backgroundcolor=\color{white}, numbers=none, keywordstyle=\color{black}, commentstyle=\color{black}, stringstyle=\color{black}, breaklines=true]
+Algoritma BoyerMoore(T, P)
+Input  : teks T dengan panjang n, pola P dengan panjang m
+Output : indeks awal P di dalam T, atau -1 jika tidak ditemukan
+
+1. Bentuk tabel last occurrence:
+   untuk setiap karakter c pada P,
+   last[c] = indeks kemunculan terakhir c pada P
+
+2. i = 0
+3. Selama i <= n - m, lakukan:
+      j = m - 1
+
+      selama j >= 0 dan P[j] = T[i + j], lakukan:
+          j = j - 1
+
+      jika j < 0:
+          kembalikan i
+
+      karakter_salah = T[i + j]
+      posisi_terakhir = last[karakter_salah]
+      jika karakter_salah tidak ada pada P:
+          posisi_terakhir = -1
+
+      geser = maksimum(1, j - posisi_terakhir)
+      i = i + geser
+
+4. Kembalikan -1
+\end{lstlisting}
+
+\textbf{Tabel last occurrence untuk pola \texttt{acabaca}:}
+
+\begin{table}[H]
+    \centering
+    \caption{Tabel Last Occurrence untuk Pola \texttt{acabaca}}
+    \label{tab:praktikum10-last-occurrence-pretest}
+    \begin{tabular}{cccc}
+    \toprule
+    \textbf{Karakter} & a & b & c \\ \midrule
+    \textbf{Indeks terakhir} & 6 & 3 & 5 \\ \bottomrule
+    \end{tabular}
+\end{table}

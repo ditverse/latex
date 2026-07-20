@@ -1,0 +1,23 @@
+\subsection{Algoritma Backtracking}
+\textbf{Definisi:} Backtracking adalah strategi pencarian solusi dengan membangun kandidat secara bertahap. Jika pilihan sementara melanggar batasan, algoritma kembali ke langkah sebelumnya dan mencoba pilihan lain.
+
+\textbf{Fungsi:} Menyelesaikan persoalan kombinatorial seperti pewarnaan graf, N-Queens, Sudoku, dan pembangkitan kombinasi.
+
+\textbf{Cara Kerja:} Algoritma mencoba satu pilihan, memeriksa validitasnya, lalu melanjutkan ke tahap berikutnya. Cabang yang tidak valid langsung dihentikan atau dipangkas.
+
+\textbf{Kelebihan:} Sederhana, sistematis, dan tidak perlu memeriksa seluruh kemungkinan sampai akhir.
+
+\textbf{Kekurangan:} Pada kasus terburuk tetap memiliki kompleksitas eksponensial.
+
+\subsection{Pewarnaan Graf}
+\textbf{Definisi:} Pewarnaan graf adalah proses memberi warna pada setiap simpul sehingga dua simpul bertetangga tidak memiliki warna yang sama.
+
+\textbf{Ruang solusi:} Jika terdapat $n$ simpul dan $m$ warna, kemungkinan terburuknya adalah $m^n$. Backtracking mengurangi pencarian dengan menolak warna yang tidak valid sejak awal.
+
+\textbf{Kode warna praktikum:}
+\begin{itemize}
+    \item 1 = merah,
+    \item 2 = hijau,
+    \item 3 = biru,
+    \item 4 = kuning.
+\end{itemize}

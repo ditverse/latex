@@ -3,41 +3,35 @@
 
 # Set nama file (tanpa ekstensi)
 $TexFile = "laporan_praktikum_psa"
-$OutDir = "out"
 
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host "  Kompilasi Laporan Praktikum PSA" -ForegroundColor Cyan
 Write-Host "  File: $TexFile.tex" -ForegroundColor Cyan
-Write-Host "  Folder Out: $OutDir/" -ForegroundColor Cyan
+Write-Host "  Output: Root directory" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 
-# Buat folder out jika belum ada
-if (!(Test-Path $OutDir)) {
-    New-Item -ItemType Directory -Path $OutDir | Out-Null
-}
-
 # Kompilasi pertama
 Write-Host "[1/4] Menjalankan pdflatex (kompilasi pertama)..." -ForegroundColor Yellow
-pdflatex -interaction=nonstopmode -aux-directory=$OutDir "$TexFile.tex" | Out-Null
+pdflatex -interaction=nonstopmode "$TexFile.tex" | Out-Null
 if ($LASTEXITCODE -eq 0) { Write-Host "      OK Berhasil" -ForegroundColor Green }
 else { Write-Host "      ! Selesai dengan warning" -ForegroundColor Yellow }
 
 # Menjalankan Biber
 Write-Host "[2/4] Menjalankan biber..." -ForegroundColor Yellow
-biber --output-directory=$OutDir $TexFile | Out-Null
+biber $TexFile | Out-Null
 if ($LASTEXITCODE -eq 0) { Write-Host "      OK Berhasil" -ForegroundColor Green }
 else { Write-Host "      ! Selesai dengan warning" -ForegroundColor Yellow }
 
 # Kompilasi kedua
 Write-Host "[3/4] Menjalankan pdflatex (kompilasi kedua)..." -ForegroundColor Yellow
-pdflatex -interaction=nonstopmode -aux-directory=$OutDir "$TexFile.tex" | Out-Null
+pdflatex -interaction=nonstopmode "$TexFile.tex" | Out-Null
 if ($LASTEXITCODE -eq 0) { Write-Host "      OK Berhasil" -ForegroundColor Green }
 else { Write-Host "      ! Selesai dengan warning" -ForegroundColor Yellow }
 
 # Kompilasi ketiga (final)
 Write-Host "[4/4] Menjalankan pdflatex (kompilasi ketiga)..." -ForegroundColor Yellow
-pdflatex -interaction=nonstopmode -aux-directory=$OutDir "$TexFile.tex" | Out-Null
+pdflatex -interaction=nonstopmode "$TexFile.tex" | Out-Null
 if ($LASTEXITCODE -eq 0) { Write-Host "      OK Berhasil" -ForegroundColor Green }
 else { Write-Host "      ! Selesai dengan warning" -ForegroundColor Yellow }
 
@@ -52,10 +46,10 @@ if (Test-Path "$TexFile.pdf") {
     Write-Host "  Ukuran: $([math]::Round($pdfInfo.Length/1KB, 2)) KB" -ForegroundColor White
     
     Write-Host ""
-    $cleanup = Read-Host "Hapus file auxiliary di $OutDir? y/n"
+    $cleanup = Read-Host "Hapus file auxiliary? y/n"
     if ($cleanup -eq 'y' -or $cleanup -eq 'Y') {
-        Remove-Item "$OutDir/$TexFile.*" -ErrorAction SilentlyContinue
-        Write-Host "OK File auxiliary untuk $TexFile telah dihapus dari folder $OutDir" -ForegroundColor Green
+        Remove-Item "$TexFile.aux", "$TexFile.bbl", "$TexFile.bcf", "$TexFile.blg", "$TexFile.lof", "$TexFile.log", "$TexFile.lot", "$TexFile.out", "$TexFile.run.xml", "$TexFile.toc" -ErrorAction SilentlyContinue
+        Write-Host "OK File auxiliary untuk $TexFile telah dihapus" -ForegroundColor Green
     }
 }
 else {

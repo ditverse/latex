@@ -1,0 +1,17 @@
+\subsection{Algoritma A*}
+\textbf{Definisi:} A* adalah algoritma pencarian rute yang menggabungkan biaya aktual dan nilai heuristik.
+
+\textbf{Fungsi evaluasi:}
+\[
+    f(n) = g(n) + h(n)
+\]
+dengan $g(n)$ sebagai biaya dari simpul awal ke simpul $n$, $h(n)$ sebagai taksiran biaya dari simpul $n$ ke tujuan, dan $f(n)$ sebagai nilai prioritas.
+
+\textbf{Cara Kerja:} Simpul dengan nilai $f(n)$ paling kecil diproses lebih dahulu. Jika ditemukan jalur dengan biaya lebih kecil, nilai parent dan cost simpul diperbarui.
+
+\textbf{Kelebihan:} Pencarian lebih terarah karena memakai heuristik.
+
+\textbf{Kekurangan:} Kinerja sangat bergantung pada kualitas heuristik dan membutuhkan memori untuk menyimpan kandidat simpul.
+
+\subsection{Heuristik pada A*}
+Heuristik adalah nilai taksiran yang membantu memilih simpul paling menjanjikan. Pada praktikum ini, heuristik dihitung sebagai banyaknya busur minimum dari suatu simpul menuju target.

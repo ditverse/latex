@@ -1,0 +1,35 @@
+\subsection{Implementasi Nyata}
+Algoritma Branch and Bound pada Travelling Salesman Problem (TSP) diterapkan secara nyata dalam berbagai bidang seperti perencanaan rute distribusi, penjadwalan perjalanan, dan optimisasi logistik. Makalah berikut mendukung relevansi penerapan Branch and Bound dalam menyelesaikan TSP dengan parameter yang tidak pasti.
+
+\vspace{1em}
+\textbf{[1] Penulis:} Dhanasekar, S., Dash, S. K., dan Uthaman, N. (2022)
+
+\textbf{Judul:} "A Branch and Bound Algorithm to Solve Travelling Salesman Problem (TSP) with Uncertain Parameters"
+
+\textbf{Publikasi:} Mathematics and Statistics, Vol. 10, No. 2, Hal. 358-365. DOI: 10.13189/ms.2022.100210
+
+\textbf{Intisari:} Paper ini mengembangkan intuitionistic fuzzified version dari Branch and Bound method untuk menyelesaikan Intuitionistic Fuzzy TSP (InFTSP). Intuitionistic fuzzy set yang mencakup non-membership value bersama membership value diterapkan untuk memodelkan parameter dengan lebih akurat dibanding fuzzy biasa.
+
+Metode ini efektif karena hanya melibatkan operasi aritmatika sederhana dari intuitionistic fuzzy numbers dan ranking menggunakan weighted arithmetic mean method.
+
+\textbf{Link:} \url{https://doi.org/10.13189/ms.2022.100210}
+
+\vspace{1em}
+\textbf{Relevansi dengan Praktikum:} Seperti pada praktikum Branch and Bound untuk TSP, algoritma ini menggunakan prinsip membangkitkan cabang solusi dan memangkas cabang yang tidak menjanjikan menggunakan nilai bound. Perbedaannya adalah menangani parameter tidak pasti dengan intuitionistic fuzzy numbers.
+
+\vspace{1em}
+\textbf{Kelebihan dalam konteks TSP dengan parameter tidak pasti:}
+\begin{itemize}
+    \item Mampu menangani parameter yang bersifat vague atau tidak pasti menggunakan intuitionistic fuzzy set yang memberikan representasi lebih akurat.
+    \item Metode ini efektif karena hanya menggunakan operasi aritmatika sederhana dari intuitionistic fuzzy numbers.
+    \item Weighted arithmetic mean method untuk ranking memenuhi linear property yang penting untuk ordering alternatives dalam optimization problems.
+    \item Dapat menghasilkan solusi optimal meski parameter bersifat fuzzy atau tidak pasti.
+\end{itemize}
+
+\textbf{Kekurangan dalam konteks TSP dengan parameter tidak pasti:}
+\begin{itemize}
+    \item Kompleksitas meningkat karena setiap operasi melibatkan intuitionistic fuzzy numbers, tidak hanya nilai deterministik biasa.
+    \item Membutuhkan definisi membership dan non-membership function yang tepat untuk setiap parameter fuzzy.
+    \item Pada kasus terburuk, kompleksitas tetap eksponensial seperti Branch and Bound konvensional.
+    \item Proses defuzzification untuk mendapatkan solusi crisp dapat menambah overhead komputasi.
+\end{itemize}

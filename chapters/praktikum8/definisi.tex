@@ -1,0 +1,20 @@
+\subsection{Algoritma Branch and Bound}
+\textbf{Definisi:} Branch and Bound adalah metode optimisasi yang membangkitkan cabang solusi (\textit{branch}) dan memangkas cabang yang tidak menjanjikan (\textit{bound}).
+
+\textbf{Fungsi:} Mencari solusi minimum atau maksimum tanpa harus memeriksa semua kemungkinan sampai selesai.
+
+\textbf{Cara Kerja:} Setiap cabang diberi nilai batas bawah atau batas atas. Cabang yang nilainya lebih buruk dari solusi terbaik sementara tidak dilanjutkan.
+
+\textbf{Kelebihan:} Dapat menghasilkan solusi optimal dan mengurangi jumlah kombinasi yang diperiksa.
+
+\textbf{Kekurangan:} Pada kasus terburuk, kompleksitasnya tetap eksponensial.
+
+\subsection{Travelling Salesman Problem}
+\textbf{Definisi:} TSP adalah persoalan mencari rute minimum yang mengunjungi setiap kota tepat satu kali dan kembali ke kota awal.
+
+\textbf{Representasi:} Kota dinyatakan sebagai simpul, sedangkan jarak antar kota dinyatakan sebagai bobot sisi.
+
+\textbf{Tujuan:} Menemukan urutan kunjungan dengan total cost paling kecil.
+
+\subsection{Reduced Cost Matrix}
+Pada pendekatan ini, matriks biaya direduksi dengan mengurangi setiap baris dan kolom menggunakan nilai minimum. Total pengurangan menjadi nilai \textit{bound}. Cabang dengan bound terkecil diproses lebih dahulu.

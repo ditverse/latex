@@ -1,0 +1,34 @@
+\subsection{Implementasi Nyata}
+Algoritma Backtracking pada pewarnaan graf digunakan secara nyata dalam berbagai bidang komputasi dan rekayasa yang membutuhkan identifikasi tugas konkuren, seperti register scheduling, frequency assignments untuk mobile networking, dan evaluasi sparse Jacobian matrices. Makalah berikut mendukung relevansi penerapan backtracking dalam meningkatkan performa graph coloring.
+
+\vspace{1em}
+\textbf{[1] Penulis:} Bhowmick, S. dan Hovland, P. D. (2008)
+
+\textbf{Judul:} "Improving the Performance of Graph Coloring Algorithms through Backtracking"
+
+\textbf{Publikasi:} International Conference on Computational Science (ICCS 2008), Lecture Notes in Computer Science, Vol. 5101, Hal. 873-882. Springer-Verlag Berlin Heidelberg.
+
+\textbf{Intisari:} Paper ini memperkenalkan backtracking correction algorithm yang secara dinamis mengatur ulang warna yang diberikan oleh top-level heuristic ke permutasi yang lebih menguntungkan, sehingga meningkatkan performa algoritma pewarnaan graf. Backtracking algorithm memitigasi efek dari vertex ordering yang "buruk" dengan mengubah urutan vertex secara dinamis.
+
+Hasil eksperimen pada graf dari molecular dynamics dan DNA-electrophoresis menunjukkan backtracking berhasil menurunkan jumlah warna hingga 23\% dibanding metode original. Variasi backtracking dapat 66\% lebih cepat dibanding Culberson's Iterated Greedy method dengan hasil sebanding.
+
+\textbf{Link:} \url{https://doi.org/10.1007/978-3-540-69384-0_92}
+
+\vspace{1em}
+\textbf{Relevansi dengan Praktikum:} Seperti pada praktikum pewarnaan graf, urutan pemilihan simpul sangat mempengaruhi hasil akhir. Backtracking algorithm mengatasi masalah tersebut dengan secara dinamis mengubah urutan pewarnaan ke permutasi yang lebih baik.
+
+\vspace{1em}
+\textbf{Kelebihan dalam konteks graph coloring:}
+\begin{itemize}
+    \item Mampu mengurangi jumlah warna yang dibutuhkan hingga 23\% dibanding heuristic standar.
+    \item Variasi backtracking dapat jauh lebih cepat (66\%) dibanding metode koreksi lain dengan hasil yang sebanding.
+    \item Dapat dikombinasikan dengan berbagai top-level coloring heuristic untuk meningkatkan performanya.
+    \item Efektif dalam mengidentifikasi dan memperbaiki vertex ordering yang kurang optimal.
+\end{itemize}
+
+\textbf{Kekurangan dalam konteks graph coloring:}
+\begin{itemize}
+    \item Algoritma koreksi seperti backtracking umumnya membutuhkan waktu komputasi lebih lama untuk mencapai near-optimal solution.
+    \item Performa sangat bergantung pada kualitas top-level heuristic yang digunakan sebagai starting point.
+    \item Untuk graf yang sangat besar, overhead backtracking dapat menjadi signifikan meski menghasilkan pewarnaan yang lebih baik.
+\end{itemize}

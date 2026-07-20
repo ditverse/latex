@@ -1,0 +1,35 @@
+\subsection{Implementasi Nyata}
+Algoritma String Matching seperti Boyer-Moore diterapkan secara nyata dalam berbagai aplikasi seperti pencarian teks di dokumen, mesin pencari, deteksi pola pada log keamanan, dan scanning barcode. Makalah berikut mendukung relevansi penerapan Boyer-Moore dalam aplikasi Barcode Generator untuk serial number matching.
+
+\vspace{1em}
+\textbf{[1] Penulis:} Tarigan, D. A., Buaton, A. O., Briyandana, Safitri, E. R., dan Rosnelly, R. (2024)
+
+\textbf{Judul:} "Analysis of String Matching Application on Serial Number Using Boyer Moore Algorithm"
+
+\textbf{Publikasi:} Journal of Computer Networks, Architecture and High Performance Computing, Vol. 6, No. 1, Hal. 237-246. DOI: 10.47709/cnahpc.v6i1.3410
+
+\textbf{Intisari:} Paper ini membahas penerapan Boyer-Moore algorithm dalam aplikasi Barcode Generator untuk scanning barcode product serial numbers di Coway International Indonesia. Boyer-Moore algorithm digunakan untuk menemukan sequence numbers dari barcode yang telah diterjemahkan menjadi text. Algoritma ini dipilih karena lebih efisien dibanding binary search dan sequential search.
+
+Hasil analisis menunjukkan string matching menggunakan Boyer-Moore memerlukan 9 iterasi untuk mencapai kondisi matched. Pattern dapat digeser hingga 13 kali dalam proses pencarian, menunjukkan efisiensi skip logic yang menjadi kekuatan Boyer-Moore.
+
+\textbf{Link:} \url{https://doi.org/10.47709/cnahpc.v6i1.3410}
+
+\vspace{1em}
+\textbf{Relevansi dengan Praktikum:} Seperti pada praktikum String Matching, Boyer-Moore melakukan pencocokan dari kanan ke kiri dan menggunakan tabel last occurrence untuk menentukan pergeseran pattern. Kemampuan skip area yang tidak match sangat menguntungkan untuk serial number yang panjang.
+
+\vspace{1em}
+\textbf{Kelebihan dalam konteks barcode serial number scanning:}
+\begin{itemize}
+    \item Lebih efisien dibanding sequential search karena dapat melakukan skip berdasarkan last occurrence table, menghemat waktu scanning.
+    \item Pada teks panjang seperti serial number, pergeseran pattern dapat lebih jauh sehingga mengurangi jumlah perbandingan karakter.
+    \item Cocok untuk aplikasi real-time seperti barcode scanning yang membutuhkan response time cepat.
+    \item Implementasi relatif sederhana dengan preprocessing last occurrence table yang straightforward.
+\end{itemize}
+
+\textbf{Kekurangan dalam konteks barcode serial number scanning:}
+\begin{itemize}
+    \item Untuk pattern yang sangat pendek (beberapa karakter), overhead preprocessing last occurrence table dapat mengurangi benefit.
+    \item Worst case complexity tetap O(mn) meski average case sangat baik, sehingga pada kondisi tertentu performa bisa menurun.
+    \item Jika terjadi kesalahan scanning barcode (noise), algoritma harus dijalankan ulang dari awal untuk pattern matching.
+    \item Membutuhkan memory untuk menyimpan last occurrence table, meski ukurannya relatif kecil untuk alphabet yang terbatas.
+\end{itemize}

@@ -1,0 +1,35 @@
+\subsection{Implementasi Nyata}
+Algoritma A* diterapkan secara luas dalam path planning untuk mobile robot di berbagai lingkungan seperti warehouse logistics, autonomous vehicles, dan robotika. Makalah berikut mendukung relevansi penerapan A* yang telah ditingkatkan untuk mencapai kualitas path planning yang lebih baik.
+
+\vspace{1em}
+\textbf{[1] Penulis:} Sun, Y., Yuan, Q., Gao, Q., dan Xu, L. (2024)
+
+\textbf{Judul:} "A Multiple Environment Available Path Planning Based on an Improved A* Algorithm"
+
+\textbf{Publikasi:} International Journal of Computational Intelligence Systems, Vol. 17, Article 172. DOI: 10.1007/s44196-024-00571-z
+
+\textbf{Intisari:} Paper ini mengusulkan improved A* algorithm dan hybrid approach yang menggabungkan dynamic window algorithm (DWA) untuk robot path planning di berbagai environment. Dalam global path planning, bidirectional search strategy diperkenalkan untuk meningkatkan searching efficiency, dan adaptive heuristic function dirancang untuk mengurangi redundant search nodes.
+
+Filtering function untuk key path nodes dan enhanced jump point optimization membantu menghilangkan redundant nodes, mengurangi turning angles, dan menghaluskan path menggunakan cubic B-spline curves. Hasil simulasi menunjukkan algoritma ini secara signifikan meningkatkan kecepatan path planning sambil mengurangi panjang path.
+
+\textbf{Link:} \url{https://doi.org/10.1007/s44196-024-00571-z}
+
+\vspace{1em}
+\textbf{Relevansi dengan Praktikum:} Seperti pada praktikum A*, algoritma ini menggunakan fungsi evaluasi $f(n) = g(n) + h(n)$. Perbedaannya adalah paper ini mengusulkan adaptive heuristic function dan bidirectional search yang meningkatkan efisiensi pencarian untuk aplikasi robot nyata.
+
+\vspace{1em}
+\textbf{Kelebihan dalam konteks mobile robot path planning:}
+\begin{itemize}
+    \item Bidirectional search strategy meningkatkan searching efficiency secara signifikan dibanding A* standar yang unidirectional.
+    \item Adaptive heuristic function mengurangi redundant search nodes, mempercepat proses pencarian.
+    \item Jump point optimization dan path smoothing menghasilkan path yang lebih pendek dan halus, lebih cocok untuk mobile robot.
+    \item Kombinasi dengan DWA memungkinkan obstacle avoidance di dynamic environments, tidak hanya static environments.
+\end{itemize}
+
+\textbf{Kekurangan dalam konteks mobile robot path planning:}
+\begin{itemize}
+    \item Kompleksitas algoritma meningkat karena menggabungkan multiple improvements (bidirectional, adaptive heuristic, DWA).
+    \item Membutuhkan tuning parameter untuk adaptive heuristic function dan DWA yang tepat untuk setiap environment.
+    \item Memory requirement meningkat untuk bidirectional search karena harus menyimpan dua open/closed lists.
+    \item Computational overhead dari path smoothing dengan cubic B-spline dapat menjadi bottleneck untuk real-time applications.
+\end{itemize}

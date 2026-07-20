@@ -1,0 +1,20 @@
+\subsection{Algoritma String Matching}
+\textbf{Definisi:} String matching adalah proses mencari kemunculan pola (\textit{pattern}) di dalam teks.
+
+\textbf{Masukan:} Teks $T$ dengan panjang $n$ dan pola $P$ dengan panjang $m$.
+
+\textbf{Keluaran:} Indeks awal kemunculan pola, atau -1 jika pola tidak ditemukan.
+
+\subsection{Algoritma KMP}
+\textbf{Definisi:} Knuth-Morris-Pratt (KMP) adalah algoritma pencocokan string dari kiri ke kanan.
+
+\textbf{Cara Kerja:} KMP membuat tabel LPS untuk menentukan pergeseran pola saat terjadi ketidakcocokan.
+
+\textbf{Kelebihan:} Tidak mengulang perbandingan karakter teks yang sudah diketahui.
+
+\subsection{Algoritma Boyer-Moore}
+\textbf{Definisi:} Boyer-Moore adalah algoritma pencocokan string dari kanan ke kiri.
+
+\textbf{Cara Kerja:} Algoritma memakai tabel \textit{last occurrence} untuk menentukan besar pergeseran pola.
+
+\textbf{Kelebihan:} Pada teks panjang, pergeseran pola dapat lebih jauh dibandingkan pencocokan biasa.
